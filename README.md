@@ -38,3 +38,25 @@ Powerups:
     candy crush map
 
 MVC/PAC for system structure button for interaction and reveal with game logic why not use keyboard
+
+
+
+Top:
+- reveal
+    - si bombe fini
+    - si 0 propage
+
+Bottom:
+- check neighboor flag
+    - propage 
+
+
+propagate:
+si no flag on position
+si top pas visible
+ - getneighbours
+ - si 0 -> propagate sur les voisins
+
+
+ - si valeur -> vérifier nb de flag
+    - propagate neighbours
