@@ -56,3 +56,4 @@ si top pas visible
 - bomb number choice and grid size choice
 - restart
 - better game visuals
+

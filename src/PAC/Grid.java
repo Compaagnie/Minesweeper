@@ -98,13 +98,24 @@ public class Grid extends JPanel
                     }
                 }
             } else {
-                this.gameIsLost();
+                this.gameIsLost(cell);
             }
         }
     }
 
-    public void gameIsLost(){
-
+    public void gameIsLost(int losingCell){
+        // set losing cell color to red
+        for (int otherCell = 0; otherCell < CellArray.length; otherCell++)
+        {
+            if (FlagArray.contains(otherCell) && CellArray[otherCell] != CellContent.BOMB)
+            {
+                //set color to red
+            }
+            else if (!FlagArray.contains(otherCell))
+            {
+                TopButtonArray[otherCell].setVisible(false);
+            }
+        }
     }
 
     public ArrayList<Integer> getNeighbours(int cell)

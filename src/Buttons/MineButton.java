@@ -28,7 +28,10 @@ public class MineButton extends JButton
                 grid.BottomButtonArray[i].setText(Integer.toString(grid.CellArray[i]));
             }
         }
-
+        if (grid.CellArray[this.position] == CellContent.BOMB)
+        {
+            grid.gameIsLost(this.position);
+        }
         grid.propagateReveal(position);
     }
 
