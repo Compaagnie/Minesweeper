@@ -16,6 +16,7 @@ public class MineButton extends JButton
         this.grid = g;
         this.setMaximumSize(new Dimension(50,50));
         this.setMinimumSize(new Dimension(50,50));
+        this.setIconTextGap(0);
         //this.setText(position.toString());
     }
 

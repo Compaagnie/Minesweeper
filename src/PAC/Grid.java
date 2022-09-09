@@ -15,6 +15,8 @@ public class Grid extends JPanel
     public TopButton[] TopButtonArray;
     public BottomButton[] BottomButtonArray;
 
+    private final Icon redIcon;
+
     public Grid(Dimension _dimension)
     {
         dimension = _dimension;
@@ -27,7 +29,7 @@ public class Grid extends JPanel
         BottomButtonArray = new BottomButton[_dimension.width * _dimension.height];
 
         buttonCreation();
-
+        redIcon = new ImageIcon("textures/redIcon.png");
     }
 
     private void buttonCreation()
@@ -105,11 +107,12 @@ public class Grid extends JPanel
 
     public void gameIsLost(int losingCell){
         // set losing cell color to red
+        BottomButtonArray[losingCell].setIcon(redIcon);
         for (int otherCell = 0; otherCell < CellArray.length; otherCell++)
         {
             if (FlagArray.contains(otherCell) && CellArray[otherCell] != CellContent.BOMB)
             {
-                //set color to red
+                TopButtonArray[otherCell].setIcon(redIcon);
             }
             else if (!FlagArray.contains(otherCell))
             {

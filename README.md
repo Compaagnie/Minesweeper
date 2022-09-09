@@ -5,7 +5,7 @@ minesweeper with roguelike elements using Java Swing
 start with basic minesweeper
 
 - look how to efficiently place mines
-- create basic UI and game ogic
+- create basic UI and game logic
 
 then add other stuff
 
@@ -33,27 +33,28 @@ MVC/PAC for system structure button for interaction and reveal with game logic w
 Top:
 - reveal
     - si bombe fini
-    - si 0 propage
+    - si 0 propagate
 
 Bottom:
-- check neighboor flag
-    - propage 
+- check neighbour flag
+    - propagate 
 
 
 propagate:
 si no flag on position
-si top pas visible
- - getneighbours
- - si 0 -> propagate sur les voisins
+si top not visible
+ - getNeighbours
+ - si 0 -> propagate to neighbours
 
 
- - si valeur -> vérifier nb de flag
+ - si value -> check flag nb
     - propagate neighbours
 
 
 À faire:
 - basic menu
 - bomb number choice and grid size choice
-- restart
+  - restart  check
 - better game visuals
+- see for resize behavior
 

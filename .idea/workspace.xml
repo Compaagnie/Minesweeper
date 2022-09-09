@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="B for Bomb">
-      <change beforePath="$PROJECT_DIR$/src/Minesweeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Minesweeper.java" afterDir="false" />
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Restart Button">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/MineButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/MineButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Grid.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662713167388</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Restart Button">
+      <created>1662713779573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1662713779573</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -112,6 +121,7 @@
     <MESSAGE value="Base Minesweeper game" />
     <MESSAGE value="game lose, reveal whole grid" />
     <MESSAGE value="B for Bomb" />
-    <option name="LAST_COMMIT_MESSAGE" value="B for Bomb" />
+    <MESSAGE value="Restart Button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restart Button" />
   </component>
 </project>
