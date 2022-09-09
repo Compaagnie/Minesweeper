@@ -145,4 +145,15 @@ public class Grid extends JPanel
 
         return neighbours;
     }
+
+    public void restartGame() {
+        for (int i = 0; i < CellArray.length; i++)
+        {
+            TopButtonArray[i].setVisible(true);
+            TopButtonArray[i].setText("");
+            BottomButtonArray[i].setText("");
+            this.gridGenerated = false;
+            CellArray[i] = 0;
+        }
+    }
 }
