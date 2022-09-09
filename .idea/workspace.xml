@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Restart Button">
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="test for icons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buttons/MineButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/MineButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Grid.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "/home/julien/Documents/M1/AdvUi/Minesweeper"
+    "last_opened_file_path": "/home/julien/Documents/M1/AdvUi/LabAsignement"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -103,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662713779573</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="test for icons">
+      <created>1662716153570</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1662716153570</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -122,6 +127,7 @@
     <MESSAGE value="game lose, reveal whole grid" />
     <MESSAGE value="B for Bomb" />
     <MESSAGE value="Restart Button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restart Button" />
+    <MESSAGE value="test for icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="test for icons" />
   </component>
 </project>

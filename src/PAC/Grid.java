@@ -153,8 +153,10 @@ public class Grid extends JPanel
         for (int i = 0; i < CellArray.length; i++)
         {
             TopButtonArray[i].setVisible(true);
+            TopButtonArray[i].setIcon(null);
             TopButtonArray[i].setText("");
             BottomButtonArray[i].setText("");
+            BottomButtonArray[i].setIcon(null);
             this.gridGenerated = false;
             CellArray[i] = 0;
         }
