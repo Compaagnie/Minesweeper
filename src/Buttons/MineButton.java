@@ -25,7 +25,10 @@ public class MineButton extends JButton
             grid.gridGenerated = true;
             for (int i = 0; i < grid.CellArray.length; i++)
             {
-                grid.BottomButtonArray[i].setText(Integer.toString(grid.CellArray[i]));
+                if (grid.CellArray[i] == CellContent.BOMB)
+                    grid.BottomButtonArray[i].setText("B");
+                else
+                    grid.BottomButtonArray[i].setText(Integer.toString(grid.CellArray[i]));
             }
         }
         if (grid.CellArray[this.position] == CellContent.BOMB)
