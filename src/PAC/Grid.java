@@ -35,6 +35,7 @@ public class Grid extends JPanel
     private void buttonCreation()
     {
         GridBagConstraints buttonPlacementConstraint = new GridBagConstraints();
+        buttonPlacementConstraint.fill = GridBagConstraints.BOTH;
         for(int y = 0; y < dimension.height; y++){
             buttonPlacementConstraint.gridy = y;
             for(int x = 0; x < dimension.width; x++){
@@ -160,5 +161,6 @@ public class Grid extends JPanel
             this.gridGenerated = false;
             CellArray[i] = 0;
         }
+        FlagArray.clear();
     }
 }
