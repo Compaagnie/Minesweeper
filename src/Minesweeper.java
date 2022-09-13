@@ -2,6 +2,7 @@ import PAC.Grid;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Minesweeper extends JFrame
 {
@@ -21,6 +22,7 @@ public class Minesweeper extends JFrame
 
         restartButton.addActionListener(e -> grid.restartGame());
         restartButton.setPreferredSize(new Dimension(120,60));
+        restartButton.setMnemonic(KeyEvent.VK_R);
         pack();
         this.setVisible(true);
     }
