@@ -28,7 +28,14 @@ Powerups:
 
 MVC/PAC for system structure button for interaction and reveal with game logic why not use keyboard
 
+#Speech
+-point and speech
 
+#Multiplayer:
+- keep talking and nobody explodes
+- just collaborative
+- drawing
+- turn by turn
 
 Top:
 - reveal
@@ -52,9 +59,17 @@ si top not visible
 
 
 À faire:
-- basic menu
-- bomb number choice and grid size choice
-  - restart  check
-- better game visuals
-- see for resize behavior
+- basic menu N
+  - bomb number choice and grid size choice
+  - quit
+- add scrolling when window is too small
+- better game visuals    J
+  - flag icon
+  - score color
+  - game info (timer, bomb remaining ...)
+- speech   J
+- sketch
+- multiplayer
+  ok  - restart
+  ok - see for resize behavior
 

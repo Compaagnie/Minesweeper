@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="r to restart">
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="better full screen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/MineButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/MineButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/TopButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/TopButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Minesweeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Minesweeper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Grid.java" afterDir="false" />
+    </list>
+    <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Buttons/MineButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/MineButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Grid.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +34,23 @@
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="afe581f7-17b6-4306-a591-d228f41f9fa7" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/PAC/Grid.java">
+      <ranges>
+        <range start1="76" end1="76" start2="76" end2="99" changelist="3e832f75-cad5-418c-9602-d26adff604be" />
+        <range start1="160" end1="161" start2="183" end2="183" changelist="07044065-bcc7-4f16-aad4-ef538c759912" />
+        <range start1="163" end1="163" start2="185" end2="186" changelist="07044065-bcc7-4f16-aad4-ef538c759912" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/Buttons/MineButton.java">
+      <ranges>
+        <range start1="16" end1="17" start2="16" end2="17" changelist="3e832f75-cad5-418c-9602-d26adff604be" />
+        <range start1="18" end1="18" start2="18" end2="19" changelist="07044065-bcc7-4f16-aad4-ef538c759912" />
+        <range start1="19" end1="20" start2="20" end2="21" changelist="3e832f75-cad5-418c-9602-d26adff604be" />
+        <range start1="21" end1="42" start2="22" end2="22" changelist="3e832f75-cad5-418c-9602-d26adff604be" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -126,7 +151,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663055026905</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="better full screen">
+      <created>1663057398576</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1663057398576</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -148,6 +180,7 @@
     <MESSAGE value="test for icons" />
     <MESSAGE value="reset icons" />
     <MESSAGE value="r to restart" />
-    <option name="LAST_COMMIT_MESSAGE" value="r to restart" />
+    <MESSAGE value="better full screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="better full screen" />
   </component>
 </project>

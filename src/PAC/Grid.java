@@ -75,6 +75,29 @@ public class Grid extends JPanel
         }
     }
 
+    public void revealCell(int position){
+        if (!gridGenerated){
+            gridCreation(99, position);
+            gridGenerated = true;
+            for (int i = 0; i < CellArray.length; i++)
+            {
+                if (CellArray[i] == CellContent.BOMB)
+                    BottomButtonArray[i].setText("B");
+                else
+                    BottomButtonArray[i].setText(Integer.toString(CellArray[i]));
+            }
+            propagateReveal(position);
+        }
+        if (CellArray[position] == CellContent.BOMB)
+        {
+            gameIsLost(position);
+        }
+        else if (CellArray[position] == CellContent.EMPTY)
+        {
+            propagateReveal(position);
+        }
+    }
+
     public void propagateReveal(int cell)
     {
         if (!FlagArray.contains(cell))
@@ -158,9 +181,9 @@ public class Grid extends JPanel
             TopButtonArray[i].setText("");
             BottomButtonArray[i].setText("");
             BottomButtonArray[i].setIcon(null);
-            this.gridGenerated = false;
             CellArray[i] = 0;
         }
+        this.gridGenerated = false;
         FlagArray.clear();
     }
 }

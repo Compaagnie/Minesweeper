@@ -14,30 +14,10 @@ public class MineButton extends JButton
         super();
         this.position = position;
         this.grid = g;
-        this.setMaximumSize(new Dimension(50,50));
+        //this.setMaximumSize(new Dimension(50,50));
         this.setMinimumSize(new Dimension(50,50));
+        this.setPreferredSize(new Dimension(50,50));
         this.setIconTextGap(0);
-        //this.setText(position.toString());
+        this.setText(" ");
     }
-
-    public void revealCell(){
-        if (!grid.gridGenerated){
-            grid.gridCreation(99, this.position);
-            grid.gridGenerated = true;
-            for (int i = 0; i < grid.CellArray.length; i++)
-            {
-                if (grid.CellArray[i] == CellContent.BOMB)
-                    grid.BottomButtonArray[i].setText("B");
-                else
-                    grid.BottomButtonArray[i].setText(Integer.toString(grid.CellArray[i]));
-            }
-        }
-        if (grid.CellArray[this.position] == CellContent.BOMB)
-        {
-            grid.gameIsLost(this.position);
-        }
-        grid.propagateReveal(position);
-    }
-
-
 }

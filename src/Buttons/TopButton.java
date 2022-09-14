@@ -18,7 +18,7 @@ public class TopButton extends MineButton
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1){
                     if (!grid.FlagArray.contains(thisButton.position)) {
-                        revealCell();
+                        grid.revealCell(thisButton.position);
                         thisButton.setVisible(false);
                     }
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
