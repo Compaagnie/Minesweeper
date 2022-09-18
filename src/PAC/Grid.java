@@ -16,6 +16,7 @@ public class Grid extends JPanel
     public BottomButton[] BottomButtonArray;
 
     private final Icon redIcon;
+    private final Icon emptyIcon;
 
     public Grid(Dimension _dimension)
     {
@@ -30,6 +31,7 @@ public class Grid extends JPanel
 
         buttonCreation();
         redIcon = new ImageIcon("textures/redIcon.png");
+        emptyIcon = new ImageIcon("textures/0.png");
     }
 
     private void buttonCreation()
@@ -78,7 +80,6 @@ public class Grid extends JPanel
 
     private void setBottomButtonIcon(){
         for (int i = 0; i < CellArray.length; i++) {
-            BottomButtonArray[i].setText(null);
             switch (CellArray[i]) {
                 case CellContent.EMPTY -> BottomButtonArray[i].setIcon(new ImageIcon("textures/0.png"));
                 case 1 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/1.png"));
@@ -196,10 +197,8 @@ public class Grid extends JPanel
         for (int i = 0; i < CellArray.length; i++)
         {
             TopButtonArray[i].setVisible(true);
-            TopButtonArray[i].setIcon(null);
-            TopButtonArray[i].setText("");
-            BottomButtonArray[i].setText("");
-            BottomButtonArray[i].setIcon(null);
+            TopButtonArray[i].setIcon(emptyIcon);
+            BottomButtonArray[i].setIcon(emptyIcon);
             CellArray[i] = 0;
         }
         this.gridGenerated = false;

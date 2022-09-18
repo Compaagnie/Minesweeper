@@ -5,13 +5,16 @@ import java.awt.event.MouseListener;
 
 import PAC.*;
 
+import javax.swing.*;
+
 public class TopButton extends MineButton
 {
+    ImageIcon flag = new ImageIcon("textures/flag.png");
+    ImageIcon empty = new ImageIcon("textures/0.png");
     public TopButton(int position, Grid g)
     {
         super(position, g);
 
-        this.setText(" ");
         TopButton thisButton = this;
         this.addMouseListener(new MouseListener() {
             @Override
@@ -51,11 +54,11 @@ public class TopButton extends MineButton
     private void toggleFlag(){
         if (grid.FlagArray.contains(this.position))
         {
-            this.setText(" ");
+            this.setIcon(empty);
             grid.FlagArray.remove((Integer) this.position);
         } else
         {
-            this.setText("f");
+            this.setIcon(flag);
             grid.FlagArray.add(this.position);
         }
 
