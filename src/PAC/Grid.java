@@ -73,19 +73,38 @@ public class Grid extends JPanel
                 i++; // Updating bomb placed count
             }
         }
+        setBottomButtonIcon();
+    }
+
+    private void setBottomButtonIcon(){
+        for (int i = 0; i < CellArray.length; i++) {
+            BottomButtonArray[i].setText(null);
+            switch (CellArray[i]) {
+                case CellContent.EMPTY -> BottomButtonArray[i].setIcon(new ImageIcon("textures/0.png"));
+                case 1 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/1.png"));
+                case 2 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/2.png"));
+                case 3 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/3.png"));
+                case 4 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/4.png"));
+                case 5 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/5.png"));
+                case 6 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/6.png"));
+                case 7 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/7.png"));
+                case 8 -> BottomButtonArray[i].setIcon(new ImageIcon("textures/8.png"));
+                case CellContent.BOMB -> BottomButtonArray[i].setIcon(new ImageIcon("textures/8.png"));
+            }
+        }
     }
 
     public void revealCell(int position){
         if (!gridGenerated){
             gridCreation(99, position);
             gridGenerated = true;
-            for (int i = 0; i < CellArray.length; i++)
+            /*for (int i = 0; i < CellArray.length; i++)
             {
                 if (CellArray[i] == CellContent.BOMB)
                     BottomButtonArray[i].setText("B");
                 else
                     BottomButtonArray[i].setText(Integer.toString(CellArray[i]));
-            }
+            }*/
             propagateReveal(position);
         }
         if (CellArray[position] == CellContent.BOMB)
