@@ -18,8 +18,11 @@ public class Grid extends JPanel
     private final Icon redIcon;
     private final Icon emptyIcon;
 
-    public Grid(Dimension _dimension)
+    private final int bombCount;
+
+    public Grid(Dimension _dimension, int _bombCount)
     {
+        this.bombCount = _bombCount;
         dimension = _dimension;
         this.setLayout(new GridBagLayout());
 
@@ -97,7 +100,7 @@ public class Grid extends JPanel
 
     public void revealCell(int position){
         if (!gridGenerated){
-            gridCreation(99, position);
+            gridCreation(bombCount, position);
             gridGenerated = true;
             /*for (int i = 0; i < CellArray.length; i++)
             {
