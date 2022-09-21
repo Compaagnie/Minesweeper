@@ -1,26 +1,33 @@
 package Buttons;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import PAC.*;
+import GridPAC.Grid;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 
 public class TopButton extends MineButton
 {
-    ImageIcon flag = new ImageIcon("textures/flag.png");
-    ImageIcon empty = new ImageIcon("textures/0.png");
+
+    private static Image flag;
+    private static Image empty;
+
     public TopButton(int position, Grid g)
     {
         super(position, g);
 
         TopButton thisButton = this;
-        this.addMouseListener(new MouseListener() {
+        this.addMouseListener(new MouseListener()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1){
-                    if (!grid.FlagArray.contains(thisButton.position)) {
+            public void mouseClicked(MouseEvent e)
+            {
+                if (e.getButton() == MouseEvent.BUTTON1)
+                {
+                    if (!grid.hasFlag(thisButton.position))
+                    {
                         grid.revealCell(thisButton.position);
                         thisButton.setVisible(false);
                     }
@@ -45,21 +52,20 @@ public class TopButton extends MineButton
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
     }
 
     private void toggleFlag(){
         if (grid.FlagArray.contains(this.position))
         {
-            this.setIcon(empty);
-            grid.FlagArray.remove((Integer) this.position);
-        } else
+            this.setTexture(empty);
+            grid.removeFlag((Integer) this.position);
+        }
+        else
         {
-            this.setIcon(flag);
-            grid.FlagArray.add(this.position);
+            this.setTexture(flag);
+            grid.addFlag(this.position);
         }
 
     }

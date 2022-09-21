@@ -1,4 +1,4 @@
-package PAC;
+package GridPAC;
 
 public class CellContent {
     public static final int EMPTY = 0;
