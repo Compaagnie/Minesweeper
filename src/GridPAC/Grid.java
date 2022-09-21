@@ -30,13 +30,11 @@ public class Grid extends JPanel
 
         this.setLayout(new GridBagLayout());
 
-        CellArray = new Integer[_dimension.width * _dimension.height];
-        Arrays.fill(CellArray, 0);
-        FlagArray = new ArrayList<>();
         TopButtonArray = new TopButton[_dimension.width * _dimension.height];
         BottomButtonArray = new BottomButton[_dimension.width * _dimension.height];
 
         buttonCreation();
+
         redIcon = new ImageIcon("textures/redIcon.png");
     }
 
@@ -48,7 +46,7 @@ public class Grid extends JPanel
         buttonPlacementConstraint.weighty = 1;
         for (int y = 0; y < this.gridModel.getDimension().height; y++) {
             buttonPlacementConstraint.gridy = y;
-            for(int x = 0; x < dimension.width; x++){
+            for (int x = 0; x < this.gridModel.getDimension().width; x++) {
                 buttonPlacementConstraint.gridx = x;
 
                 TopButton topButton = new TopButton(x + y * this.gridModel.getDimension().width, this);

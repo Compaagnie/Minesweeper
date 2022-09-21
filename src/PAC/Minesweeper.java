@@ -26,7 +26,7 @@ public class Minesweeper extends JFrame
 
 
 
-    private void startGame(int width, int height, int bombCount)
+    public void startGame(int width, int height, int bombCount)
     {
         setUpGrid(width, height, bombCount);
 

@@ -3,7 +3,8 @@ package Buttons;
 
 import javax.swing.*;
 import java.awt.*;
-import PAC.*;
+
+import GridPAC.Grid;
 
 
 public class MineButton extends JButton
@@ -28,6 +29,23 @@ public class MineButton extends JButton
         this.setPreferredSize(new Dimension(sideLength, sideLength));
 
         this.setIconTextGap(0);
+
+        //this.addComponentListener(new ComponentListener()
+//        {
+//            @Override
+//            public void componentResized(ComponentEvent e) {
+//                onResize();
+//            }
+//
+//            @Override
+//            public void componentMoved(ComponentEvent e) {}
+//
+//            @Override
+//            public void componentShown(ComponentEvent e) {}
+//
+//            @Override
+//            public void componentHidden(ComponentEvent e) {}
+//        });
     }
 
 //    public void onResize()

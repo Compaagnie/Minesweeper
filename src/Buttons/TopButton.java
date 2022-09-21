@@ -3,6 +3,8 @@ package Buttons;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 import GridPAC.Grid;
 
@@ -18,6 +20,14 @@ public class TopButton extends MineButton
     {
         super(position, g);
 
+        try
+        {
+            empty = ImageIO.read(new File("textures/0.png"));
+            flag = ImageIO.read(new File("textures/flag.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        this.setTexture(empty);
         TopButton thisButton = this;
         this.addMouseListener(new MouseListener()
         {
@@ -37,27 +47,22 @@ public class TopButton extends MineButton
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
+            public void mousePressed(MouseEvent e) {}
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
             public void mouseExited(MouseEvent e) {}
         });
     }
 
-    private void toggleFlag(){
-        if (grid.FlagArray.contains(this.position))
+    private void toggleFlag()
+    {
+        if (grid.hasFlag(this.position))
         {
             this.setTexture(empty);
             grid.removeFlag((Integer) this.position);
@@ -67,7 +72,6 @@ public class TopButton extends MineButton
             this.setTexture(flag);
             grid.addFlag(this.position);
         }
-
     }
 
 

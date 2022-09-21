@@ -59,8 +59,7 @@ si top not visible
 
 
 À faire:
-- basic menu N
-  - bomb number choice and grid size choice
+- basic menu
   - quit
 - add scrolling when window is too small
 - better game visuals    J
