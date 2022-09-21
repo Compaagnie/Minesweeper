@@ -1,0 +1,84 @@
+Index: src/Buttons/TopButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Buttons;\n\nimport java.awt.event.MouseEvent;\nimport java.awt.event.MouseListener;\n\nimport PAC.*;\n\nimport javax.swing.*;\n\npublic class TopButton extends MineButton\n{\n    ImageIcon flag = new ImageIcon(\"textures/flag.png\");\n    ImageIcon empty = new ImageIcon(\"textures/0.png\");\n    public TopButton(int position, Grid g)\n    {\n        super(position, g);\n\n        TopButton thisButton = this;\n        this.addMouseListener(new MouseListener() {\n            @Override\n            public void mouseClicked(MouseEvent e) {\n                if (e.getButton() == MouseEvent.BUTTON1){\n                    if (!grid.FlagArray.contains(thisButton.position)) {\n                        grid.revealCell(thisButton.position);\n                        thisButton.setVisible(false);\n                    }\n                } else if (e.getButton() == MouseEvent.BUTTON3) {\n                    toggleFlag();\n                }\n            }\n\n            @Override\n            public void mousePressed(MouseEvent e) {\n\n            }\n\n            @Override\n            public void mouseReleased(MouseEvent e) {\n\n            }\n\n            @Override\n            public void mouseEntered(MouseEvent e) {\n\n            }\n\n            @Override\n            public void mouseExited(MouseEvent e) {\n\n            }\n        });\n    }\n\n    private void toggleFlag(){\n        if (grid.FlagArray.contains(this.position))\n        {\n            this.setIcon(empty);\n            grid.FlagArray.remove((Integer) this.position);\n        } else\n        {\n            this.setIcon(flag);\n            grid.FlagArray.add(this.position);\n        }\n\n    }\n\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Buttons/TopButton.java b/src/Buttons/TopButton.java
+--- a/src/Buttons/TopButton.java	(revision b20da92aadd47075940f754b2406ac158aba1a14)
++++ b/src/Buttons/TopButton.java	(date 1663743448067)
+@@ -9,6 +9,7 @@
+ 
+ public class TopButton extends MineButton
+ {
++
+     ImageIcon flag = new ImageIcon("textures/flag.png");
+     ImageIcon empty = new ImageIcon("textures/0.png");
+     public TopButton(int position, Grid g)
+Index: src/Buttons/MineButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Buttons;\n\n\nimport javax.swing.*;\nimport java.awt.*;\nimport PAC.*;\n\n\npublic class MineButton extends JButton\n{\n    public int position;\n    protected Grid grid;\n    MineButton(int position, Grid g){\n        super();\n        this.position = position;\n        this.grid = g;\n        //this.setMaximumSize(new Dimension(50,50));\n        this.setMinimumSize(new Dimension(64,64));\n        this.setPreferredSize(new Dimension(64,64));\n        this.setIconTextGap(0);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Buttons/MineButton.java b/src/Buttons/MineButton.java
+--- a/src/Buttons/MineButton.java	(revision b20da92aadd47075940f754b2406ac158aba1a14)
++++ b/src/Buttons/MineButton.java	(date 1663743492683)
+@@ -8,6 +8,9 @@
+ 
+ public class MineButton extends JButton
+ {
++    private static final int sideLength = 48;
++    private static final int minSideLength = 16;
++
+     public int position;
+     protected Grid grid;
+     MineButton(int position, Grid g){
+@@ -15,8 +18,8 @@
+         this.position = position;
+         this.grid = g;
+         //this.setMaximumSize(new Dimension(50,50));
+-        this.setMinimumSize(new Dimension(64,64));
+-        this.setPreferredSize(new Dimension(64,64));
++        this.setMinimumSize(new Dimension(minSideLength, minSideLength));
++        this.setPreferredSize(new Dimension(sideLength, sideLength));
+         this.setIconTextGap(0);
+     }
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"3e832f75-cad5-418c-9602-d26adff604be\" name=\"Changes\" comment=\"icons\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/Buttons/TopButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Buttons/TopButton.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/PAC/Grid.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/PAC/Grid.java\" afterDir=\"false\" />\n    </list>\n    <list id=\"07044065-bcc7-4f16-aad4-ef538c759912\" name=\"Changes by Neylick\" comment=\"\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n        <option value=\"Enum\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GithubDefaultAccount\">\n    <option name=\"defaultAccountId\" value=\"afe581f7-17b6-4306-a591-d228f41f9fa7\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2EQofZhbLI1T6A2luYyNK1yFhyK\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <OptionsSetting value=\"false\" id=\"Update\" />\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/home/julien/Documents/M1/AdvUi/LabAsignement&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CreateClassDialog.RecentsKey\">\n      <recent name=\"\" />\n    </key>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\n      <module name=\"Minesweeper\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Main\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"3e832f75-cad5-418c-9602-d26adff604be\" name=\"Changes\" comment=\"\" />\n      <created>1662537274126</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1662537274126</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Base Minesweeper game\">\n      <created>1662561250914</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1662561250914</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"game lose, reveal whole grid\">\n      <created>1662630810277</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1662630810277</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"B for Bomb\">\n      <created>1662713167388</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1662713167388</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Restart Button\">\n      <created>1662713779573</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1662713779573</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"test for icons\">\n      <created>1662716153570</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1662716153570</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"reset icons\">\n      <created>1662731569062</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1662731569063</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"r to restart\">\n      <created>1663055026905</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1663055026905</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"better full screen\">\n      <created>1663057398576</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1663057398576</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"small corrections and task repartition\">\n      <created>1663149356662</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1663149356662</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"texture files\">\n      <created>1663513238982</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1663513238982</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"icons\">\n      <created>1663518317878</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1663518317879</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"12\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Base Minesweeper game\" />\n    <MESSAGE value=\"game lose, reveal whole grid\" />\n    <MESSAGE value=\"B for Bomb\" />\n    <MESSAGE value=\"Restart Button\" />\n    <MESSAGE value=\"test for icons\" />\n    <MESSAGE value=\"reset icons\" />\n    <MESSAGE value=\"r to restart\" />\n    <MESSAGE value=\"better full screen\" />\n    <MESSAGE value=\"small corrections and task repartition\" />\n    <MESSAGE value=\"texture files\" />\n    <MESSAGE value=\"icons\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"icons\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b20da92aadd47075940f754b2406ac158aba1a14)
++++ b/.idea/workspace.xml	(date 1663575307887)
+@@ -6,8 +6,6 @@
+   <component name="ChangeListManager">
+     <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="icons">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Buttons/TopButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/TopButton.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/PAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Grid.java" afterDir="false" />
+     </list>
+     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+@@ -156,7 +154,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1663518317879</updated>
+     </task>
+-    <option name="localTasksCounter" value="12" />
++    <task id="LOCAL-00012" summary="icons">
++      <created>1663519010037</created>
++      <option name="number" value="00012" />
++      <option name="presentableId" value="LOCAL-00012" />
++      <option name="project" value="LOCAL" />
++      <updated>1663519010037</updated>
++    </task>
++    <option name="localTasksCounter" value="13" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
