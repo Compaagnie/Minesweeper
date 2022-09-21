@@ -59,16 +59,12 @@ si top not visible
 
 
 À faire:
-- basic menu
-  - quit
-- add scrolling when window is too small
-- better game visuals    J
-  - flag icon
-  - score color
-  - game info (timer, bomb remaining ...)
+- Advanced visuals
+  - Zooming in/out
+  - Aspect ratio
+- Info visuals
+  - Progress visualisation
 - speech   J
 - sketch
-- multiplayer
-  ok  - restart
-  ok - see for resize behavior
+  - multiplayer
 

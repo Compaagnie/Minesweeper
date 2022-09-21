@@ -1,37 +1,29 @@
 package GridPAC;
 
-import Buttons.BottomButton;
-import Buttons.TopButton;
+import Buttons.CellButton;
+import PAC.GameView;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Grid extends JPanel
 {
-    protected GridUI gridUI;
+    protected GameView gameView;
     protected GridModel gridModel;
 
-    protected TopButton[] TopButtonArray;
-    protected BottomButton[] BottomButtonArray;
-
-
+    protected CellButton[] buttonArray;
 
     protected final Icon redIcon;
 
-    public int getCellCount() { return gridModel.getCellCount(); }
-    public int getCell(int position) { return gridModel.getCell(position); }
-
-    public Grid(Dimension _dimension, int _bombCount)
+    public Grid(GameView gameView, Dimension _dimension, int _bombCount)
     {
-        gridUI = new GridUI(this);
-        this.setUI(gridUI);
+        this.gameView = gameView;
 
         gridModel = new GridModel(_dimension, _bombCount, this::cellChanged);
 
         this.setLayout(new GridBagLayout());
 
-        TopButtonArray = new TopButton[_dimension.width * _dimension.height];
-        BottomButtonArray = new BottomButton[_dimension.width * _dimension.height];
+        buttonArray = new CellButton[_dimension.width * _dimension.height];
 
         buttonCreation();
 
@@ -44,18 +36,16 @@ public class Grid extends JPanel
         buttonPlacementConstraint.fill = GridBagConstraints.BOTH;
         buttonPlacementConstraint.weightx = 1;
         buttonPlacementConstraint.weighty = 1;
-        for (int y = 0; y < this.gridModel.getDimension().height; y++) {
+        for (int y = 0; y < this.gridModel.getDimension().height; y++)
+        {
             buttonPlacementConstraint.gridy = y;
-            for (int x = 0; x < this.gridModel.getDimension().width; x++) {
+            for (int x = 0; x < this.gridModel.getDimension().width; x++)
+            {
                 buttonPlacementConstraint.gridx = x;
 
-                TopButton topButton = new TopButton(x + y * this.gridModel.getDimension().width, this);
-                TopButtonArray[x + y * this.gridModel.getDimension().width] = topButton;
-                this.add(topButton, buttonPlacementConstraint);
-
-                BottomButton bottomButton = new BottomButton(x + y * this.gridModel.getDimension().width, this);
-                BottomButtonArray[x + y * this.gridModel.getDimension().width] = bottomButton;
-                this.add(bottomButton, buttonPlacementConstraint);
+                CellButton button = new CellButton(x + y * this.gridModel.getDimension().width, this);
+                buttonArray[x + y * this.gridModel.getDimension().width] = button;
+                this.add(button, buttonPlacementConstraint);
             }
         }
     }
@@ -63,6 +53,8 @@ public class Grid extends JPanel
     public void restartGame()
     {
         this.gridModel.restartGame();
+        this.gameView.gameTimer.restart();
+        this.gameView.gameTimer.stop();
     }
 
     public void propagateReveal(int position)
@@ -72,6 +64,7 @@ public class Grid extends JPanel
 
     public void revealCell(int position)
     {
+        this.gameView.gameTimer.start();
         this.gridModel.revealCell(position);
     }
 
@@ -82,35 +75,49 @@ public class Grid extends JPanel
     public void addFlag(int position)
     {
         gridModel.addFlag(position);
+        this.gameView.updateFlagNb();
     }
 
     public void removeFlag(Integer position)
     {
         gridModel.removeFlag(position);
+        this.gameView.updateFlagNb();
     }
 
-    void setBottomButtonTexture()
-    {
-        for (int i = 0; i < this.gridModel.getCellCount(); i++)
-        {
-            this.BottomButtonArray[i].setTextureFromValue(this.gridModel.getCell(i));
-        }
-    }
+    public int getCellCount() { return gridModel.getCellCount(); }
+
+    public int getCell(int position) { return gridModel.getCell(position); }
 
     public void cellChanged(CellChangeEvent e)
     {
+        if (e.finish)
+        {
+            this.gameView.gameTimer.stop();
+            if(e.position != -1)
+            {
+                this.buttonArray[e.position].toggleFlag();
+            }
+        }
         //update UI for cell
-        if (e.reveal) {
-            this.TopButtonArray[e.position].setVisible(false);
-            this.BottomButtonArray[e.position].setTextureFromValue(this.gridModel.getCell(e.position));
+        else if (e.reveal)
+        {
+            this.buttonArray[e.position].revealButton();
         }
-        else {
-            this.TopButtonArray[e.position].setVisible(true);
-            this.BottomButtonArray[e.position].setTextureFromValue(0);
+        else
+        {
+            this.buttonArray[e.position].resetButton();
         }
-
     }
 
+    public int getFlagNumber()
+    {
+        return gridModel.getFlagArray().size();
+    }
 
+    public int getBombCount()
+    {
+        return gridModel.getBombCount();
+    }
 
+    public Boolean isOver() { return gridModel.isOver(); }
 }
