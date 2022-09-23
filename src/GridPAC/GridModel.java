@@ -144,8 +144,6 @@ public class GridModel
 
     public void gameWonRevealCheck(int position)
     {
-        System.out.println("revealed and flag: " + (CellRevealedArray.size() + FlagArray.size()));
-        System.out.println(CellArray.length);
         if (CellArray.length - CellRevealedArray.size() == bombCount)
         //if (CellRevealedArray.size() + FlagArray.size() == CellArray.length - 1)
         {
@@ -162,8 +160,6 @@ public class GridModel
 
     public void gameWonFlagCheck()
     {
-        System.out.println("revealed and flag: " + (CellRevealedArray.size() + FlagArray.size()));
-        System.out.println(CellArray.length);
         if (CellRevealedArray.size() + FlagArray.size() == CellArray.length)
         {
             onCellChange.accept(new CellChangeEvent(this, -1, true, true));

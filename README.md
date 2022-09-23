@@ -59,6 +59,10 @@ si top not visible
 
 
 À faire:
+- textures
+  - bomb
+  - losing bomb
+  - losing flag
 - Advanced visuals
   - Zooming in/out
   - Aspect ratio

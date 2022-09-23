@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="refactor du code">
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="texture and better game win conditions">
+      <change afterPath="$PROJECT_DIR$/textures/top0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/textures/wrongFlag.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buttons/ButtonTextures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/ButtonTextures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buttons/CellButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/CellButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/GridModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/GridModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/flag.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/flag.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
@@ -164,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663772034368</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="texture and better game win conditions">
+      <created>1663939837747</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1663939837747</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,6 +197,7 @@
     <MESSAGE value="icons" />
     <MESSAGE value="Simple menu with 4 presets (base game only)" />
     <MESSAGE value="refactor du code" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor du code" />
+    <MESSAGE value="texture and better game win conditions" />
+    <option name="LAST_COMMIT_MESSAGE" value="texture and better game win conditions" />
   </component>
 </project>
