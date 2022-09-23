@@ -55,6 +55,7 @@ public class Grid extends JPanel
         this.gridModel.restartGame();
         this.gameView.gameTimer.restart();
         this.gameView.gameTimer.stop();
+        this.gameView.updateFlagNb();
     }
 
     public void propagateReveal(int position)
@@ -93,10 +94,7 @@ public class Grid extends JPanel
         if (e.finish)
         {
             this.gameView.gameTimer.stop();
-            if(e.position != -1)
-            {
-                this.buttonArray[e.position].toggleFlag();
-            }
+
         }
         //update UI for cell
         else if (e.reveal)

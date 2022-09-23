@@ -34,7 +34,7 @@ public class CellButton extends JButton
         this.setPreferredSize(new Dimension(sideLength, sideLength));
 
         this.addActionListener(e -> onClickHidden());
-        this.setTexture(ButtonTextures.getTexture(CellContent.EMPTY));
+        this.setTexture(ButtonTextures.getTopTexture(CellContent.EMPTY));
         this.setIconTextGap(0);
 
         CellButton thisButton = this;
@@ -99,8 +99,8 @@ public class CellButton extends JButton
 
     public void setTextureFromValue(int value)
     {
-        if (value == CellContent.BOMB) this.setTexture(ButtonTextures.textures[9]);
-        else this.setTexture(ButtonTextures.textures[value]);
+        if (value == CellContent.BOMB) this.setTexture(ButtonTextures.getBottomTexture(9));
+        else this.setTexture(ButtonTextures.getBottomTexture(value));
     }
 
     @Override
@@ -136,7 +136,7 @@ public class CellButton extends JButton
 
     public void resetButton()
     {
-        this.setTexture(ButtonTextures.textures[CellContent.EMPTY]);
+        this.setTexture(ButtonTextures.getTopTexture(CellContent.EMPTY));
         this.removeListeners();
         this.addMouseListener(hiddenMouseListener);
     }
@@ -152,12 +152,12 @@ public class CellButton extends JButton
         {
             if (grid.hasFlag(this.position))
             {
-                this.setTexture(ButtonTextures.textures[CellContent.EMPTY]);
+                this.setTexture(ButtonTextures.getTopTexture(CellContent.EMPTY));
                 grid.removeFlag(this.position);
             }
             else
             {
-                this.setTexture(ButtonTextures.getFlagTexture());
+                this.setTexture(ButtonTextures.getTopTexture(1));
                 grid.addFlag(this.position);
             }
         }

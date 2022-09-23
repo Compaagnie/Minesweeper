@@ -142,28 +142,38 @@ public class GridModel
         return neighbours;
     }
 
-    public void gameWonCheck(int position)
+    public void gameWonRevealCheck(int position)
     {
-        if (CellRevealedArray.size() + FlagArray.size() == CellArray.length - 1)
+        System.out.println("revealed and flag: " + (CellRevealedArray.size() + FlagArray.size()));
+        System.out.println(CellArray.length);
+        if (CellArray.length - CellRevealedArray.size() == bombCount)
+        //if (CellRevealedArray.size() + FlagArray.size() == CellArray.length - 1)
         {
-            gameOver = true;
             for(int neigh : getNeighbours(position))
             {
-                if(!CellRevealedArray.contains(neigh))
+                if(!CellRevealedArray.contains(neigh) && !FlagArray.contains(neigh)) {
                     onCellChange.accept(new CellChangeEvent(this, neigh, true, true));
+                }
             }
-        }
-        else if (CellRevealedArray.size() + FlagArray.size() == CellArray.length)
-        {
+            onCellChange.accept(new CellChangeEvent(this, position, true, true));
             gameOver = true;
+        }
+    }
+
+    public void gameWonFlagCheck()
+    {
+        System.out.println("revealed and flag: " + (CellRevealedArray.size() + FlagArray.size()));
+        System.out.println(CellArray.length);
+        if (CellRevealedArray.size() + FlagArray.size() == CellArray.length)
+        {
             onCellChange.accept(new CellChangeEvent(this, -1, true, true));
+            gameOver = true;
         }
     }
 
     public void gameIsLost(int losingCell)
     {
         gameOver = true;
-
         for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
         {
             if ( otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
@@ -172,16 +182,20 @@ public class GridModel
             }
             else if (!hasFlag(otherCell))
             {
+                if (!CellRevealedArray.contains(otherCell))
+                    CellRevealedArray.add(otherCell);
                 onCellChange.accept(new CellChangeEvent(this, otherCell, true));
             }
         }
+        onCellChange.accept(new CellChangeEvent(this, -1, true, true));
     }
 
     public void removeTopButton(int position)
     {
-        CellRevealedArray.add(position);
+        if (!CellRevealedArray.contains(position))
+            CellRevealedArray.add(position);
         onCellChange.accept(new CellChangeEvent(this, position, true));
-        gameWonCheck(position);
+        gameWonRevealCheck(position);
     }
 
     public void restartGame()
@@ -189,6 +203,7 @@ public class GridModel
         FlagArray.clear();
         CellRevealedArray.clear();
         setGridGenerated(false);
+        gameOver = false;
         for (int i = 0; i < CellArray.length; i++)
         {
             recoverCell(i);
@@ -242,6 +257,7 @@ public class GridModel
     public void addFlag(int position)
     {
         FlagArray.add(position);
+        gameWonFlagCheck();
     }
 
     public void removeFlag(Integer position)
