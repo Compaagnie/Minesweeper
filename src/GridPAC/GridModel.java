@@ -150,7 +150,7 @@ public class GridModel
             for(int neigh : getNeighbours(position))
             {
                 if(!CellRevealedArray.contains(neigh) && !FlagArray.contains(neigh)) {
-                    onCellChange.accept(new CellChangeEvent(this, neigh, true, true, true));
+                    onCellChange.accept(new CellChangeEvent(this, neigh, true));
                 }
             }
             onCellChange.accept(new CellChangeEvent(this, position, true, true, true));

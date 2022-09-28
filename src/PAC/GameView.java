@@ -10,13 +10,14 @@ import java.awt.event.KeyEvent;
 
 public class GameView extends JPanel
 {
-    Minesweeper minesweeper;
-    Grid grid;
+    protected Minesweeper minesweeper;
+    protected Grid grid;
 
     public Timer gameTimer;
     protected JLabel flagFoundLabel;
+    protected JPanel gameInfoPanel = new JPanel();
 
-    GameView(Minesweeper minesweeper, int width, int height, int bombCount)
+    public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
     {
         super();
         this.minesweeper = minesweeper;
@@ -24,9 +25,9 @@ public class GameView extends JPanel
 
         this.minesweeper.add(this);
 
-        this.setUpGrid(width, height, bombCount);
+        this.setupGrid(width, height, bombCount);
 
-        JPanel gameInfoPanel = new JPanel();
+
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         this.add(gameInfoPanel, BorderLayout.EAST);
 
@@ -58,7 +59,7 @@ public class GameView extends JPanel
         this.setupRestartButton(gameInfoPanel);
     }
 
-    private void setupRestartButton(JPanel parent)
+    protected void setupRestartButton(JPanel parent)
     {
         JButton restartButton = new JButton("Restart Game");
         parent.add(restartButton);
@@ -68,9 +69,9 @@ public class GameView extends JPanel
         restartButton.setMnemonic(KeyEvent.VK_R);
     }
 
-    private void setUpGrid(int width, int height, int bombCount)
+    protected void setupGrid(int width, int height, int bombCount)
     {
-        grid = new Grid(this, new Dimension(width,height), bombCount);
+        this.grid = new Grid(this, new Dimension(width,height), bombCount);
         JScrollPane scrollPane = new JScrollPane(grid);
 
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
