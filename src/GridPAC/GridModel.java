@@ -8,13 +8,13 @@ import java.util.function.Consumer;
 
 public class GridModel
 {
-    protected Dimension dimension;
+    protected final Dimension dimension;
+    protected final int bombCount;
     protected Boolean gridGenerated = false;
     protected Boolean gameOver = false;
     protected Integer[] CellArray;
     protected ArrayList<Integer> CellRevealedArray; // TODO : hashset ?
     protected ArrayList<Integer> FlagArray;
-    protected int bombCount;
     protected Consumer<CellChangeEvent> onCellChange;
 
 
@@ -150,10 +150,10 @@ public class GridModel
             for(int neigh : getNeighbours(position))
             {
                 if(!CellRevealedArray.contains(neigh) && !FlagArray.contains(neigh)) {
-                    onCellChange.accept(new CellChangeEvent(this, neigh, true, true));
+                    onCellChange.accept(new CellChangeEvent(this, neigh, true, true, true));
                 }
             }
-            onCellChange.accept(new CellChangeEvent(this, position, true, true));
+            onCellChange.accept(new CellChangeEvent(this, position, true, true, true));
             gameOver = true;
         }
     }
@@ -162,7 +162,7 @@ public class GridModel
     {
         if (CellRevealedArray.size() + FlagArray.size() == CellArray.length)
         {
-            onCellChange.accept(new CellChangeEvent(this, -1, true, true));
+            onCellChange.accept(new CellChangeEvent(this, -1, true, true, true));
             gameOver = true;
         }
     }
@@ -183,7 +183,7 @@ public class GridModel
                 onCellChange.accept(new CellChangeEvent(this, otherCell, true));
             }
         }
-        onCellChange.accept(new CellChangeEvent(this, -1, true, true));
+        onCellChange.accept(new CellChangeEvent(this, -1, true, true, false));
     }
 
     public void removeTopButton(int position)

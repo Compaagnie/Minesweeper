@@ -94,7 +94,8 @@ public class Grid extends JPanel
         if (e.finish)
         {
             this.gameView.gameTimer.stop();
-
+            if(e.won) onGameWin();
+            else onGameLost();
         }
         //update UI for cell
         else if (e.reveal)
@@ -105,6 +106,16 @@ public class Grid extends JPanel
         {
             this.buttonArray[e.position].resetButton();
         }
+    }
+
+    public void onGameWin()
+    {
+
+    }
+
+    public void onGameLost()
+    {
+
     }
 
     public int getFlagNumber()
