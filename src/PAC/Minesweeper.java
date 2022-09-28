@@ -40,6 +40,13 @@ public class Minesweeper extends JFrame
         gameView.setVisible(true);
     }
 
+    public void startRoguelikeGame()
+    {
+        this.remove(gameMenu);
+        gameView = new RoguelikeGameView(this);
+        gameView.setVisible(true);
+    }
+
     public void openMenu()
     {
         gameView.setVisible(false);

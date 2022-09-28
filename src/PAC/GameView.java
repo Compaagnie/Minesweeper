@@ -17,6 +17,8 @@ public class GameView extends JPanel
     protected JLabel flagFoundLabel;
     protected JPanel gameInfoPanel = new JPanel();
 
+    protected JScrollPane gridScrollPane;
+
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
     {
         super();
@@ -72,11 +74,11 @@ public class GameView extends JPanel
     protected void setupGrid(int width, int height, int bombCount)
     {
         this.grid = new Grid(this, new Dimension(width,height), bombCount);
-        JScrollPane scrollPane = new JScrollPane(grid);
+        gridScrollPane = new JScrollPane(grid);
 
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.add(scrollPane, BorderLayout.CENTER);
+        gridScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        gridScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.add(gridScrollPane, BorderLayout.CENTER);
     }
 
     public void openMenu()
