@@ -5,12 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Starting roguelike with new grid on each win and formula based grid.">
-      <change afterPath="$PROJECT_DIR$/src/GridPAC/RoguelikeGrid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PAC/RoguelikeGameView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGridModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/Powerups/BombReveal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/Powerups/ColumnReveal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/Powerups/LineReveal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/Powerups/PowerUp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/Powerups/Radar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shop/Shop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shop/ShopModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shop/ShopView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PAC/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/RoguelikeGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGrid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Minesweeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Minesweeper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/RoguelikeGameView.java" beforeDir="false" />
     </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
@@ -23,11 +37,17 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -185,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664375306976</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Starting roguelike with new grid on each win and formula based grid.">
+      <created>1664377984814</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1664377984814</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -193,7 +220,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="roguelike" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

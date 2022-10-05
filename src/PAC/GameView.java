@@ -19,6 +19,8 @@ public class GameView extends JPanel
 
     protected JScrollPane gridScrollPane;
 
+    public GameView(){super();}
+
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
     {
         super();
@@ -90,4 +92,5 @@ public class GameView extends JPanel
     {
         this.flagFoundLabel.setText("Flags: " + grid.getFlagNumber()+"/"+ grid.getBombCount());
     }
+
 }

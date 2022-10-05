@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class Grid extends JPanel
 {
+    public final Dimension dimensions;
     protected GameView gameView;
     protected GridModel gridModel;
 
@@ -19,6 +20,7 @@ public class Grid extends JPanel
     {
         this.gameView = gameView;
 
+        dimensions = _dimension;
         gridModel = new GridModel(_dimension, _bombCount, this::cellChanged);
 
         this.setLayout(new GridBagLayout());
@@ -91,21 +93,17 @@ public class Grid extends JPanel
 
     public void cellChanged(CellChangeEvent e)
     {
-        if (e.finish)
+        if(e.flagToggle) buttonArray[e.position].toggleFlag();
+        else if (e.finish)
         {
             this.gameView.gameTimer.stop();
             if(e.won) onGameWin();
             else onGameLost();
         }
         //update UI for cell
-        else if (e.reveal)
-        {
-            this.buttonArray[e.position].revealButton();
-        }
-        else
-        {
-            this.buttonArray[e.position].resetButton();
-        }
+        else if (e.reveal) this.buttonArray[e.position].revealButton();
+        else this.buttonArray[e.position].resetButton();
+
     }
 
     public void onGameWin()
@@ -129,4 +127,6 @@ public class Grid extends JPanel
     }
 
     public Boolean isOver() { return gridModel.isOver(); }
+
+    public boolean isGenerated(){return gridModel.isGenerated();}
 }
