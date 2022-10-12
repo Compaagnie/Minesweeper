@@ -5,13 +5,8 @@ import GridPAC.Roguelike.RoguelikeGrid;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 import PAC.GameView;
-import PAC.Minesweeper;
-import PAC.Roguelike.PowerUps.ActivePowerUp;
-import PAC.Roguelike.PowerUps.PassivePowerUp;
-import Shop.*;
 
 public class RoguelikeView extends GameView
 {
@@ -19,39 +14,30 @@ public class RoguelikeView extends GameView
     protected JLabel currencyLabel;
     protected JLabel debugPassivePowerUps;
     protected Component centerComponent;
-    protected int currentLevel = 0;
-    protected int currencyCount = 0;
-    protected ArrayList<ActivePowerUp> activePowerUps = new ArrayList<>();
-    protected int passivePowerUps = 0;
-    private Integer energy = Integer.MAX_VALUE; // todo : design check
-    private int energy_MAX = Integer.MAX_VALUE; // todo : design check
+    protected RogueLikeController controller;
+    protected JScrollPane centerScrollPane = new JScrollPane();
 
-    RoguelikeModel model;
-
-    public RoguelikeView(Minesweeper minesweeper)
+    public RoguelikeView(RogueLikeController _controller)
     {
         // Created grid, info panel and buttons
         super();
 
-        this.model = new RoguelikeModel();
+        this.controller = _controller;
+    }
 
-        this.minesweeper = minesweeper;
+    public void init()
+    {
         this.setLayout(new BorderLayout());
 
-        // todo : remove debug power ups :
-        activePowerUps.add(ActivePowerUp.RADAR_REVEAL);
-//        activePowerUps.add(ActivePowerUp.BOMB_REVEAL);
-//        activePowerUps.add(ActivePowerUp.LINE_REVEAL);
-//        activePowerUps.add(ActivePowerUp.COLUMN_REVEAL);
+        this.add(centerScrollPane, BorderLayout.CENTER);
+        this.centerScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.centerScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        this.minesweeper.add(this);
-
-        this.setupCurrentLevelGrid();
-
+        gameInfoPanel = new JPanel();
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         this.add(gameInfoPanel, BorderLayout.EAST);
 
-        flagFoundLabel = new JLabel("Flag: 0/" + grid.getBombCount());
+        flagFoundLabel = new JLabel("Flag: 0/" + controller.getBombCount());
         gameInfoPanel.add(flagFoundLabel);
 
         JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
@@ -59,7 +45,6 @@ public class RoguelikeView extends GameView
 
         //todo : remove debug power ups :
         debugPassivePowerUps = new JLabel();
-        DEBUGupdatePassivePowerUpLabel();
         gameInfoPanel.add(debugPassivePowerUps);
 
 
@@ -77,7 +62,9 @@ public class RoguelikeView extends GameView
         gameTimer = new Timer(1000, timerAction);
         gameTimer.stop();
 
+        levelLabel = new JLabel("Level : 0");
         gameInfoPanel.add(levelLabel);
+
         currencyLabel = new JLabel("Coins : 0");
         gameInfoPanel.add(currencyLabel);
 
@@ -107,8 +94,8 @@ public class RoguelikeView extends GameView
 //                    System.out.println("Typed: " + e.getKeyChar());
                     if(grid != null && grid.isGenerated() && Character.isDigit(e.getKeyChar()))
                     {
-                        if(e.getKeyChar() == '0') executePowerUp(9);
-                        else executePowerUp(e.getKeyChar() - '1');
+                        if(e.getKeyChar() == '0') controller.executePowerUp(9);
+                        else controller.executePowerUp(e.getKeyChar() - '1');
                     }
                 }
             }
@@ -123,181 +110,37 @@ public class RoguelikeView extends GameView
         });
     }
 
-    private void executePowerUp(int index)
+    @Override
+    public void paintComponents(Graphics pen)
     {
-        if(index < 0 || index >= activePowerUps.size()) System.out.println("Not yet bound to power up : " + index);
-        else
-        {
-            ActivePowerUp activePowerUp = activePowerUps.get(index);
-            Point mouse = grid.getMousePosition();
-            if(activePowerUp.getEnergyCost() <= energy && mouse != null && grid.contains(mouse))
-            {
-                float absolute_x = grid.dimensions.width * mouse.x/ (float) grid.getWidth();
-                float absolute_y = grid.dimensions.height * mouse.y/ (float) grid.getHeight();
-
-                int currentMouseCell =   ((int)absolute_x + (int)absolute_y * grid.dimensions.width);
-                //Debug :
-//                System.out.println("Dims :" + grid.dimensions);
-//                System.out.println("Radar :" + (int) absolute_x + " " + (int) absolute_y + " cell: " + currentMouseCell);
-
-                if(activePowerUp.use((RoguelikeGrid) this.grid, currentMouseCell))
-                {
-//                energy -= powerUp.getCost(); // TODO : uncomment when not debugging
-                }
-            }
-        }
+        super.paintComponents(pen);
+        this.currencyLabel.setText("Coins: " + controller.getCurrencyCount());
+        this.levelLabel.setText("Level: " + controller.getCurrentLevel());
+        this.updateFlagNb();
     }
 
-    public void setupCurrentLevelGrid()
-    {
-        removeCenterComponent();
-        this.updateLevel();
-        this.grid = null;
-        this.grid = getGridFromLevel(currentLevel);
-        this.gridScrollPane = new JScrollPane(grid);
-        this.gridScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        this.gridScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.add(gridScrollPane, BorderLayout.CENTER);
-        centerComponent = gridScrollPane;
-    }
 
     protected void removeCenterComponent()
     {
-        if(centerComponent != null) this.remove(centerComponent);
-    }
-
-    protected void refillEnergy()
-    {
-        this.energy = this.energy_MAX;
-    }
-
-    protected void updateLevel()
-    {
-        ++this.currentLevel;
-        if(levelLabel == null) levelLabel = new JLabel();
-        this.levelLabel.setText("Level: " + currentLevel);
-    }
-
-    public void updateCurrency(int modifier)
-    {
-        // todo : magic number to constant & design check
-        // todo : add animations
-        if(modifier > 0)
+        if(centerComponent != null)
         {
-            if(has(PassivePowerUp.DOUBLE_COIN))
-            {
-                modifier *= 2;
-            }
-            if(has(PassivePowerUp.DOUBLE_EDGED_SWORD))
-            {
-                modifier *= 1.5;
-            }
+            this.centerComponent.setVisible(false);
+            this.centerScrollPane.getViewport().remove(centerComponent);
+            centerComponent = null;
         }
-
-        this.currencyCount += modifier;
-        this.currencyLabel.setText("Coins: " + currencyCount);
     }
 
-    protected RoguelikeGrid getGridFromLevel(int level)
+    public void setGrid(RoguelikeGrid _grid)
     {
-        // TODO : non-rectangular grids ?
-
-        // todo : magic number to constant & design check
-        int BOMB_PERCENT = 10 + 2*level;
-        int size = (level+1) * 4;
-        if(has(PassivePowerUp.DOUBLE_EDGED_SWORD)) BOMB_PERCENT *= 1.5f;
-
-
-        int bomb_count = (int) (size * size * (BOMB_PERCENT / 100f));
-        RoguelikeGrid grid = new RoguelikeGrid(this, new Dimension(size, size), bomb_count);
-        grid.setOnWinCallback(this::onLevelClear);
-        return grid;
+        this.grid = _grid;
     }
 
-    public void onLevelClear()
+    public void setCenterComponent(JComponent newCenterComponent)
     {
-        updateCurrency(+3); // Todo : currency formula
-        refillEnergy();
-
-        removeCenterComponent();
-        this.flagFoundLabel.setVisible(false);
-        grid = null;
-
-        Shop shop; // free stage store : choose one of 3 power ups
-        if(!has(PassivePowerUp.SHOP_AHEAD)) shop = new Shop(this, true, this::nextLevel);
-        else
-        {
-            shop = new Shop(this, true, this::createShop);
-            remove(PassivePowerUp.SHOP_AHEAD);
-        }
-        centerComponent = shop;
-        this.add(shop, BorderLayout.CENTER);
-    }
-
-    public void createShop()
-    {
-        removeCenterComponent();
-        Shop shop = new Shop(this, false, this::nextLevel);
-        centerComponent = shop;
-        this.add(shop, BorderLayout.CENTER);
-    }
-
-    public void nextLevel()
-    {
-        this.flagFoundLabel.setVisible(true);
-        this.remove(centerComponent);
-        this.setupCurrentLevelGrid();
-        updateFlagNb();
-        //TODO: fix timer or accept general timer behaviour
-//        gameTimer.restart();
-//        gameTimer.stop();
-
+        this.removeCenterComponent();
+        this.centerComponent = newCenterComponent;
+        this.centerScrollPane.getViewport().add(this.centerComponent);
+        this.centerComponent.setVisible(true);
         repaint();
-    }
-
-    public void add(PassivePowerUp powerUp)
-    {
-        // set masked bit to 1
-        this.passivePowerUps = this.passivePowerUps | powerUp.mask;
-        DEBUGupdatePassivePowerUpLabel();
-    }
-
-    public boolean has(PassivePowerUp powerUp)
-    {
-        // check if the masked bit is 1
-        return (this.passivePowerUps & powerUp.mask) != 0;
-    }
-
-    public void remove(PassivePowerUp powerUp)
-    {
-        // set the masked bit to 0
-        this.passivePowerUps = this.passivePowerUps & ~powerUp.mask;
-        DEBUGupdatePassivePowerUpLabel();
-    }
-
-    public void add(ActivePowerUp powerUp)
-    {
-        this.activePowerUps.add(powerUp);
-    }
-
-    public boolean has(ActivePowerUp powerUp)
-    {
-        return this.activePowerUps.contains(powerUp);
-    }
-
-    public void remove(ActivePowerUp powerUp)
-    {
-        this.activePowerUps.remove(powerUp);
-    }
-
-    protected void DEBUGupdatePassivePowerUpLabel()
-    {
-        String text = "";
-        for(int i = 0; i < PassivePowerUp.COUNT.ordinal(); ++i)
-        {
-            if(has(PassivePowerUp.values()[i])) text += "1";
-            else text += "0";
-        }
-        debugPassivePowerUps.setText(text);
     }
 }

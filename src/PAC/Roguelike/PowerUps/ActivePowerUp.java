@@ -1,14 +1,13 @@
 package PAC.Roguelike.PowerUps;
 
 import GridPAC.Roguelike.RoguelikeGrid;
-import PAC.Roguelike.PowerUps.PowerUp;
 
 public enum ActivePowerUp implements PowerUp
 {
-    BOMB_REVEAL,
-    COLUMN_REVEAL,
-    LINE_REVEAL,
-    RADAR_REVEAL,
+    BOMB_REVEAL(1),
+    COLUMN_REVEAL(3),
+    LINE_REVEAL(3),
+    RADAR_REVEAL(2),
 
     COUNT;
 
@@ -21,13 +20,13 @@ public enum ActivePowerUp implements PowerUp
         energyCost = 1;
     }
 
-    ActivePowerUp(int _shopCost)
+    ActivePowerUp(int _energyCost)
     {
-        shopCost = _shopCost;
-        energyCost = 1;
+        shopCost = 1;
+        energyCost = _energyCost;
     }
 
-    ActivePowerUp(int _shopCost, int _energyCost)
+    ActivePowerUp(int _energyCost, int _shopCost)
     {
         shopCost = _shopCost;
         energyCost = _energyCost;

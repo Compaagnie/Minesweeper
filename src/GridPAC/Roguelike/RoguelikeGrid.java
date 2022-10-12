@@ -1,16 +1,15 @@
 package GridPAC.Roguelike;
 
 import GridPAC.Grid;
-import PAC.GameView;
 
 import java.awt.*;
 
 public class RoguelikeGrid extends Grid
 {
     Runnable onWinCallback;
-    public RoguelikeGrid(GameView gameView, Dimension _dimension, int _bombCount)
+    public RoguelikeGrid(Dimension _dimension, int _bombCount)
     {
-        super(gameView, _dimension, _bombCount);
+        super(_dimension, _bombCount);
         gridModel = new RoguelikeGridModel(_dimension, _bombCount, this::cellChanged);
     }
 

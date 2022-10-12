@@ -1,6 +1,7 @@
 package PAC;
 
 import GridPAC.Grid;
+import GridPAC.GridEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class GameView extends JPanel
 
     public Timer gameTimer;
     protected JLabel flagFoundLabel;
-    protected JPanel gameInfoPanel = new JPanel();
+    protected JPanel gameInfoPanel;
 
     protected JScrollPane gridScrollPane;
 
@@ -32,6 +33,7 @@ public class GameView extends JPanel
         this.setupGrid(width, height, bombCount);
 
 
+        gameInfoPanel = new JPanel();
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         this.add(gameInfoPanel, BorderLayout.EAST);
 
@@ -75,7 +77,8 @@ public class GameView extends JPanel
 
     protected void setupGrid(int width, int height, int bombCount)
     {
-        this.grid = new Grid(this, new Dimension(width,height), bombCount);
+        this.grid = new Grid(new Dimension(width,height), bombCount);
+        this.grid.addEventListener(this::gridEventHandler);
         gridScrollPane = new JScrollPane(grid);
 
         gridScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -91,6 +94,26 @@ public class GameView extends JPanel
     public void updateFlagNb()
     {
         this.flagFoundLabel.setText("Flags: " + grid.getFlagNumber()+"/"+ grid.getBombCount());
+    }
+
+    protected void gridEventHandler(GridEvent event)
+    {
+        switch (event.command)
+        {
+            case "flag" : updateFlagNb(); break;
+            case "reveal" : gameTimer.start(); break;
+            case "restart" : onRestart(); break;
+            case "over" : gameTimer.stop();
+
+            default : System.out.println("[WARNING] Grid event not handled by view : " + event.command);
+        }
+    }
+
+    protected void onRestart()
+    {
+        gameTimer.restart();
+        gameTimer.stop();
+        updateFlagNb();
     }
 
 }
