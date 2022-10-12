@@ -4,9 +4,9 @@ import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.PowerUps.PassivePowerUp;
 import PAC.Roguelike.PowerUps.PowerUp;
 import PAC.Roguelike.RoguelikeModel;
-import PAC.Roguelike.RoguelikeView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,6 +14,7 @@ public class Shop extends JPanel
 {
     protected PassivePowerUp selectedPassive = null;
     protected ActivePowerUp selectedActive = null;
+    protected ShopButton currentSelectedButton = null;
 
     protected RoguelikeModel roguelikeModel;
 
@@ -25,7 +26,6 @@ public class Shop extends JPanel
         SetPowerUps(isFreeShop);
 
         this.add(Box.createGlue());
-
 
         JButton doneButton = new JButton("Done");
         doneButton.addActionListener(e -> close(whenDoneCallback));
@@ -39,7 +39,6 @@ public class Shop extends JPanel
         // Not free shops : only one power up added : the last one selected
         if(selectedActive != null) roguelikeModel.add(selectedActive);
         if(selectedPassive != null) roguelikeModel.add(selectedPassive);
-
         callback.run();
     }
 
@@ -76,15 +75,24 @@ public class Shop extends JPanel
 
         for(PowerUp powerUp : missingPowerUps)
         {
-            JButton button = new JButton( (powerUp.isActive()?"A":"P") + "<"+ powerUp.getName() + ">");
-            button.setIcon(powerUp.getIcon());
-            if(!isFree) button.addActionListener(e -> buy(powerUp));
-            else button.addActionListener(e -> select(powerUp));
+            ShopButton button = new ShopButton(powerUp.getName());
+            button.setVerticalTextPosition(SwingConstants.BOTTOM);
+            Image powerUpImage = powerUp.getImage();
+            if(powerUpImage != null) button.setIcon(new ImageIcon(powerUp.getImage()));
+            else System.out.println("[WARNING] Could not find image for power up: " + powerUp.getName());
+            if(!isFree) button.addActionListener(e -> buy(powerUp, button));
+            else button.addActionListener(e -> select(powerUp, button));
+            if(!isFree)
+            {
+                button.setPrice(powerUp.getShopCost());
+                if(powerUp.getShopCost() > roguelikeModel.getCurrencyCount()) button.setEnabled(false);
+            }
             powerUpPanel.add(button);
         }
+        this.repaint();
     }
 
-    private void select(PowerUp powerUp)
+    private void select(PowerUp powerUp, ShopButton button)
     {
         if(powerUp.isActive())
         {
@@ -96,13 +104,21 @@ public class Shop extends JPanel
             selectedActive = null;
             selectedPassive = (PassivePowerUp) powerUp;
         }
+        if(currentSelectedButton != null) currentSelectedButton.unSelect();
+        currentSelectedButton = button;
+        currentSelectedButton.select();
     }
 
-    private void buy(PowerUp powerUp)
+    private void buy(PowerUp powerUp, ShopButton button)
     {
-        if(powerUp.isActive()) roguelikeModel.add((ActivePowerUp) powerUp);
-        else roguelikeModel.add((PassivePowerUp) powerUp);
-        roguelikeModel.updateCurrency(-powerUp.getShopCost());
+        if(roguelikeModel.getCurrencyCount() >= powerUp.getShopCost())
+        {
+            button.setVisible(false);
+            this.remove(button);
+            if(powerUp.isActive()) roguelikeModel.add((ActivePowerUp) powerUp);
+            else roguelikeModel.add((PassivePowerUp) powerUp);
+            roguelikeModel.updateCurrency(-powerUp.getShopCost());
+        }
     }
 
 

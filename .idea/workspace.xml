@@ -5,20 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Roguelike refactoring to mvc">
-      <change afterPath="$PROJECT_DIR$/src/GridPAC/GridEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shop/ShopButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/CellButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/CellButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGridModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGridModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PAC/Minesweeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Minesweeper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/ActivePowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/ActivePowerUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PassivePowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PassivePowerUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PowerUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RogueLikeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RogueLikeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Shop/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop/Shop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Shop/ShopModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Shop/ShopView.java" beforeDir="false" />
     </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
@@ -227,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665559849439</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Roguelike refactoring to mvc">
+      <created>1665567952369</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1665567952369</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -1,5 +1,6 @@
 package PAC.Roguelike;
 
+import GridPAC.GridEvent;
 import GridPAC.Roguelike.RoguelikeGrid;
 
 import javax.swing.*;
@@ -7,21 +8,23 @@ import java.awt.*;
 import java.awt.event.*;
 
 import PAC.GameView;
+import PAC.Minesweeper;
 
 public class RoguelikeView extends GameView
 {
     protected JLabel levelLabel;
     protected JLabel currencyLabel;
     protected JLabel debugPassivePowerUps;
+    protected JLabel energyLabel;
     protected Component centerComponent;
     protected RogueLikeController controller;
     protected JScrollPane centerScrollPane = new JScrollPane();
 
-    public RoguelikeView(RogueLikeController _controller)
+    public RoguelikeView(RogueLikeController _controller, Minesweeper minesweeper)
     {
         // Created grid, info panel and buttons
         super();
-
+        this.minesweeper = minesweeper;
         this.controller = _controller;
     }
 
@@ -43,10 +46,6 @@ public class RoguelikeView extends GameView
         JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
         gameInfoPanel.add(timeSpentLabel);
 
-        //todo : remove debug power ups :
-        debugPassivePowerUps = new JLabel();
-        gameInfoPanel.add(debugPassivePowerUps);
-
 
         ActionListener timerAction = new ActionListener()
         {
@@ -67,6 +66,9 @@ public class RoguelikeView extends GameView
 
         currencyLabel = new JLabel("Coins : 0");
         gameInfoPanel.add(currencyLabel);
+
+        energyLabel = new JLabel("Energy: 0/0");
+        gameInfoPanel.add(energyLabel);
 
         gameInfoPanel.add(Box.createVerticalGlue());
 
@@ -110,13 +112,13 @@ public class RoguelikeView extends GameView
         });
     }
 
-    @Override
-    public void paintComponents(Graphics pen)
+    public void update()
     {
-        super.paintComponents(pen);
         this.currencyLabel.setText("Coins: " + controller.getCurrencyCount());
         this.levelLabel.setText("Level: " + controller.getCurrentLevel());
+        this.energyLabel.setText("Energy: " + controller.getCurrentEnergy() + "/" + controller.getMaxEnergy());
         this.updateFlagNb();
+        repaint();
     }
 
 
@@ -133,6 +135,7 @@ public class RoguelikeView extends GameView
     public void setGrid(RoguelikeGrid _grid)
     {
         this.grid = _grid;
+        grid.addEventListener(this::gridEventHandler);
     }
 
     public void setCenterComponent(JComponent newCenterComponent)
@@ -143,4 +146,30 @@ public class RoguelikeView extends GameView
         this.centerComponent.setVisible(true);
         repaint();
     }
+
+    @Override
+    protected void gridEventHandler(GridEvent event)
+    {
+        switch (event.command)
+        {
+            case "flag" : updateFlagNb(); break;
+            case "restart" : onRestart(); break;
+
+            case "reveal" :
+            {
+                gameTimer.start();
+                flagFoundLabel.setVisible(true);
+            } break;
+
+            case "over" :
+            {
+                gameTimer.stop();
+                flagFoundLabel.setVisible(false);
+            } break;
+
+            default : System.out.println("[WARNING] Grid event not handled by view : " + event.command);
+        }
+    }
+
+
 }

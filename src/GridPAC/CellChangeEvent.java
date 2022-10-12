@@ -42,13 +42,21 @@ public class CellChangeEvent extends AWTEvent
 
             case "win" :
             {
-                this.reveal = false;
+                this.reveal = true;
                 this.finish = true;
                 this.won = true;
                 this.flagToggle = false;
             } break;
 
             case "lost" :
+            {
+                this.reveal = true;
+                this.finish = true;
+                this.won = false;
+                this.flagToggle = false;
+            } break;
+
+            case "revive" : // only in roguelike
             {
                 this.reveal = false;
                 this.finish = true;
@@ -62,9 +70,7 @@ public class CellChangeEvent extends AWTEvent
                 this.finish = false;
                 this.won = false;
                 this.flagToggle = false;
-                System.out.println("[ERROR] Preset not implemented");
-                Grid g = null;
-                int iWantYouToCrashPleaseThanks = g.getHeight();
+                System.out.println("[ERROR] CellChangeEvent : Preset not implemented");
             }
         }
     }

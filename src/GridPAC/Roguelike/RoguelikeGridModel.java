@@ -8,12 +8,17 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class RoguelikeGridModel extends GridModel
 {
-    public RoguelikeGridModel(Dimension _dimension, int _bombCount, Consumer<CellChangeEvent> cellChangeListener)
+    Supplier<Boolean> hasRevive;
+    private final int BOMB_REVEAL_COUNT = 3;
+
+    public RoguelikeGridModel(Dimension _dimension, int _bombCount, Consumer<CellChangeEvent> cellChangeListener, Supplier<Boolean> _hasRevive)
     {
         super(_dimension, _bombCount, cellChangeListener);
+        this.hasRevive = _hasRevive;
     }
 
     /** Reveals the cell or put a flag on it depending on whether a bomb is there or not */
@@ -52,8 +57,51 @@ public class RoguelikeGridModel extends GridModel
         if(bombArray.size() == 0) return false;
         else
         {
-            resolveCell(bombArray.get((new Random()).nextInt(bombArray.size())));
+            if(bombArray.size() < BOMB_REVEAL_COUNT)
+            {
+                for(Integer cell : bombArray) resolveCell(cell);
+            }
+            else
+            {
+                for(int i = 0; i < BOMB_REVEAL_COUNT; ++i)
+                {
+                    int toResolve;
+                    do
+                    {
+                        toResolve = (new Random()).nextInt(bombArray.size());
+                    } while (hasFlag(toResolve));
+                    resolveCell(bombArray.get(toResolve));
+                }
+            }
             return true;
+        }
+    }
+
+    @Override
+    public void gameIsLost(int losingCell)
+    {
+        if(hasRevive.get())
+        {
+            onCellChange.accept(new CellChangeEvent(this, losingCell, "revive"));
+        }
+        else
+        {
+            gameOver = true;
+            for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
+            {
+                if (otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
+                {
+//                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
+                }
+                else if (!hasFlag(otherCell))
+                {
+                    if (!CellRevealedArray.contains(otherCell)) {
+                        CellRevealedArray.add(otherCell);
+                    }
+                    onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
+                }
+            }
+            onCellChange.accept(new CellChangeEvent(this, -1, "lost"));
         }
     }
 }

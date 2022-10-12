@@ -103,7 +103,7 @@ public class GameView extends JPanel
             case "flag" : updateFlagNb(); break;
             case "reveal" : gameTimer.start(); break;
             case "restart" : onRestart(); break;
-            case "over" : gameTimer.stop();
+            case "over" : gameTimer.stop(); break;
 
             default : System.out.println("[WARNING] Grid event not handled by view : " + event.command);
         }

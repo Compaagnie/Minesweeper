@@ -10,12 +10,12 @@ public class RogueLikeController
     public RogueLikeController(Minesweeper minesweeper)
     {
         model = new RoguelikeModel();
-        view = new RoguelikeView(this);
+        view = new RoguelikeView(this, minesweeper);
         minesweeper.setGameView(view);
         minesweeper.add(view);
         view.init();
         view.setVisible(true);
-        model.addChangeListener(e -> view.repaint());
+        model.addChangeListener(e -> view.update());
         model.addEventListener(this::roguelikeEventHandler);
         view.setGrid(model.grid);
         view.setCenterComponent(model.grid);
@@ -45,4 +45,7 @@ public class RogueLikeController
     }
 
     public int getBombCount() { return model.grid.getBombCount(); }
+
+    public int getCurrentEnergy(){ return model.getCurrentEnergy(); }
+    public int getMaxEnergy(){return model.getMaxEnergy(); }
 }

@@ -21,14 +21,17 @@ public class RoguelikeModel
     protected int currencyCount = 0;
     protected ArrayList<ActivePowerUp> activePowerUps = new ArrayList<>();
     protected int passivePowerUps = 0;
-    private Integer energy = Integer.MAX_VALUE; // todo : design check
-    private int energy_MAX = Integer.MAX_VALUE; // todo : design check
+    private int energy = 5;
+    private int energy_MAX = 5;
 
     protected RoguelikeGrid grid;
 
     protected ArrayList<ChangeListener> changeListeners = new ArrayList<>();
 
     protected ArrayList<Consumer<RoguelikeEvent>> eventListeners = new ArrayList<>();
+
+    protected boolean isFirstSkill = true;
+    private final boolean hackMode = true; // todo : remove this when not debugging
 
     public RoguelikeModel()
     {
@@ -69,19 +72,29 @@ public class RoguelikeModel
         {
             ActivePowerUp activePowerUp = activePowerUps.get(powerUpSlot);
             Point mouse = grid.getMousePosition();
-            if(activePowerUp.getEnergyCost() <= energy && mouse != null && grid.contains(mouse))
+            if(activePowerUp.getEnergyCost() > energy)
+            {
+                getDefaultToolkit().beep();
+                System.out.println("Not enough energy for skill : " + activePowerUp.getName());
+            }
+            else if (mouse != null && grid.contains(mouse))
             {
                 float absolute_x = grid.dimensions.width * mouse.x/ (float) grid.getWidth();
                 float absolute_y = grid.dimensions.height * mouse.y/ (float) grid.getHeight();
 
-                int currentMouseCell =   ((int)absolute_x + (int)absolute_y * grid.dimensions.width);
+                int currentMouseCell = ((int)absolute_x + (int)absolute_y * grid.dimensions.width);
                 if(activePowerUp.use(this.grid, currentMouseCell))
                 {
-                    energy -= activePowerUp.getEnergyCost();
+                    if((!isFirstSkill || !has(PassivePowerUp.FREE_FIRST_SKILL)) && !hackMode)
+                        energy -= activePowerUp.getEnergyCost();
+                    isFirstSkill = false;
+                    triggerChangeListeners();
                 }
             }
         }
     }
+
+
 
     protected void refillEnergy()
     {
@@ -106,7 +119,7 @@ public class RoguelikeModel
             }
             if(has(PassivePowerUp.DOUBLE_EDGED_SWORD))
             {
-                modifier *= 1.5;
+                modifier *= 3;
             }
         }
 
@@ -116,7 +129,6 @@ public class RoguelikeModel
 
     public void setupCurrentLevelGrid()
     {
-//        removeCenterComponent();
         this.updateLevel();
         this.grid = null;
         this.grid = getGridFromLevel(currentLevel);
@@ -130,28 +142,35 @@ public class RoguelikeModel
 
         int BOMB_PERCENT = 10 + 2*level;
         int size = (level+1) * 4;
+
         if(has(PassivePowerUp.DOUBLE_EDGED_SWORD)) BOMB_PERCENT *= 1.5f;
+        if(has(PassivePowerUp.EASY_GRID)) BOMB_PERCENT /= 2f;
 
         int bomb_count = (int) (size * size * (BOMB_PERCENT / 100f));
-        RoguelikeGrid grid = new RoguelikeGrid(new Dimension(size, size), bomb_count);
-        grid.setOnWinCallback(this::onLevelClear);
+        RoguelikeGrid grid = new RoguelikeGrid(this, new Dimension(size, size), bomb_count, () -> has(PassivePowerUp.REVIVE));
         return grid;
+    }
+
+    public void onLevelLost()
+    {
+        //todo
     }
 
     public void onLevelClear()
     {
-        updateCurrency(+3); // Todo : currency formula
+        updateCurrency(+1); // Todo : currency formula
         refillEnergy();
         grid = null;
 
         Shop shop; // free stage store : choose one of 3 power ups
-        if(!has(PassivePowerUp.SHOP_AHEAD)) shop = new Shop(this, true, this::nextLevel);
-        else
+//        if(!has(PassivePowerUp.SHOP_AHEAD)) shop = new Shop(this, true, this::nextLevel);
+//        else
         {
             shop = new Shop(this, true, this::createShop);
             remove(PassivePowerUp.SHOP_AHEAD);
         }
         triggerEventListeners(new RoguelikeEvent(shop));
+        triggerChangeListeners();
     }
 
     public void createShop()
@@ -163,6 +182,7 @@ public class RoguelikeModel
     public void nextLevel()
     {
         this.setupCurrentLevelGrid();
+        this.isFirstSkill = true;
         triggerChangeListeners();
     }
 
@@ -170,7 +190,6 @@ public class RoguelikeModel
     {
         // set masked bit to 1
         this.passivePowerUps = this.passivePowerUps | powerUp.mask;
-//        DEBUGupdatePassivePowerUpLabel();
     }
 
     public boolean has(PassivePowerUp powerUp)
@@ -183,7 +202,6 @@ public class RoguelikeModel
     {
         // set the masked bit to 0
         this.passivePowerUps = this.passivePowerUps & ~powerUp.mask;
-//        DEBUGupdatePassivePowerUpLabel();
     }
 
     public void add(ActivePowerUp powerUp)
@@ -204,4 +222,9 @@ public class RoguelikeModel
     public int getCurrencyCount() { return currencyCount; }
 
     public int getCurrentLevel() { return currentLevel; }
+
+    public int getCurrentEnergy() { return energy; }
+    public int getMaxEnergy() { return energy_MAX; }
+    public void onRevive(){ this.remove(PassivePowerUp.REVIVE); }
+
 }
