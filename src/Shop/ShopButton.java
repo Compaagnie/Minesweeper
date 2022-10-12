@@ -54,6 +54,7 @@ public class ShopButton extends JButton
             this.revalidate();
         }
         Color previousColor = pen.getColor();
+
         if(isEnabled()) pen.setColor(Color.white);
         else pen.setColor(Color.lightGray);
 
@@ -61,14 +62,15 @@ public class ShopButton extends JButton
 
         pen.setColor(Color.black);
 
-        if(isEnabled()) pen.drawImage(((ImageIcon) this.getIcon()).getImage(), small_margin, small_margin, null);
-        else this.drawGreyFilteredImage(pen);
-
+        Image iconImage = ((ImageIcon) this.getIcon()).getImage();
+        if(!isEnabled() && iconImage != null) iconImage = applyGreyFilter(iconImage);
+        pen.drawImage(iconImage, small_margin, small_margin, null);
         pen.drawString(getText(), small_margin + PowerUp.IMAGE_SIZE, PowerUp.IMAGE_SIZE);
 
         if(isSelected)
         {
             int stroke = small_margin - 1;
+            pen.setColor(new Color(0x76B5FF));
             pen.setStroke(new BasicStroke(stroke));
             if(isSelected) pen.drawRect(stroke-1, stroke-1, this.getWidth() - 2 * stroke, this.getHeight() - 2 * stroke);
             pen.setStroke(new BasicStroke());
@@ -81,32 +83,47 @@ public class ShopButton extends JButton
             int costWidth = (int) costBound.getWidth();
             int costHeight = (int) costBound.getHeight();
 
-            pen.drawImage(coinImage, getWidth() - COIN_IMAGE_SIZE - small_margin, small_margin, null);
+            if(!isEnabled() && coinImage != null && coinImage.getWidth(null) > 0 && coinImage.getHeight(null) > 0)
+            {
+                pen.drawImage(applyGreyFilter(coinImage), getWidth() - COIN_IMAGE_SIZE - small_margin, small_margin, null);
+            }
+            else
+            {
+                pen.drawImage(coinImage, getWidth() - COIN_IMAGE_SIZE - small_margin, small_margin, null);
+            }
             pen.drawString(costString, getWidth() - COIN_IMAGE_SIZE/2 - costWidth/2 - small_margin, COIN_IMAGE_SIZE/2 + costHeight/2 + small_margin/2);
         }
         pen.setColor(previousColor);
     }
 
-    private void drawGreyFilteredImage(Graphics2D pen)
+    private Image applyGreyFilter(Image sourceImage)
     {
-        Image image = ((ImageIcon) this.getIcon()).getImage();
-        BufferedImage copy = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
-        copy.getGraphics().drawImage(image, 0, 0 , null);
+        // https://stackoverflow.com/questions/13605248/java-converting-image-to-bufferedimage
+        // -> image to buffered image
+
+        BufferedImage copy = new BufferedImage(sourceImage.getWidth(null), sourceImage.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+        copy.getGraphics().drawImage(sourceImage, 0, 0 , null);
+
+        // https://stackoverflow.com/questions/39667665/rgb-image-filter-in-java
+        // -> finding how to manipulate colors in a buffered image
+
         for(int i = 0; i < copy.getWidth(); ++i)
         {
             for(int j = 0; j < copy.getHeight(); ++j)
             {
-                int color = copy.getRGB(i,j); // AA RR GG BB
-                int a = (color >> 24) & 0xff;
-                int r = (color >> 16) & 0xff;
-                int g = (color >> 8) & 0xff;
-                int b = color & 0xff;
-                int greyValue = (r + g + b)/3;
-                int newColor = a << 24 | greyValue << 16 | greyValue << 8 | greyValue;
+                // 0x AA RR GG BB
+                int color = copy.getRGB(i,j);
+                int alpha = (color >> 24) & 0xff;
+                int red = (color >> 16) & 0xff;
+                int green = (color >> 8) & 0xff;
+                int blue = color & 0xff;
+                int greyValue = (red + green + blue)/3;
+                int newColor = alpha << 24 | greyValue << 16 | greyValue << 8 | greyValue;
                 copy.setRGB(i, j, newColor);
             }
         }
-        pen.drawImage(copy, small_margin, small_margin, null);
+
+        return copy;
     }
 
     public void select()
