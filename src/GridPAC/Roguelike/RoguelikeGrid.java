@@ -23,7 +23,10 @@ public class RoguelikeGrid extends Grid
     }
 
     @Override
-    public void onGameWin(){ onWinCallback.run(); }
+    public void onGameWin()
+    {
+        onWinCallback.run();
+    }
 
     public void radarReveal(int position) { ((RoguelikeGridModel) gridModel).radarReveal(position); }
     public boolean bombReveal() { return ((RoguelikeGridModel) gridModel).bombReveal(); }

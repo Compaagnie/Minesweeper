@@ -96,9 +96,12 @@ public class Grid extends JPanel
         if(e.flagToggle) buttonArray[e.position].toggleFlag();
         else if (e.finish)
         {
-            this.gameView.gameTimer.stop();
-            if(e.won) onGameWin();
-            else onGameLost();
+            if(!this.isOver()) // prevent multiple calls
+            {
+                this.gameView.gameTimer.stop();
+                if(e.won) onGameWin();
+                else onGameLost();
+            }
         }
         //update UI for cell
         else if (e.reveal) this.buttonArray[e.position].revealButton();

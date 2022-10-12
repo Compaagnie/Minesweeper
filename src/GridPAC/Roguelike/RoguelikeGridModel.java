@@ -15,7 +15,9 @@ public class RoguelikeGridModel extends GridModel
     {
         super(_dimension, _bombCount, cellChangeListener);
     }
-    public void resolveCell(int position) // Reveals the cell or put a flag on it depending on whether a bomb is there or not
+
+    /** Reveals the cell or put a flag on it depending on whether a bomb is there or not */
+    public void resolveCell(int position)
     {
         if(getCell(position) != CellContent.BOMB) revealCell(position);
         else if (!hasFlag(position)) onCellChange.accept(new CellChangeEvent(this, position, "flag"));
@@ -25,7 +27,6 @@ public class RoguelikeGridModel extends GridModel
     {
         resolveCell(position);
         for (int neigh : getNeighbours(position)) resolveCell(neigh);
-        System.out.println("Used radar");
     }
 
     public void columnReveal(int position)
@@ -47,11 +48,11 @@ public class RoguelikeGridModel extends GridModel
         {
             if(CellArray[i] == CellContent.BOMB && !hasFlag(i)) bombArray.add(i);
         }
+
         if(bombArray.size() == 0) return false;
         else
         {
             resolveCell(bombArray.get((new Random()).nextInt(bombArray.size())));
-            System.out.println("Used bomb reveal");
             return true;
         }
     }

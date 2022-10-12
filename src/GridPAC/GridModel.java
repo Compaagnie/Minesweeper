@@ -52,7 +52,7 @@ public class GridModel
             }
         }
 
-        onCellChange.accept(new CellChangeEvent(this, clickPosition, true));
+        onCellChange.accept(new CellChangeEvent(this, clickPosition, "reveal"));
     }
 
     public void revealCell(int position)
@@ -84,7 +84,6 @@ public class GridModel
             ArrayList<Integer> neighbours = this.getNeighbours(cell);
             this.removeTopButton(cell);
 
-//            TopButtonArray[cell].setVisible(false); // TODO
             if (getCell(cell) == CellContent.EMPTY)
             {
                 for (int n : neighbours)
@@ -153,7 +152,7 @@ public class GridModel
                     onCellChange.accept(new CellChangeEvent(this, neigh, true));
                 }
             }
-            onCellChange.accept(new CellChangeEvent(this, position, true, true, true));
+            onCellChange.accept(new CellChangeEvent(this, position, "win"));
             gameOver = true;
         }
     }
@@ -180,17 +179,16 @@ public class GridModel
             {
                 if (!CellRevealedArray.contains(otherCell))
                     CellRevealedArray.add(otherCell);
-                onCellChange.accept(new CellChangeEvent(this, otherCell, true));
+                onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
             }
         }
-        onCellChange.accept(new CellChangeEvent(this, -1, true, true, false));
+        onCellChange.accept(new CellChangeEvent(this, -1, "lost"));
     }
 
     public void removeTopButton(int position)
     {
-        if (!CellRevealedArray.contains(position))
-            CellRevealedArray.add(position);
-        onCellChange.accept(new CellChangeEvent(this, position, true));
+        if (!CellRevealedArray.contains(position)) CellRevealedArray.add(position);
+        onCellChange.accept(new CellChangeEvent(this, position, "reveal"));
         gameWonRevealCheck(position);
     }
 
@@ -209,7 +207,7 @@ public class GridModel
 
     public void recoverCell(int position)
     {
-        onCellChange.accept(new CellChangeEvent(this, position, false));
+        onCellChange.accept(new CellChangeEvent(this, position, "reset"));
     }
 
     public Dimension getDimension() {
