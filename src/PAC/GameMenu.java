@@ -1,5 +1,7 @@
 package PAC;
 
+import Buttons.MenuButton;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,24 +14,35 @@ public class GameMenu extends JPanel
         this.minesweeper = minesweeper;
 
         JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(2,2));
+        menuPanel.setLayout(new GridBagLayout());
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.insets = new Insets(10,10,10,10);
 
         minesweeper.add(menuPanel);
 
-        JButton presetButton1 = new JButton("8x8 : 10 bombs");
+        MenuButton presetButton1 = new MenuButton("8x8 : 10 bombs");
         presetButton1.addActionListener( e -> { menuPanel.setVisible(false); minesweeper.startGame(8,8,10);});
-        JButton presetButton2 = new JButton("16x16 : 40 bombs");
+        MenuButton presetButton2 = new MenuButton("16x16 : 40 bombs");
         presetButton2.addActionListener(e -> { menuPanel.setVisible(false); minesweeper.startGame(16,16,40);});
-        JButton presetButton3 = new JButton("30x16 : 99 bombs");
+        MenuButton presetButton3 = new MenuButton("30x16 : 99 bombs");
         presetButton3.addActionListener(e -> { menuPanel.setVisible(false); minesweeper.startGame(30,16,99); });
 
-        JButton presetButtonCustom = new JButton("? : Custom");
+        MenuButton presetButtonCustom = new MenuButton("? : Custom");
         presetButtonCustom.addActionListener(e -> { menuPanel.setVisible(false); createCustomPresetMenu(); });
 
-        menuPanel.add(presetButton1);
-        menuPanel.add(presetButton2);
-        menuPanel.add(presetButton3);
-        menuPanel.add(presetButtonCustom);
+        menuPanel.add(presetButton1, constraints);
+        constraints.gridx = 1;
+        menuPanel.add(presetButton2, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        menuPanel.add(presetButton3, constraints);
+        constraints.gridx = 1;
+        menuPanel.add(presetButtonCustom, constraints);
     }
 
     private void createCustomPresetMenu()
@@ -37,31 +50,41 @@ public class GameMenu extends JPanel
         JPanel selectionPanel = new JPanel();
         minesweeper.add(selectionPanel);
 
-        selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.PAGE_AXIS));
+        selectionPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.insets = new Insets(10,10,10,10);
 
-        JPanel dimensionSubPanel = new JPanel();
-        dimensionSubPanel.setPreferredSize(new Dimension(300, 40));
-        dimensionSubPanel.setLayout(new BoxLayout(dimensionSubPanel, BoxLayout.LINE_AXIS));
-        JLabel sizeLabel = new JLabel("Size:");
+        Dimension fieldSize = new Dimension(40,20);
+
+        JPanel sizePanel = new JPanel();
+        sizePanel.setLayout(new BoxLayout(sizePanel, BoxLayout.X_AXIS));
+
+        JLabel sizeLabel = new JLabel("Size: ");
         JTextField widthField = new JTextField();
-        JLabel xLabel = new JLabel("x");
+        widthField.setPreferredSize(fieldSize);
+        JLabel xLabel = new JLabel(" x ");
         JTextField heightField = new JTextField();
-        dimensionSubPanel.add(sizeLabel);
-        dimensionSubPanel.add(widthField);
-        dimensionSubPanel.add(xLabel);
-        dimensionSubPanel.add(heightField);
+        heightField.setPreferredSize(fieldSize);
+        sizePanel.add(sizeLabel, constraints);
+        sizePanel.add(widthField, constraints);
+        sizePanel.add(xLabel, constraints);
+        sizePanel.add(heightField, constraints);
+        selectionPanel.add(sizePanel, constraints);
 
-        selectionPanel.add(dimensionSubPanel);
-
-        JPanel bombSubPanel = new JPanel();
-        bombSubPanel.setPreferredSize(new Dimension(300, 40));
-        bombSubPanel.setLayout(new BoxLayout(bombSubPanel, BoxLayout.LINE_AXIS));
-        JLabel bombLabel = new JLabel("Bombs :");
+        JPanel bombPanel = new JPanel();
+        bombPanel.setLayout(new BoxLayout(bombPanel, BoxLayout.X_AXIS));
+        JLabel bombLabel = new JLabel("Bombs: ");
         JTextField bombTextField = new JTextField();
-        bombSubPanel.add(bombLabel);
-        bombSubPanel.add(bombTextField);
+        bombTextField.setPreferredSize(fieldSize);
+        constraints.gridy++;
+        bombPanel.add(bombLabel);
+        bombPanel.add(bombTextField);
+        selectionPanel.add(bombPanel, constraints);
 
-        selectionPanel.add(bombSubPanel);
 
         JButton confirmButton = new JButton("Start");
         confirmButton.addActionListener(e ->
@@ -80,9 +103,10 @@ public class GameMenu extends JPanel
                     selectionPanel.setVisible(false);
                 }
             }
-            catch (NumberFormatException exception){} // Do nothing
+            catch (NumberFormatException ignored){} // Do nothing
         });
-        selectionPanel.add(confirmButton);
+        constraints.gridy++;
+        selectionPanel.add(confirmButton, constraints);
 
 //        revalidate();
 //        repaint();

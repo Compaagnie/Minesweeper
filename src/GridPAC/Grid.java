@@ -46,6 +46,7 @@ public class Grid extends JPanel
                 CellButton button = new CellButton(x + y * this.gridModel.getDimension().width, this);
                 buttonArray[x + y * this.gridModel.getDimension().width] = button;
                 this.add(button, buttonPlacementConstraint);
+                //System.out.println("Created button " + (x + y * this.gridModel.getDimension().width));
             }
         }
     }
