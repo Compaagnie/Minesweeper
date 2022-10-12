@@ -62,5 +62,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="anaptecs.jeaf.owalibs.apache.commons.cli" level="project" />
   </component>
 </module>

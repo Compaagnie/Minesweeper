@@ -4,22 +4,319 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="textures">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HelloWorld/HelloWorld.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HelloWorld/Manifest" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HelloWorld/README.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HelloWorld/helloworld.au" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HelloWorld/helloworld.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SpeechRecognition/SpeechRecognition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SpeechRecognition/StT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SpeechRecognition/TextToSpeech.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SpeechRecognition/grammar" afterDir="false" />
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="start of speech">
+      <change afterPath="$PROJECT_DIR$/src/SpeechRecognition/Recorder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SpeechRecognition/speechRecoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minesweeper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Minesweeper.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/copy_test_resources.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/androidTest/java/ai/picovoice/leoparddemo/BaseTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/androidTest/java/ai/picovoice/leoparddemo/LeopardTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/androidTest/java/ai/picovoice/leoparddemo/PerformanceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/assets/leopard_params.pv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/ic_launcher-playstore.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/java/ai/picovoice/leoparddemo/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/drawable/button_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/layout/leopard_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/layout/recyclerview_row.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/leopard-demo-app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/android/LeopardDemo/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/c/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/c/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/c/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/c/leopard_demo.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/dotnet/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/dotnet/LeopardDemo.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/dotnet/LeopardDemo/FileDemo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/dotnet/LeopardDemo/LeopardDemo.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/dotnet/LeopardDemo/MicDemo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/dotnet/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/bin/www" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/public/images/loading.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/public/images/rss.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/public/script/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/public/stylesheets/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/expressjs/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/.metadata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/analysis_options.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/appcenter-post-clone.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/java/ai/picovoice/flutter/rhinodemo/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/app/src/profile/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/copy_assets.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Flutter/Debug.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Flutter/Release.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Podfile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/AppDelegate.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-1024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-20@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-20@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-29@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-29@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-40@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-40@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-60@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-60@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-76@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/pv_circle_512-83.5@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Assets.xcassets/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/ios/appcenter-post-clone.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/lib/main.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/lib/mic_recorder.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/pubspec.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/flutter/pubspec.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go-grpc/client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go-grpc/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go-grpc/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go-grpc/messaging/service.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go-grpc/messaging/service.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go-grpc/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go-grpc/server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go/filedemo/leopard_file_demo.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/go/micdemo/leopard_mic_demo.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo.xcodeproj/xcshareddata/xcschemes/LeopardDemo.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo.xcodeproj/xcshareddata/xcschemes/LeopardDemoUITests.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AccentColor.colorset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-1024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-20@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-20@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-29@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-29@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-40@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-40@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-60@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-60@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-76@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/AppIcon.appiconset/pv_circle_512-83.5@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Assets.xcassets/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/ContentView.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/LeopardDemoApp.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/LeopardDemo/ViewModel.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/LeopardDemo/Podfile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/ios/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/java/src/ai/picovoice/leoparddemo/MicDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/lib/leopard/demo/java/src/ai/picovoice/leoparddemo/MicDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/nodejs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/nodejs/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/nodejs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/nodejs/file.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/nodejs/mic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/nodejs/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/nodejs/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python-subtitle/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python-subtitle/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python-subtitle/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python-youtube/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python-youtube/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python-youtube/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python/leopard_demo_file.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python/leopard_demo_mic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/python/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/.buckconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/.flowconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/.prettierrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/.watchmanconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/BUCK" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/build_defs.bzl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/debug.keystore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/debug/java/ai/picovoice/reactnative/leoparddemo/ReactNativeFlipper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/java/ai/picovoice/reactnative/leoparddemo/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/java/ai/picovoice/reactnative/leoparddemo/MainApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/leopard-rn-demo-app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/babel.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/index.ios.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/File.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo-Bridging-Header.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo.xcodeproj/xcshareddata/xcschemes/LeopardDemo.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/AppDelegate.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/AppDelegate.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-1024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-20@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-20@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-29@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-29@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-40@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-40@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-60@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-60@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-76@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/AppIcon.appiconset/pv_circle_512-83.5@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Images.xcassets/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/LaunchScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/LeopardDemo/main.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/ios/Podfile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/metro.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/src/Recorder.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/react-native/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/filedemo/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/filedemo/Cargo.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/filedemo/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/filedemo/src/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/micdemo/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/micdemo/Cargo.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/micdemo/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/rust/micdemo/src/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/web/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/web/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/web/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/web/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/leopard/demo/web/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/CellButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/CellButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GridPAC/GridModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/GridModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SpeechRecognition/SpeechRecognition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SpeechRecognition/SpeechRecognition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SpeechRecognition/StT.java" beforeDir="false" />
     </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
@@ -27,9 +324,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -40,33 +334,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="roguelike" />
-                <branch-info repo="$PROJECT_DIR$" source="speech" />
-              </list>
-            </value>
-          </entry>
-          <entry type="REMOTE">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="origin/roguelike" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/lib/leopard" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -80,51 +348,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "true",
-    "Repository.Attach.JavaDocs": "true",
-    "Repository.Attach.Sources": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "/home/julien/Documents/M1/AdvUi/Minesweeper/src",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
-  },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "JAVA",
-      "PLAIN_TEXT"
-    ]
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/julien/.config/JetBrains/IdeaIC2022.2/scratches&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$APPLICATION_CONFIG_DIR$/scratches" />
+      <recent name="$PROJECT_DIR$/lib/leopard/demo" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SpeechRecognition">
-    <configuration name="HelloWorld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="HelloWorld.HelloWorld" />
-      <module name="Minesweeper" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="HelloWorld.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Minesweeper" />
@@ -132,57 +382,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SpeechRecognition" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SpeechRecognition.SpeechRecognition" />
-      <module name="Minesweeper" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SpeechRecognition.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SpeechRecognition" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SpeechRecognition.SpeechRecognition" />
-      <module name="Minesweeper" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SpeechRecognition.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TextToSpeech" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SpeechRecognition.TextToSpeech" />
-      <module name="Minesweeper" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SpeechRecognition.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.HelloWorld" />
-      <item itemvalue="Application.Main" />
-      <item itemvalue="Application.SpeechRecognition" />
-      <item itemvalue="Application.TextToSpeech" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SpeechRecognition" />
-        <item itemvalue="Application.HelloWorld" />
-        <item itemvalue="Application.TextToSpeech" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -316,7 +517,6 @@
     <MESSAGE value="Simple menu with 4 presets (base game only)" />
     <MESSAGE value="refactor du code" />
     <MESSAGE value="texture and better game win conditions" />
-    <MESSAGE value="textures" />
-    <option name="LAST_COMMIT_MESSAGE" value="textures" />
+    <option name="LAST_COMMIT_MESSAGE" value="texture and better game win conditions" />
   </component>
 </project>

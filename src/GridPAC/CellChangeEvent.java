@@ -5,11 +5,11 @@ import java.awt.*;
 public class CellChangeEvent extends AWTEvent
 {
     public final int position;
-    public final boolean reveal;
+    public final int reveal;
     public final boolean finish;
     public final boolean won;
 
-    public CellChangeEvent(Object source, int position, boolean reveal)
+    public CellChangeEvent(Object source, int position, int reveal)
     {
         super(source, AWTEvent.RESERVED_ID_MAX);
         this.position = position;
@@ -18,7 +18,7 @@ public class CellChangeEvent extends AWTEvent
         this.won = false;
     }
 
-    public CellChangeEvent(Object source, int position, boolean reveal, boolean finish, boolean won)
+    public CellChangeEvent(Object source, int position, int reveal, boolean finish, boolean won)
     {
         super(source, AWTEvent.RESERVED_ID_MAX);
         this.position = position;

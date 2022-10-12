@@ -56,6 +56,7 @@ public class Grid extends JPanel
         this.gameView.gameTimer.restart();
         this.gameView.gameTimer.stop();
         this.gameView.updateFlagNb();
+        this.gameView.setGameStatus("");
     }
 
     public void propagateReveal(int position)
@@ -65,10 +66,16 @@ public class Grid extends JPanel
 
     public void revealCell(int position)
     {
-        this.gameView.gameTimer.start();
+        if (!this.gameView.gameTimer.isRunning())
+            this.gameView.gameTimer.start();
         this.gridModel.revealCell(position);
     }
 
+    public void revealCellOnPointerPosition()
+    {
+        CellButton button = (CellButton) this.getComponentAt(MouseInfo.getPointerInfo().getLocation());
+        gridModel.revealCell(button.position);
+    }
     public boolean hasFlag(int position){
         return this.gridModel.hasFlag(position);
     }
@@ -85,12 +92,18 @@ public class Grid extends JPanel
         this.gameView.updateFlagNb();
     }
 
+    public void toggleFlagOnPointerPosition(){
+        CellButton button = (CellButton) this.getComponentAt(MouseInfo.getPointerInfo().getLocation());
+        button.toggleFlag();
+    }
+
     public int getCellCount() { return gridModel.getCellCount(); }
 
     public int getCell(int position) { return gridModel.getCell(position); }
 
     public void cellChanged(CellChangeEvent e)
     {
+        System.out.println(e.position + " " + e.reveal);
         if (e.finish)
         {
             this.gameView.gameTimer.stop();
@@ -98,24 +111,26 @@ public class Grid extends JPanel
             else onGameLost();
         }
         //update UI for cell
-        else if (e.reveal)
+        else if (e.reveal == 1)
         {
             this.buttonArray[e.position].revealButton();
         }
-        else
+        else if (e.reveal == 0)
         {
             this.buttonArray[e.position].resetButton();
+        } else if (e.reveal == 2) {
+            this.buttonArray[e.position].toggleFlag();
         }
     }
 
     public void onGameWin()
     {
-
+        gameView.setGameStatus("Won");
     }
 
     public void onGameLost()
     {
-
+        gameView.setGameStatus("Lost");
     }
 
     public int getFlagNumber()

@@ -1,56 +1,137 @@
 package SpeechRecognition;
 
-import javax.speech.*;
-import javax.speech.recognition.*;
-import java.io.FileReader;
-import java.util.Locale;
+import PAC.GameView;
+import ai.picovoice.leopard.*;
+import org.apache.commons.cli.*;
 
-public class SpeechRecognition extends ResultAdapter {
-    static Recognizer rec;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-    // Receives RESULT_ACCEPTED event: print it, clean up, exit
-    public void resultAccepted(ResultEvent e) {
-        Result r = (Result)(e.getSource());
-        ResultToken tokens[] = r.getBestTokens();
 
-        for (int i = 0; i < tokens.length; i++)
-            System.out.print(tokens[i].getSpokenText() + " ");
-        System.out.println();
+public class SpeechRecognition extends Thread
+{
+    private final static String accessKey = "rd9J3I9zJKmWbMPPg6JbEy/efOEMTrVYQPTyxdeoxkSHYrvwLnLZXA==";
+    private GameView gameView;
 
-        // Deallocate the recognizer and exit
+    private Recorder recorder;
+
+    String modelPath;
+    String libraryPath;
+    Leopard leopard;
+
+    Scanner scanner;
+    KeyListener spaceListener;
+    final int audioDeviceIndex = 1;
+
+    Boolean spacePressed, notTreated, stop;
+
+    private ArrayList<LeopardTranscript.Word> wordArrayList;
+
+    public SpeechRecognition(GameView gameView, Recorder recorder)
+    {
+        HelpFormatter formatter = new HelpFormatter();
+
+        this.gameView = gameView;
+        this.recorder = recorder;
+        this.wordArrayList = new ArrayList<>();
+
+        modelPath = Leopard.MODEL_PATH;
+        libraryPath = Leopard.LIBRARY_PATH;
+
+        spacePressed = false;
+        notTreated = false;
+        spaceListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_SPACE)
+                    spacePressed = true;
+            }
+            @Override
+            public void keyReleased(KeyEvent e){
+                super.keyReleased(e);
+                if (e.getKeyCode() == KeyEvent.VK_SPACE)
+                    spacePressed = false;
+            }
+        };
+
+        leopard = null;
         try {
-            rec.deallocate();
-        } catch (EngineException ex) {
+            leopard = new Leopard.Builder()
+                    .setAccessKey(accessKey)
+                    .setModelPath(modelPath)
+                    .setLibraryPath(libraryPath)
+                    .build();
+
+            System.out.println("Leopard version : " + leopard.getVersion());
+            System.out.println(">>> Press `CTRL+C` to exit:");
+            this.recorder = recorder;
+            scanner = new Scanner(System.in);
+        } catch (LeopardException ex) {
             throw new RuntimeException(ex);
         }
-        System.exit(0);
+    }
+    public void run()
+    {
+        stop = false;
+        System.out.println("Started");
+
+        while (!stop) {
+            if (spacePressed && !notTreated){
+                System.out.println("Recording");
+                recorder.start();
+                notTreated = true;
+            } else if (!spacePressed && notTreated){
+                recorder.end();
+                while (recorder.isAlive()) { }
+                short[] pcm = recorder.getPCM();
+                System.out.println(pcm);
+                LeopardTranscript transcript = null;
+                try {
+                    transcript = leopard.process(pcm);
+                } catch (LeopardException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println(transcript.getTranscriptString() + "\n");
+                wordArrayList.addAll(List.of(transcript.getWordArray()));
+                examineWords();
+                recorder = null;
+                recorder = new Recorder(audioDeviceIndex);
+                notTreated = false;
+            }
+        }
+        System.out.println("Ended");
     }
 
-    public static void main(String args[]) {
-        try {
-            // Create a recognizer that supports English.
-            rec = Central.createRecognizer(
-                    new EngineModeDesc(Locale.ENGLISH));
+    public void end() {
+        this.stop = true;
+    }
 
-            // Start up the recognizer
-            rec.allocate();
-
-            // Load the grammar from a file, and enable it
-            FileReader reader = new FileReader(args[0]);
-            RuleGrammar gram = rec.loadJSGF(reader);
-            gram.setEnabled(true);
-
-            // Add the listener to get results
-            rec.addResultListener(new SpeechRecognition());
-
-            // Commit the grammar
-            rec.commitChanges();
-
-            // Request focus and start listening
-            rec.requestFocus();
-            rec.resume();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void examineWords()
+    {
+        for (LeopardTranscript.Word word: wordArrayList)
+        {
+            if (word.getWord().equalsIgnoreCase("flag"))
+            {
+                gameView.getGrid().toggleFlagOnPointerPosition();
+            }
+            else if (word.getWord().equalsIgnoreCase("reveal") || word.getWord().equalsIgnoreCase("clear"))
+            {
+                gameView.getGrid().revealCellOnPointerPosition();
+            }
         }
+        wordArrayList.clear();
+    }
+
+    public void setSpacePressed(Boolean spacePressed) {
+        this.spacePressed = spacePressed;
+    }
+
+    public void clear() {
+        leopard.delete();
     }
 }

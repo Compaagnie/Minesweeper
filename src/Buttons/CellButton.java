@@ -155,7 +155,7 @@ public class CellButton extends JButton
                 this.setTexture(ButtonTextures.getTopTexture(CellContent.EMPTY));
                 grid.removeFlag(this.position);
             }
-            else
+            else if (grid.getFlagNumber() < grid.getBombCount())
             {
                 this.setTexture(ButtonTextures.getTopTexture(1));
                 grid.addFlag(this.position);
