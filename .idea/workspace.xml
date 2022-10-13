@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Roguelike shop icon + logic + costs implementation, finishing powerups logic, bug fixes, shop buttons with icons, greyed out, prices.">
-      <change afterPath="$PROJECT_DIR$/textures/powerups/readme.md" afterDir="false" />
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="removing shop debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Shop/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop/Shop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Shop/ShopButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop/ShopButton.java" afterDir="false" />
     </list>
@@ -231,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665605922786</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="small fix for grey filter and readme.md explaining icon source">
+      <created>1665609077224</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1665609077224</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -279,7 +286,9 @@
     <MESSAGE value="Roguelike active power ups change, shop implementation" />
     <MESSAGE value="Roguelike refactoring to mvc" />
     <MESSAGE value="Roguelike shop icon + logic + costs implementation, finishing powerups logic, bug fixes, shop buttons with icons, greyed out, prices." />
-    <option name="LAST_COMMIT_MESSAGE" value="Roguelike shop icon + logic + costs implementation, finishing powerups logic, bug fixes, shop buttons with icons, greyed out, prices." />
+    <MESSAGE value="small fix for grey filter and readme.md explaining icon source" />
+    <MESSAGE value="removing shop debugging" />
+    <option name="LAST_COMMIT_MESSAGE" value="removing shop debugging" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Minesweeper$Main.ic" NAME="Main Coverage Results" MODIFIED="1665067924095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

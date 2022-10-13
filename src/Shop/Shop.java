@@ -7,10 +7,6 @@ import PAC.Roguelike.RoguelikeModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,7 +15,6 @@ public class Shop extends JPanel
     protected PassivePowerUp selectedPassive = null;
     protected ActivePowerUp selectedActive = null;
     protected ShopButton currentSelectedButton = null;
-
     protected RoguelikeModel roguelikeModel;
 
     public Shop(RoguelikeModel roguelikeModel, boolean isFreeShop, Runnable whenDoneCallback)
@@ -80,7 +75,7 @@ public class Shop extends JPanel
 
         for(PowerUp powerUp : missingPowerUps)
         {
-            ShopButton button = new ShopButton(powerUp.getName());
+            ShopButton button = new ShopButton(this, powerUp.getName());
             button.setVerticalTextPosition(SwingConstants.BOTTOM);
             Image powerUpImage = powerUp.getImage();
             if(powerUpImage != null) button.setIcon(new ImageIcon(powerUp.getImage()));
@@ -90,7 +85,7 @@ public class Shop extends JPanel
             if(!isFree)
             {
                 button.setPrice(powerUp.getShopCost());
-                if(powerUp.getShopCost() > roguelikeModel.getCurrencyCount()) button.setEnabled(false);
+                button.setEnabled(powerUp.getShopCost() <= roguelikeModel.getCurrencyCount());
             }
             powerUpPanel.add(button);
         }
@@ -126,5 +121,8 @@ public class Shop extends JPanel
         }
     }
 
-
+    public int getCurrencyCount()
+    {
+        return roguelikeModel.getCurrencyCount();
+    }
 }

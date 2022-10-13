@@ -162,21 +162,21 @@ public class RoguelikeModel
         refillEnergy();
         grid = null;
 
-        Shop shop; // free stage store : choose one of 3 power ups
-//        if(!has(PassivePowerUp.SHOP_AHEAD)) shop = new Shop(this, true, this::nextLevel);
-//        else
-        {
-            shop = new Shop(this, true, this::createShop);
-            remove(PassivePowerUp.SHOP_AHEAD);
-        }
+        // free stage store : choose one of 3 power ups
+        Shop shop = new Shop(this, true, this::freeShopExited);
         triggerEventListeners(new RoguelikeEvent(shop));
         triggerChangeListeners();
     }
 
-    public void createShop()
+    public void freeShopExited()
     {
-        Shop shop = new Shop(this, false, this::nextLevel);
-        triggerEventListeners(new RoguelikeEvent(shop));
+        if(!has(PassivePowerUp.SHOP_AHEAD)) nextLevel();
+        else
+        {
+            remove(PassivePowerUp.SHOP_AHEAD);
+            Shop shop = new Shop(this, false, this::nextLevel);
+            triggerEventListeners(new RoguelikeEvent(shop));
+        }
     }
 
     public void nextLevel()

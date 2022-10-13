@@ -9,7 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class ShopButton extends JButton
 {
-    boolean isSelected = false;
+    private Shop shop;
+    private boolean isSelected = false;
     private int price = 0;
     public final static int COIN_IMAGE_SIZE = 32;
     public final static Image coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
@@ -17,7 +18,11 @@ public class ShopButton extends JButton
 
     protected Rectangle2D textBounds = null;
 
-    public ShopButton(String s){ super(s); }
+    public ShopButton(Shop _shop, String text)
+    {
+        super(text);
+        this.shop = _shop;
+    }
 
     private Dimension computePreferredSize()
     {
@@ -44,6 +49,8 @@ public class ShopButton extends JButton
     @Override
     public void paintComponent(Graphics _pen)
     {
+        this.setEnabled(shop.getCurrencyCount() >= this.price);
+
         Graphics2D pen = (Graphics2D) _pen;
         super.paintComponent(pen);
         Rectangle2D newBounds = pen.getFontMetrics().getStringBounds(this.getText(), pen);
