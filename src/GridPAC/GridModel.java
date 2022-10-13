@@ -168,7 +168,6 @@ public class GridModel
 
     public void gameIsLost(int losingCell)
     {
-        gameOver = true;
         for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
         {
             if ( otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
@@ -177,12 +176,14 @@ public class GridModel
             }
             else if (!hasFlag(otherCell))
             {
-                if (!CellRevealedArray.contains(otherCell))
+                if (!CellRevealedArray.contains(otherCell)) {
                     CellRevealedArray.add(otherCell);
+                }
                 onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
             }
         }
         onCellChange.accept(new CellChangeEvent(this, -1, "lost"));
+        gameOver = true;
     }
 
     public void removeTopButton(int position)
@@ -218,7 +219,7 @@ public class GridModel
         return gridGenerated;
     }
 
-    public Boolean isOver() {return  gameOver;}
+    public Boolean isOver() {return gameOver;}
 
     public void setGridGenerated(Boolean gridGenerated) {
         this.gridGenerated = gridGenerated;

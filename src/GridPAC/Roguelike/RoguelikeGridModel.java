@@ -86,7 +86,6 @@ public class RoguelikeGridModel extends GridModel
         }
         else
         {
-            gameOver = true;
             for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
             {
                 if (otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
@@ -102,6 +101,7 @@ public class RoguelikeGridModel extends GridModel
                 }
             }
             onCellChange.accept(new CellChangeEvent(this, -1, "lost"));
+            gameOver = true;
         }
     }
 }

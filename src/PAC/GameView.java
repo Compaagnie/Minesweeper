@@ -20,6 +20,8 @@ public class GameView extends JPanel
 
     protected JScrollPane gridScrollPane;
 
+    protected int timerSeconds = 0;
+
     public GameView(){super();}
 
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
@@ -37,42 +39,15 @@ public class GameView extends JPanel
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         this.add(gameInfoPanel, BorderLayout.EAST);
 
-        flagFoundLabel = new JLabel("Flag: 0/" + grid.getBombCount());
-        gameInfoPanel.add(flagFoundLabel);
+        CreateFlagDisplay();
 
-        JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
-        gameInfoPanel.add(timeSpentLabel);
-        
-        ActionListener timerAction = new ActionListener()
-        {
-            int seconds = 0;
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                seconds++;
-                timeSpentLabel.setText("Time: "+ String.format("%02d:%02d:%02d", seconds / 360, seconds / 60, seconds % 60));
-            }
-        };
-
-        gameTimer = new Timer(1000, timerAction);
-        gameTimer.stop();
+        CreateTimerDisplay();
 
         gameInfoPanel.add(Box.createVerticalGlue());
 
-        JButton backButton = new JButton("Menu");
-        gameInfoPanel.add(backButton);
-        backButton.addActionListener(e -> openMenu());
+        CreateBackButton();
 
         this.setupRestartButton(gameInfoPanel);
-    }
-
-    protected void setupRestartButton(JPanel parent)
-    {
-        JButton restartButton = new JButton("Restart Game");
-        parent.add(restartButton);
-
-        restartButton.addActionListener(e -> grid.restartGame());
-        restartButton.setPreferredSize(new Dimension(120,60));
-        restartButton.setMnemonic(KeyEvent.VK_R);
     }
 
     protected void setupGrid(int width, int height, int bombCount)
@@ -101,12 +76,13 @@ public class GameView extends JPanel
         switch (event.command)
         {
             case "flag" : updateFlagNb(); break;
-            case "reveal" : gameTimer.start(); break;
+            case "reveal" : if(!grid.isOver()) gameTimer.start(); break;
             case "restart" : onRestart(); break;
             case "over" : gameTimer.stop(); break;
 
             default : System.out.println("[WARNING] Grid event not handled by view : " + event.command);
         }
+        repaint();
     }
 
     protected void onRestart()
@@ -116,4 +92,55 @@ public class GameView extends JPanel
         updateFlagNb();
     }
 
+    protected void CreateBackButton()
+    {
+        JButton backButton = new JButton("Menu");
+        gameInfoPanel.add(backButton);
+        backButton.addActionListener(e -> openMenu());
+    }
+
+    protected void CreateTimerDisplay()
+    {
+        JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
+        gameInfoPanel.add(timeSpentLabel);
+
+        ActionListener timerAction = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                timerSeconds++;
+                timeSpentLabel.setText("Time: "+ String.format("%02d:%02d:%02d", timerSeconds / 360, timerSeconds / 60, timerSeconds % 60));
+            }
+        };
+
+        gameTimer = new Timer(1000, timerAction)
+        {
+            @Override
+            public void restart()
+            {
+                super.restart();
+                timerSeconds = 0;
+                timeSpentLabel.setText("Time: 00:00:00");
+                timeSpentLabel.repaint();
+            }
+        };
+        gameTimer.stop();
+    }
+
+    protected void CreateFlagDisplay()
+    {
+        flagFoundLabel = new JLabel("Flag: 0/" + grid.getBombCount());
+        gameInfoPanel.add(flagFoundLabel);
+    }
+
+    protected void setupRestartButton(JPanel parent)
+    {
+        JButton restartButton = new JButton("Restart Game");
+        parent.add(restartButton);
+
+        restartButton.addActionListener(e -> grid.restartGame());
+        restartButton.setPreferredSize(new Dimension(120,60));
+        restartButton.setMnemonic(KeyEvent.VK_R);
+    }
 }

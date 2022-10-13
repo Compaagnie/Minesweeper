@@ -31,16 +31,11 @@ public class RoguelikeModel
     protected ArrayList<Consumer<RoguelikeEvent>> eventListeners = new ArrayList<>();
 
     protected boolean isFirstSkill = true;
-    private final boolean hackMode = true; // todo : remove this when not debugging
+    private final boolean DEBUG_MODE = true; // todo : remove this when not debugging
 
     public RoguelikeModel()
     {
-        // todo : remove debug power ups :
-//        activePowerUps.add(ActivePowerUp.RADAR_REVEAL);
-//        activePowerUps.add(ActivePowerUp.BOMB_REVEAL);
-//        activePowerUps.add(ActivePowerUp.LINE_REVEAL);
-//        activePowerUps.add(ActivePowerUp.COLUMN_REVEAL);
-
+        getDebugPowerUps();
         setupCurrentLevelGrid();
     }
 
@@ -85,7 +80,7 @@ public class RoguelikeModel
                 int currentMouseCell = ((int)absolute_x + (int)absolute_y * grid.dimensions.width);
                 if(activePowerUp.use(this.grid, currentMouseCell))
                 {
-                    if((!isFirstSkill || !has(PassivePowerUp.FREE_FIRST_SKILL)) && !hackMode)
+                    if((!isFirstSkill || !has(PassivePowerUp.FREE_FIRST_SKILL)) && !DEBUG_MODE)
                         energy -= activePowerUp.getEnergyCost();
                     isFirstSkill = false;
                     triggerChangeListeners();
@@ -230,10 +225,22 @@ public class RoguelikeModel
         this.currentLevel = 1;
         this.currencyCount = 0;
         this.activePowerUps.clear();
+        getDebugPowerUps();
         this.passivePowerUps = 0;
         this.energy_MAX = 5;
         refillEnergy();
         setupCurrentLevelGrid();
         triggerChangeListeners();
+    }
+
+    private void getDebugPowerUps()
+    {
+        if(DEBUG_MODE)
+        {
+            activePowerUps.add(ActivePowerUp.RADAR_REVEAL);
+//            activePowerUps.add(ActivePowerUp.BOMB_REVEAL);
+//            activePowerUps.add(ActivePowerUp.LINE_REVEAL);
+//            activePowerUps.add(ActivePowerUp.COLUMN_REVEAL);
+        }
     }
 }

@@ -14,7 +14,6 @@ public class RoguelikeView extends GameView
 {
     protected JLabel levelLabel;
     protected JLabel currencyLabel;
-    protected JLabel debugPassivePowerUps;
     protected JLabel energyLabel;
     protected Component centerComponent;
     protected RogueLikeController controller;
@@ -40,26 +39,10 @@ public class RoguelikeView extends GameView
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         this.add(gameInfoPanel, BorderLayout.EAST);
 
-        flagFoundLabel = new JLabel("Flag: 0/" + controller.getBombCount());
-        gameInfoPanel.add(flagFoundLabel);
-
-        JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
-        gameInfoPanel.add(timeSpentLabel);
 
 
-        ActionListener timerAction = new ActionListener()
-        {
-            int seconds = 0;
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                seconds++;
-                timeSpentLabel.setText("Time: "+ String.format("%02d:%02d:%02d", seconds / 360, seconds / 60, seconds % 60));
-            }
-        };
-
-        gameTimer = new Timer(1000, timerAction);
-        gameTimer.stop();
+        this.CreateFlagDisplay();
+        super.CreateTimerDisplay();
 
         levelLabel = new JLabel("Level : 0");
         gameInfoPanel.add(levelLabel);
@@ -72,9 +55,7 @@ public class RoguelikeView extends GameView
 
         gameInfoPanel.add(Box.createVerticalGlue());
 
-        JButton backButton = new JButton("Menu");
-        gameInfoPanel.add(backButton);
-        backButton.addActionListener(e -> openMenu());
+        super.CreateBackButton();
 
         this.setupRestartButton(gameInfoPanel);
 
@@ -82,6 +63,13 @@ public class RoguelikeView extends GameView
 
         this.setFocusable(true);
         this.requestFocusInWindow();
+    }
+
+    @Override
+    protected void CreateFlagDisplay()
+    {
+        flagFoundLabel = new JLabel("Flag: 0/" + controller.getBombCount());
+        gameInfoPanel.add(flagFoundLabel);
     }
 
     private void setPowerUpKeys()
@@ -150,15 +138,23 @@ public class RoguelikeView extends GameView
     @Override
     protected void gridEventHandler(GridEvent event)
     {
+        System.out.println("Grid event : " + event.command);
         switch (event.command)
         {
             case "flag" : updateFlagNb(); break;
-            case "restart" : controller.onRestart(); break;
+            case "restart" :
+            {
+                this.onRestart();
+                controller.onRestart();
+            } break;
 
             case "reveal" :
             {
-                gameTimer.start();
-                flagFoundLabel.setVisible(true);
+                if(!grid.isOver())
+                {
+                    gameTimer.start();
+                    flagFoundLabel.setVisible(true);
+                }
             } break;
 
             case "over" :
@@ -169,6 +165,7 @@ public class RoguelikeView extends GameView
 
             default : System.out.println("[WARNING] Grid event not handled by view : " + event.command);
         }
+        repaint();
     }
 
 

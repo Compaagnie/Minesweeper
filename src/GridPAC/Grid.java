@@ -95,7 +95,7 @@ public class Grid extends JPanel
         if(e.flagToggle) buttonArray[e.position].toggleFlag();
         else if (e.finish)
         {
-            if(!this.isOver()) // prevent multiple calls
+            if(!isOver())
             {
                 triggerEventListeners("over");
                 if(e.won) onGameWin();
