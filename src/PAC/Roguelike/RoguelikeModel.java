@@ -35,8 +35,8 @@ public class RoguelikeModel
 
     public RoguelikeModel()
     {
-        getDebugPowerUps();
         setupCurrentLevelGrid();
+        getDebugPowerUps(); // todo : remove this when not debugging
     }
 
     public void addChangeListener(ChangeListener listener) {this.changeListeners.add(listener);}
@@ -165,7 +165,7 @@ public class RoguelikeModel
         if(!has(PassivePowerUp.SHOP_AHEAD)) nextLevel();
         else
         {
-            remove(PassivePowerUp.SHOP_AHEAD);
+            this.remove(PassivePowerUp.SHOP_AHEAD);
             Shop shop = new Shop(this, false, this::nextLevel);
             triggerEventListeners(new RoguelikeEvent(shop));
         }
@@ -183,6 +183,7 @@ public class RoguelikeModel
     {
         // set masked bit to 1
         this.passivePowerUps = this.passivePowerUps | powerUp.mask;
+        triggerEventListeners(new RoguelikeEvent(powerUp, true));
     }
 
     public boolean has(PassivePowerUp powerUp)
@@ -195,11 +196,13 @@ public class RoguelikeModel
     {
         // set the masked bit to 0
         this.passivePowerUps = this.passivePowerUps & ~powerUp.mask;
+        triggerEventListeners(new RoguelikeEvent(powerUp, false));
     }
 
     public void add(ActivePowerUp powerUp)
     {
         this.activePowerUps.add(powerUp);
+        triggerEventListeners(new RoguelikeEvent(powerUp, true));
     }
 
     public boolean has(ActivePowerUp powerUp)
@@ -210,6 +213,7 @@ public class RoguelikeModel
     public void remove(ActivePowerUp powerUp)
     {
         this.activePowerUps.remove(powerUp);
+        triggerEventListeners(new RoguelikeEvent(powerUp, false));
     }
 
     public int getCurrencyCount() { return currencyCount; }
@@ -237,10 +241,10 @@ public class RoguelikeModel
     {
         if(DEBUG_MODE)
         {
-            activePowerUps.add(ActivePowerUp.RADAR_REVEAL);
-//            activePowerUps.add(ActivePowerUp.BOMB_REVEAL);
-//            activePowerUps.add(ActivePowerUp.LINE_REVEAL);
-//            activePowerUps.add(ActivePowerUp.COLUMN_REVEAL);
+            this.add(ActivePowerUp.RADAR_REVEAL);
+//            this.add(ActivePowerUp.BOMB_REVEAL);
+//            this.add(ActivePowerUp.LINE_REVEAL);
+//            this.add(ActivePowerUp.COLUMN_REVEAL);
         }
     }
 }

@@ -9,12 +9,16 @@ import java.awt.event.*;
 
 import PAC.GameView;
 import PAC.Minesweeper;
+import PAC.Roguelike.PowerUps.PowerUp;
+import PAC.Roguelike.PowerUps.PowerUpComponent;
 
 public class RoguelikeView extends GameView
 {
     protected JLabel levelLabel;
     protected JLabel currencyLabel;
     protected JLabel energyLabel;
+    protected JPanel passivePowerUpPanel;
+    protected JPanel activePowerUpPanel;
     protected Component centerComponent;
     protected RogueLikeController controller;
     protected JScrollPane centerScrollPane = new JScrollPane();
@@ -39,8 +43,6 @@ public class RoguelikeView extends GameView
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         this.add(gameInfoPanel, BorderLayout.EAST);
 
-
-
         this.CreateFlagDisplay();
         super.CreateTimerDisplay();
 
@@ -52,6 +54,21 @@ public class RoguelikeView extends GameView
 
         energyLabel = new JLabel("Energy: 0/0");
         gameInfoPanel.add(energyLabel);
+
+        JPanel powerUpPanel = new JPanel();
+        gameInfoPanel.add(powerUpPanel);
+        powerUpPanel.setLayout(new GridLayout(1,2));
+        powerUpPanel.setOpaque(false);
+
+        activePowerUpPanel = new JPanel();
+        activePowerUpPanel.setLayout(new BoxLayout(activePowerUpPanel, BoxLayout.PAGE_AXIS));
+        powerUpPanel.add(activePowerUpPanel, 0);
+        activePowerUpPanel.setOpaque(false);
+
+        passivePowerUpPanel = new JPanel();
+        passivePowerUpPanel.setLayout(new BoxLayout(passivePowerUpPanel, BoxLayout.PAGE_AXIS));
+        powerUpPanel.add(passivePowerUpPanel, 1);
+        passivePowerUpPanel.setOpaque(false);
 
         gameInfoPanel.add(Box.createVerticalGlue());
 
@@ -168,5 +185,30 @@ public class RoguelikeView extends GameView
         repaint();
     }
 
-
+    public void handlePowerUpUpdate(PowerUp powerUpChange, boolean addedPowerUp)
+    {
+        JPanel panel = (powerUpChange.isActive() ? activePowerUpPanel : passivePowerUpPanel);
+        if(!addedPowerUp)
+        {
+            for(Component c : panel.getComponents())
+            {
+                try
+                {
+                    if(((PowerUpComponent) c).powerUp == powerUpChange)
+                    {
+                        panel.remove(c);
+                        break;
+                    }
+                }
+                catch (ClassCastException ignore) {}
+            }
+        }
+        else
+        {
+            panel.add(Box.createRigidArea(new Dimension(0,0)));
+            panel.add(new PowerUpComponent(powerUpChange));
+        }
+        repaint();
+        revalidate();
+    }
 }

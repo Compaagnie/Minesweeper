@@ -1,6 +1,10 @@
 package PAC.Roguelike;
 
 import PAC.Minesweeper;
+import PAC.Roguelike.PowerUps.PassivePowerUp;
+import PAC.Roguelike.PowerUps.PowerUp;
+
+import java.util.ArrayList;
 
 public class RogueLikeController
 {
@@ -26,6 +30,10 @@ public class RogueLikeController
 //        System.out.println(e.newGrid + " " + e.newCenterComponent);
         if(e.newGrid != null) view.setGrid(e.newGrid);
         if(e.newCenterComponent != null) view.setCenterComponent(e.newCenterComponent);
+        if(e.powerUpChange != null)
+        {
+            view.handlePowerUpUpdate(e.powerUpChange, e.addedPowerUp);
+        }
     }
 
     public void executePowerUp(int powerUpSlot)
@@ -50,4 +58,14 @@ public class RogueLikeController
     public int getMaxEnergy(){return model.getMaxEnergy(); }
 
     public void onRestart() { model.restart(); }
+
+    public ArrayList<PowerUp> getPowerUps()
+    {
+        ArrayList<PowerUp> powerUps = new ArrayList<>(model.activePowerUps);
+        for(PassivePowerUp passivePowerUp : PassivePowerUp.values())
+        {
+            if(model.has(passivePowerUp)) powerUps.add(passivePowerUp);
+        }
+        return powerUps;
+    }
 }

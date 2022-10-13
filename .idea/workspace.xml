@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="restart button actually restarts roguelike, and not just grid.">
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Fixing timer for both modes and cleaning display setup a bit">
+      <change afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PowerUpComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/GridModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/GridModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGridModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGridModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RogueLikeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RogueLikeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeView.java" afterDir="false" />
     </list>
@@ -255,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665667032453</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Fixing timer for both modes and cleaning display setup a bit">
+      <created>1665670285203</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1665670285203</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,7 +288,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Base Minesweeper game" />
     <MESSAGE value="game lose, reveal whole grid" />
     <MESSAGE value="B for Bomb" />
     <MESSAGE value="Restart Button" />
@@ -307,7 +312,8 @@
     <MESSAGE value="removing shop debugging" />
     <MESSAGE value="removing shop debugging, shop real time update" />
     <MESSAGE value="restart button actually restarts roguelike, and not just grid." />
-    <option name="LAST_COMMIT_MESSAGE" value="restart button actually restarts roguelike, and not just grid." />
+    <MESSAGE value="Fixing timer for both modes and cleaning display setup a bit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing timer for both modes and cleaning display setup a bit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Minesweeper$Main.ic" NAME="Main Coverage Results" MODIFIED="1665067924095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
