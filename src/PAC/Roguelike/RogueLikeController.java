@@ -48,4 +48,6 @@ public class RogueLikeController
 
     public int getCurrentEnergy(){ return model.getCurrentEnergy(); }
     public int getMaxEnergy(){return model.getMaxEnergy(); }
+
+    public void onRestart() { model.restart(); }
 }

@@ -17,7 +17,7 @@ public class RoguelikeModel
 {
     //TODO : move from view to here
 
-    protected int currentLevel = 0;
+    protected int currentLevel = 1;
     protected int currencyCount = 0;
     protected ArrayList<ActivePowerUp> activePowerUps = new ArrayList<>();
     protected int passivePowerUps = 0;
@@ -36,7 +36,7 @@ public class RoguelikeModel
     public RoguelikeModel()
     {
         // todo : remove debug power ups :
-        activePowerUps.add(ActivePowerUp.RADAR_REVEAL);
+//        activePowerUps.add(ActivePowerUp.RADAR_REVEAL);
 //        activePowerUps.add(ActivePowerUp.BOMB_REVEAL);
 //        activePowerUps.add(ActivePowerUp.LINE_REVEAL);
 //        activePowerUps.add(ActivePowerUp.COLUMN_REVEAL);
@@ -129,8 +129,6 @@ public class RoguelikeModel
 
     public void setupCurrentLevelGrid()
     {
-        this.updateLevel();
-        this.grid = null;
         this.grid = getGridFromLevel(currentLevel);
         triggerEventListeners(new RoguelikeEvent(grid));
     }
@@ -147,8 +145,7 @@ public class RoguelikeModel
         if(has(PassivePowerUp.EASY_GRID)) BOMB_PERCENT /= 2f;
 
         int bomb_count = (int) (size * size * (BOMB_PERCENT / 100f));
-        RoguelikeGrid grid = new RoguelikeGrid(this, new Dimension(size, size), bomb_count, () -> has(PassivePowerUp.REVIVE));
-        return grid;
+        return new RoguelikeGrid(this, new Dimension(size, size), bomb_count, () -> has(PassivePowerUp.REVIVE));
     }
 
     public void onLevelLost()
@@ -181,6 +178,7 @@ public class RoguelikeModel
 
     public void nextLevel()
     {
+        this.updateLevel();
         this.setupCurrentLevelGrid();
         this.isFirstSkill = true;
         triggerChangeListeners();
@@ -227,4 +225,15 @@ public class RoguelikeModel
     public int getMaxEnergy() { return energy_MAX; }
     public void onRevive(){ this.remove(PassivePowerUp.REVIVE); }
 
+    public void restart()
+    {
+        this.currentLevel = 1;
+        this.currencyCount = 0;
+        this.activePowerUps.clear();
+        this.passivePowerUps = 0;
+        this.energy_MAX = 5;
+        refillEnergy();
+        setupCurrentLevelGrid();
+        triggerChangeListeners();
+    }
 }

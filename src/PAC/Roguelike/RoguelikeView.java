@@ -153,7 +153,7 @@ public class RoguelikeView extends GameView
         switch (event.command)
         {
             case "flag" : updateFlagNb(); break;
-            case "restart" : onRestart(); break;
+            case "restart" : controller.onRestart(); break;
 
             case "reveal" :
             {
