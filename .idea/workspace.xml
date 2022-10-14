@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="speech" />
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="read me for to do">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HelloWorld/HelloWorld.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HelloWorld/Manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HelloWorld/README.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HelloWorld/helloworld.au" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HelloWorld/helloworld.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Minesweeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Minesweeper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SpeechRecognition/SpeechRecognition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SpeechRecognition/SpeechRecognition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SpeechRecognition/TextToSpeech.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SpeechRecognition/grammar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SpeechRecognition/speechRecoTest.java" beforeDir="false" />
+    </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +35,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -71,6 +90,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>

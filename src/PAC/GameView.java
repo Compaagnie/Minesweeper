@@ -14,15 +14,15 @@ import java.awt.event.KeyEvent;
 public class GameView extends JPanel
 {
     protected Minesweeper minesweeper;
+
     protected Grid grid;
-
     protected SpeechRecognition speechRecognition;
-    protected Recorder recorder;
 
+    protected Recorder recorder;
     public Timer gameTimer;
+
     protected JLabel flagFoundLabel;
     protected JPanel gameInfoPanel = new JPanel();
-
     protected JToggleButton micToggleButton;
 
     protected JLabel gameStatusLabel;
@@ -124,5 +124,9 @@ public class GameView extends JPanel
     public Grid getGrid()
     {
         return this.grid;
+    }
+
+    public Minesweeper getMinesweeper() {
+        return minesweeper;
     }
 }

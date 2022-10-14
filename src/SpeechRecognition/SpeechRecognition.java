@@ -42,22 +42,7 @@ public class SpeechRecognition extends Thread
         modelPath = Leopard.MODEL_PATH;
         libraryPath = Leopard.LIBRARY_PATH;
 
-        spacePressed = false;
         notTreated = false;
-        spaceListener = new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_SPACE)
-                    spacePressed = true;
-            }
-            @Override
-            public void keyReleased(KeyEvent e){
-                super.keyReleased(e);
-                if (e.getKeyCode() == KeyEvent.VK_SPACE)
-                    spacePressed = false;
-            }
-        };
 
         leopard = null;
         try {
@@ -81,11 +66,11 @@ public class SpeechRecognition extends Thread
         System.out.println("Started");
 
         while (!stop) {
-            if (spacePressed && !notTreated){
+            if (gameView.getMinesweeper().getEnterPressed() && !notTreated){
                 System.out.println("Recording");
                 recorder.start();
                 notTreated = true;
-            } else if (!spacePressed && notTreated){
+            } else if (!gameView.getMinesweeper().getEnterPressed() && notTreated){
                 recorder.end();
                 while (recorder.isAlive()) { }
                 short[] pcm = recorder.getPCM();
