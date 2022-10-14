@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Music and UI">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buttons/CellButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/CellButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PAC/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameMenu.java" afterDir="false" />
-    </list>
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Grid layout" />
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -231,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665567320396</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Grid layout">
+      <created>1665754701005</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1665754701005</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -261,6 +260,7 @@
     <MESSAGE value="refactor du code" />
     <MESSAGE value="texture and better game win conditions" />
     <MESSAGE value="Music and UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Music and UI" />
+    <MESSAGE value="Grid layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Grid layout" />
   </component>
 </project>
