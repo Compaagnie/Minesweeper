@@ -1,24 +1,27 @@
 package GridPAC;
 
 import Buttons.CellButton;
-import PAC.GameView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class Grid extends JPanel
 {
-    protected GameView gameView;
+    public final Dimension dimensions;
     protected GridModel gridModel;
 
     protected CellButton[] buttonArray;
 
     protected final Icon redIcon;
 
-    public Grid(GameView gameView, Dimension _dimension, int _bombCount)
-    {
-        this.gameView = gameView;
+    protected ArrayList<Consumer<GridEvent>> eventListeners = new ArrayList<>();
 
+    public Grid(Dimension _dimension, int _bombCount)
+    {
+
+        dimensions = _dimension;
         gridModel = new GridModel(_dimension, _bombCount, this::cellChanged);
 
         this.setLayout(new GridBagLayout());
@@ -55,9 +58,7 @@ public class Grid extends JPanel
     public void restartGame()
     {
         this.gridModel.restartGame();
-        this.gameView.gameTimer.restart();
-        this.gameView.gameTimer.stop();
-        this.gameView.updateFlagNb();
+        this.triggerEventListeners("restart");
     }
 
     public void propagateReveal(int position)
@@ -67,7 +68,7 @@ public class Grid extends JPanel
 
     public void revealCell(int position)
     {
-        this.gameView.gameTimer.start();
+        this.triggerEventListeners("reveal");
         this.gridModel.revealCell(position);
     }
 
@@ -78,13 +79,13 @@ public class Grid extends JPanel
     public void addFlag(int position)
     {
         gridModel.addFlag(position);
-        this.gameView.updateFlagNb();
+        triggerEventListeners("flag");
     }
 
     public void removeFlag(Integer position)
     {
         gridModel.removeFlag(position);
-        this.gameView.updateFlagNb();
+        triggerEventListeners("flag");
     }
 
     public int getCellCount() { return gridModel.getCellCount(); }
@@ -93,21 +94,20 @@ public class Grid extends JPanel
 
     public void cellChanged(CellChangeEvent e)
     {
-        if (e.finish)
+        if(e.flagToggle) buttonArray[e.position].toggleFlag();
+        else if (e.finish)
         {
-            this.gameView.gameTimer.stop();
-            if(e.won) onGameWin();
-            else onGameLost();
+            if(!isOver())
+            {
+                triggerEventListeners("over");
+                if(e.won) onGameWin();
+                else onGameLost();
+            }
         }
         //update UI for cell
-        else if (e.reveal)
-        {
-            this.buttonArray[e.position].revealButton();
-        }
-        else
-        {
-            this.buttonArray[e.position].resetButton();
-        }
+        else if (e.reveal) this.buttonArray[e.position].revealButton();
+        else this.buttonArray[e.position].resetButton();
+
     }
 
     public void onGameWin()
@@ -131,4 +131,11 @@ public class Grid extends JPanel
     }
 
     public Boolean isOver() { return gridModel.isOver(); }
+
+    public boolean isGenerated(){return gridModel.isGenerated();}
+    public void addEventListener(Consumer<GridEvent> listener){ this.eventListeners.add(listener); }
+    public void triggerEventListeners(String command)
+    {
+        for(Consumer<GridEvent> listener: this.eventListeners) listener.accept(new GridEvent(command));
+    }
 }

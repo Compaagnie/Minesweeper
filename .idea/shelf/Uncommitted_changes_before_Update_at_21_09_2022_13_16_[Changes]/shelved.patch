@@ -1,0 +1,610 @@
+Index: src/PAC/GameMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/PAC/GameMenu.java b/src/PAC/GameMenu.java
+deleted file mode 100644
+--- a/src/PAC/GameMenu.java	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
++++ /dev/null	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
+@@ -1,90 +0,0 @@
+-package PAC;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-
+-public class GameMenu extends JPanel
+-{
+-    Minesweeper minesweeper;
+-
+-    public GameMenu(Minesweeper minesweeper)
+-    {
+-        this.minesweeper = minesweeper;
+-
+-        JPanel menuPanel = new JPanel();
+-        menuPanel.setLayout(new GridLayout(2,2));
+-
+-        minesweeper.add(menuPanel);
+-
+-        JButton presetButton1 = new JButton("8x8 : 10 bombs");
+-        presetButton1.addActionListener( e -> { menuPanel.setVisible(false); minesweeper.startGame(8,8,10);});
+-        JButton presetButton2 = new JButton("16x16 : 40 bombs");
+-        presetButton2.addActionListener(e -> { menuPanel.setVisible(false); minesweeper.startGame(16,16,40);});
+-        JButton presetButton3 = new JButton("30x16 : 99 bombs");
+-        presetButton3.addActionListener(e -> { menuPanel.setVisible(false); minesweeper.startGame(30,16,99); });
+-
+-        JButton presetButtonCustom = new JButton("? : Custom");
+-        presetButtonCustom.addActionListener(e -> { menuPanel.setVisible(false); createCustomPresetMenu(); });
+-
+-        menuPanel.add(presetButton1);
+-        menuPanel.add(presetButton2);
+-        menuPanel.add(presetButton3);
+-        menuPanel.add(presetButtonCustom);
+-    }
+-
+-    private void createCustomPresetMenu()
+-    {
+-        JPanel selectionPanel = new JPanel();
+-        minesweeper.add(selectionPanel);
+-
+-        selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.PAGE_AXIS));
+-
+-        JPanel dimensionSubPanel = new JPanel();
+-        dimensionSubPanel.setPreferredSize(new Dimension(300, 40));
+-        dimensionSubPanel.setLayout(new BoxLayout(dimensionSubPanel, BoxLayout.LINE_AXIS));
+-        JLabel sizeLabel = new JLabel("Size:");
+-        JTextField widthField = new JTextField();
+-        JLabel xLabel = new JLabel("x");
+-        JTextField heightField = new JTextField();
+-        dimensionSubPanel.add(sizeLabel);
+-        dimensionSubPanel.add(widthField);
+-        dimensionSubPanel.add(xLabel);
+-        dimensionSubPanel.add(heightField);
+-
+-        selectionPanel.add(dimensionSubPanel);
+-
+-        JPanel bombSubPanel = new JPanel();
+-        bombSubPanel.setPreferredSize(new Dimension(300, 40));
+-        bombSubPanel.setLayout(new BoxLayout(bombSubPanel, BoxLayout.LINE_AXIS));
+-        JLabel bombLabel = new JLabel("Bombs :");
+-        JTextField bombTextField = new JTextField();
+-        bombSubPanel.add(bombLabel);
+-        bombSubPanel.add(bombTextField);
+-
+-        selectionPanel.add(bombSubPanel);
+-
+-        JButton confirmButton = new JButton("Start");
+-        confirmButton.addActionListener(e ->
+-        {
+-            try
+-            {
+-                int width = Integer.parseInt(widthField.getText());
+-                int height = Integer.parseInt(heightField.getText());
+-                int bombCount = Integer.parseInt(bombTextField.getText());
+-
+-                // Preventing most crashes (infinite bomb positioning loop)
+-                // TODO : true check with exception
+-                if(bombCount < width * height)
+-                {
+-                    minesweeper.startGame(width, height, bombCount);
+-                    selectionPanel.setVisible(false);
+-                }
+-            }
+-            catch (NumberFormatException exception){} // Do nothing
+-        });
+-        selectionPanel.add(confirmButton);
+-
+-//        revalidate();
+-//        repaint();
+-    }
+-}
+Index: src/GridPAC/CellChangeEvent.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GridPAC/CellChangeEvent.java b/src/GridPAC/CellChangeEvent.java
+deleted file mode 100644
+--- a/src/GridPAC/CellChangeEvent.java	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
++++ /dev/null	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
+@@ -1,21 +0,0 @@
+-package GridPAC;
+-
+-import org.w3c.dom.events.Event;
+-import org.w3c.dom.events.EventTarget;
+-
+-import java.awt.*;
+-
+-public class CellChangeEvent extends AWTEvent
+-{
+-    public final int position;
+-    public final boolean reveal;
+-
+-    public CellChangeEvent(Object source, int position, boolean reveal)
+-    {
+-        super(source, AWTEvent.RESERVED_ID_MAX);
+-       this.position = position;
+-       this.reveal = reveal;
+-    }
+-
+-
+-}
+Index: src/PAC/Minesweeper.java
+===================================================================
+diff --git a/src/PAC/Minesweeper.java b/src/PAC/Minesweeper.java
+deleted file mode 100644
+--- a/src/PAC/Minesweeper.java	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
++++ /dev/null	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
+@@ -1,50 +0,0 @@
+-package PAC;
+-
+-import GridPAC.Grid;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-import java.awt.event.KeyEvent;
+-
+-public class Minesweeper extends JFrame
+-{
+-    Grid grid;
+-
+-    GameMenu gameMenu;
+-    public Minesweeper()
+-    {
+-        super("PAC.Minesweeper");
+-
+-        this.setPreferredSize(new Dimension(900,600));
+-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+-
+-        gameMenu = new GameMenu(this);
+-        pack();
+-        this.setVisible(true);
+-    }
+-
+-
+-
+-
+-    private void startGame(int width, int height, int bombCount)
+-    {
+-        setUpGrid(width, height, bombCount);
+-
+-        JButton restartButton = new JButton("Restart Game");
+-        this.add(restartButton, BorderLayout.SOUTH);
+-
+-        restartButton.addActionListener(e -> grid.restartGame());
+-        restartButton.setPreferredSize(new Dimension(120,60));
+-        restartButton.setMnemonic(KeyEvent.VK_R);
+-
+-//        revalidate();
+-//        repaint();
+-    }
+-
+-
+-    private void setUpGrid(int width, int height, int bombCount)
+-    {
+-        grid = new Grid(new Dimension(width,height), bombCount);
+-        this.add(grid);
+-    }
+-}
+\ No newline at end of file
+Index: src/GridPAC/GridUI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GridPAC/GridUI.java b/src/GridPAC/GridUI.java
+deleted file mode 100644
+--- a/src/GridPAC/GridUI.java	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
++++ /dev/null	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
+@@ -1,20 +0,0 @@
+-package GridPAC;
+-
+-import GridPAC.Grid;
+-
+-import javax.swing.plaf.PanelUI;
+-
+-public class GridUI extends PanelUI
+-{
+-    private Grid grid;
+-
+-    public GridUI(Grid grid)
+-    {
+-        super();
+-        this.grid = grid;
+-    }
+-
+-
+-
+-
+-}
+Index: src/GridPAC/CellContent.java
+===================================================================
+diff --git a/src/GridPAC/CellContent.java b/src/GridPAC/CellContent.java
+deleted file mode 100644
+--- a/src/GridPAC/CellContent.java	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
++++ /dev/null	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
+@@ -1,6 +0,0 @@
+-package GridPAC;
+-
+-public class CellContent {
+-    public static final int EMPTY = 0;
+-    public static final int BOMB = 101;
+-}
+Index: src/GridPAC/Grid.java
+===================================================================
+diff --git a/src/GridPAC/Grid.java b/src/GridPAC/Grid.java
+deleted file mode 100644
+--- a/src/GridPAC/Grid.java	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
++++ /dev/null	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
+@@ -1,118 +0,0 @@
+-package GridPAC;
+-
+-import Buttons.BottomButton;
+-import Buttons.TopButton;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-
+-public class Grid extends JPanel
+-{
+-    protected GridUI gridUI;
+-    protected GridModel gridModel;
+-
+-    protected TopButton[] TopButtonArray;
+-    protected BottomButton[] BottomButtonArray;
+-
+-
+-
+-    protected final Icon redIcon;
+-
+-    public int getCellCount() { return gridModel.getCellCount(); }
+-    public int getCell(int position) { return gridModel.getCell(position); }
+-
+-    public Grid(Dimension _dimension, int _bombCount)
+-    {
+-        gridUI = new GridUI(this);
+-        this.setUI(gridUI);
+-
+-        gridModel = new GridModel(_dimension, _bombCount, this::cellChanged);
+-
+-        this.setLayout(new GridBagLayout());
+-
+-        CellArray = new Integer[_dimension.width * _dimension.height];
+-        Arrays.fill(CellArray, 0);
+-        FlagArray = new ArrayList<>();
+-        TopButtonArray = new TopButton[_dimension.width * _dimension.height];
+-        BottomButtonArray = new BottomButton[_dimension.width * _dimension.height];
+-
+-        buttonCreation();
+-        redIcon = new ImageIcon("textures/redIcon.png");
+-    }
+-
+-    private void buttonCreation()
+-    {
+-        GridBagConstraints buttonPlacementConstraint = new GridBagConstraints();
+-        buttonPlacementConstraint.fill = GridBagConstraints.BOTH;
+-        buttonPlacementConstraint.weightx = 1;
+-        buttonPlacementConstraint.weighty = 1;
+-        for (int y = 0; y < this.gridModel.getDimension().height; y++) {
+-            buttonPlacementConstraint.gridy = y;
+-            for(int x = 0; x < dimension.width; x++){
+-                buttonPlacementConstraint.gridx = x;
+-
+-                TopButton topButton = new TopButton(x + y * this.gridModel.getDimension().width, this);
+-                TopButtonArray[x + y * this.gridModel.getDimension().width] = topButton;
+-                this.add(topButton, buttonPlacementConstraint);
+-
+-                BottomButton bottomButton = new BottomButton(x + y * this.gridModel.getDimension().width, this);
+-                BottomButtonArray[x + y * this.gridModel.getDimension().width] = bottomButton;
+-                this.add(bottomButton, buttonPlacementConstraint);
+-            }
+-        }
+-    }
+-
+-    public void restartGame()
+-    {
+-        this.gridModel.restartGame();
+-    }
+-
+-    public void propagateReveal(int position)
+-    {
+-        this.gridModel.propagateReveal(position);
+-    }
+-
+-    public void revealCell(int position)
+-    {
+-        this.gridModel.revealCell(position);
+-    }
+-
+-    public boolean hasFlag(int position){
+-        return this.gridModel.hasFlag(position);
+-    }
+-
+-    public void addFlag(int position)
+-    {
+-        gridModel.addFlag(position);
+-    }
+-
+-    public void removeFlag(Integer position)
+-    {
+-        gridModel.removeFlag(position);
+-    }
+-
+-    void setBottomButtonTexture()
+-    {
+-        for (int i = 0; i < this.gridModel.getCellCount(); i++)
+-        {
+-            this.BottomButtonArray[i].setTextureFromValue(this.gridModel.getCell(i));
+-        }
+-    }
+-
+-    public void cellChanged(CellChangeEvent e)
+-    {
+-        //update UI for cell
+-        if (e.reveal) {
+-            this.TopButtonArray[e.position].setVisible(false);
+-            this.BottomButtonArray[e.position].setTextureFromValue(this.gridModel.getCell(e.position));
+-        }
+-        else {
+-            this.TopButtonArray[e.position].setVisible(true);
+-            this.BottomButtonArray[e.position].setTextureFromValue(0);
+-        }
+-
+-    }
+-
+-
+-
+-}
+Index: src/GridPAC/GridModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GridPAC/GridModel.java b/src/GridPAC/GridModel.java
+deleted file mode 100644
+--- a/src/GridPAC/GridModel.java	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
++++ /dev/null	(revision 85b4c943bc62805af5edcd4ea403173e54d56bcd)
+@@ -1,243 +0,0 @@
+-package GridPAC;
+-
+-import java.awt.*;
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.Random;
+-import java.util.function.Consumer;
+-
+-public class GridModel
+-{
+-    protected Dimension dimension;
+-    protected Boolean gridGenerated = false;
+-    protected Integer[] CellArray;
+-    protected Boolean[] CellRevealedArray;
+-    protected ArrayList<Integer> FlagArray;
+-    protected int bombCount;
+-    protected Consumer<CellChangeEvent> onCellChange;
+-
+-
+-    public GridModel(Dimension _dimension, int _bombCount, Consumer<CellChangeEvent> cellChangeListener)
+-    {
+-        this.onCellChange = cellChangeListener;
+-        this.dimension = _dimension;
+-        this.bombCount = _bombCount;
+-
+-        CellArray = new Integer[_dimension.width * _dimension.height];
+-        CellRevealedArray = new Boolean[_dimension.width * _dimension.height];
+-        Arrays.fill(CellArray, 0);
+-        Arrays.fill(CellRevealedArray, false);
+-        FlagArray = new ArrayList<>();
+-    }
+-
+-    public void revealCell(int position)
+-    {
+-        if (!isGenerated())
+-        {
+-            gridCreation(getBombCount(), position);
+-            setGridGenerated(true);
+-            propagateReveal(position);
+-        }
+-        if (getCell(position) == CellContent.BOMB)
+-        {
+-            gameIsLost(position);
+-        }
+-        else if (getCell(position) == CellContent.EMPTY)
+-        {
+-            propagateReveal(position);
+-        }
+-    }
+-
+-
+-
+-    public void gridCreation(int bombNumber, int clickPosition)
+-    {
+-        Random r = new Random();
+-        ArrayList<Integer> excluded = this.getNeighbours(clickPosition);
+-        excluded.add(clickPosition);
+-        int cell;
+-        for(int i = 0; i < bombNumber;){
+-            // selecting a random cell in the grid
+-            cell = r.nextInt(this.dimension.height * this.dimension.width);
+-            if(getCell(cell) != CellContent.BOMB && !excluded.contains(cell))
+-            {
+-                // Updating bomb count for neighbours
+-                setCell(cell, CellContent.BOMB);
+-                ArrayList<Integer> neighbours = this.getNeighbours(cell);
+-                for (Integer n : neighbours)
+-                {
+-                    if(getCell(n) != CellContent.BOMB) CellArray[n] += 1;
+-                }
+-                i++; // Updating bomb placed count
+-            }
+-        }
+-
+-        onCellChange.accept(new CellChangeEvent(this, clickPosition, true));
+-    }
+-
+-    public void propagateReveal(int cell)
+-    {
+-        if (!hasFlag(cell))
+-        {
+-            ArrayList<Integer> neighbours = this.getNeighbours(cell);
+-            this.removeTopButton(cell);
+-
+-//            TopButtonArray[cell].setVisible(false); // TODO
+-            if (getCell(cell) == CellContent.EMPTY)
+-            {
+-                for (int n : neighbours)
+-                {
+-                    if (!CellRevealedArray[n]) propagateReveal(n);
+-                }
+-            }
+-            else if (getCell(cell) != CellContent.BOMB)
+-            {
+-                int nbOfFlagsAround = 0;
+-                for (int n : neighbours)
+-                {
+-                    if (hasFlag(n)) nbOfFlagsAround++;
+-                }
+-                if (nbOfFlagsAround == getCell(cell))
+-                {
+-                    for (int n : neighbours)
+-                    {
+-                        if (!CellRevealedArray[n]) propagateReveal(n);
+-                    }
+-                }
+-            } else
+-            {
+-                this.gameIsLost(cell);
+-            }
+-        }
+-    }
+-
+-    public ArrayList<Integer> getNeighbours(int cell)
+-    {
+-        ArrayList<Integer> neighbours = new ArrayList<>();
+-        int x = cell % dimension.width;
+-        int y = cell / dimension.width;
+-
+-        // Vertical
+-        if (y > 0) neighbours.add(cell - dimension.width);
+-        if (y < dimension.height - 1) neighbours.add(cell + dimension.width);
+-
+-        if(x > 0)
+-        {
+-            neighbours.add(cell -1); // Horizontal
+-            // Diagonal
+-            if(y > 0) neighbours.add(cell - 1 - dimension.width);
+-            if(y < dimension.height - 1) neighbours.add(cell - 1 + dimension.width);
+-        }
+-        if(x < dimension.width - 1)
+-        {
+-            neighbours.add(cell + 1); // Horizontal
+-            // Diagonal
+-            if(y > 0) neighbours.add(cell + 1 - dimension.width);
+-            if(y < dimension.height - 1) neighbours.add(cell + 1 + dimension.width);
+-        }
+-
+-        return neighbours;
+-    }
+-
+-    public void gameIsLost(int losingCell)
+-    {
+-        // set losing cell color to red
+-//        BottomButtonArray[losingCell].setIcon(redIcon); // TODO : this
+-
+-        for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
+-        {
+-            if (hasFlag(otherCell) || getCell(otherCell) != CellContent.BOMB)
+-            {
+-//                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
+-
+-            }
+-            else if (!hasFlag(otherCell))
+-            {
+-//                TopButtonArray[otherCell].setVisible(false); // TODO : this
+-            }
+-        }
+-    }
+-
+-    public void removeTopButton(int position)
+-    {
+-        CellRevealedArray[position] = true;
+-        onCellChange.accept(new CellChangeEvent(this, position, true));
+-    }
+-
+-    public void restartGame()
+-    {
+-        for (int i = 0; i < CellArray.length; i++)
+-        {
+-//            TopButtonArray[i].setVisible(true); // TODO : this
+-            recoverCell(i);
+-            CellArray[i] = 0;
+-        }
+-        this.gridGenerated = false;
+-        FlagArray.clear();
+-    }
+-
+-    public void recoverCell(int position)
+-    {
+-        CellRevealedArray[position] = false;
+-        onCellChange.accept(new CellChangeEvent(this, position, false));
+-    }
+-
+-    public Dimension getDimension() {
+-        return dimension;
+-    }
+-
+-    public void setDimension(Dimension dimension) {
+-        this.dimension = dimension;
+-    }
+-
+-    public Boolean isGenerated() {
+-        return gridGenerated;
+-    }
+-
+-    public void setGridGenerated(Boolean gridGenerated) {
+-        this.gridGenerated = gridGenerated;
+-    }
+-
+-    public Integer getCell(int cell)
+-    {
+-        return CellArray[cell];
+-    }
+-
+-    public void setCell(int position, int value) {
+-        CellArray[position] = value;
+-    }
+-
+-    public int getCellCount()
+-    {
+-        return CellArray.length;
+-    }
+-
+-    public ArrayList<Integer> getFlagArray()
+-    {
+-        return FlagArray;
+-    }
+-
+-    public boolean hasFlag(Integer position)
+-    {
+-        return FlagArray.contains(position);
+-    }
+-
+-    public void addFlag(int position)
+-    {
+-        FlagArray.add(position);
+-    }
+-
+-    public void removeFlag(Integer position)
+-    {
+-        FlagArray.remove(position);
+-    }
+-
+-    public int getBombCount() {
+-        return this.bombCount;
+-    }
+-
+-    public void setBombCount(int newCount) {
+-        this.bombCount = newCount;
+-    }
+-
+-}

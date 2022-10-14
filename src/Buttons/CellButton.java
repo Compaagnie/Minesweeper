@@ -123,7 +123,6 @@ public class CellButton extends JButton
 
     private void onClickRevealed()
     {
-        System.out.println("reveal");
         grid.propagateReveal(this.position);
     }
 
