@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1c39fe76-53b1-42b4-ab89-e0de074b8fd4" name="Changes" comment="workspace">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
+    <list default="true" id="1c39fe76-53b1-42b4-ab89-e0de074b8fd4" name="Changes" comment="size correction">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +35,29 @@
     </recent_temporary>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="size correction">
+      <created>1665755963802</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1665755963802</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="size correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="size correction" />
   </component>
 </project>
