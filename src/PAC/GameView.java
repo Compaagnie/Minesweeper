@@ -74,7 +74,8 @@ public class GameView extends JPanel
 
     public void openMenu()
     {
-        speechRecognition.clear();
+        if (speechRecognition != null)
+            speechRecognition.clear();
         this.minesweeper.openMenu();
     }
 
