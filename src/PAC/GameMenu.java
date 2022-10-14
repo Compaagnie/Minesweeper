@@ -97,7 +97,7 @@ public class GameMenu extends JPanel
 
                 // Preventing most crashes (infinite bomb positioning loop)
                 // TODO : true check with exception
-                if(bombCount < width * height)
+                if(bombCount < width * height && (width > 3 || height > 3))
                 {
                     minesweeper.startGame(width, height, bombCount);
                     selectionPanel.setVisible(false);

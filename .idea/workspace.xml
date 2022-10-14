@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="texture and better game win conditions">
-      <change afterPath="$PROJECT_DIR$/src/Buttons/MenuButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Buttons/MenuButtonUI.java" afterDir="false" />
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Music and UI">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/CellButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons/CellButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameMenu.java" afterDir="false" />
     </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
@@ -54,7 +55,10 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/julien/Documents/M1/AdvUi/tempConverter&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/julien/Documents/M1/AdvUi/Minesweeper/lib/jlayer-1.0.1.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>
@@ -220,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663939837747</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Music and UI">
+      <created>1665567320396</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1665567320396</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -249,6 +260,7 @@
     <MESSAGE value="Simple menu with 4 presets (base game only)" />
     <MESSAGE value="refactor du code" />
     <MESSAGE value="texture and better game win conditions" />
-    <option name="LAST_COMMIT_MESSAGE" value="texture and better game win conditions" />
+    <MESSAGE value="Music and UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Music and UI" />
   </component>
 </project>

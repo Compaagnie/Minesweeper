@@ -33,9 +33,8 @@ public class Grid extends JPanel
     private void buttonCreation()
     {
         GridBagConstraints buttonPlacementConstraint = new GridBagConstraints();
-        buttonPlacementConstraint.fill = GridBagConstraints.BOTH;
-        buttonPlacementConstraint.weightx = 1;
-        buttonPlacementConstraint.weighty = 1;
+        buttonPlacementConstraint.ipadx = 1;
+        buttonPlacementConstraint.ipady = 1;
         for (int y = 0; y < this.gridModel.getDimension().height; y++)
         {
             buttonPlacementConstraint.gridy = y;
@@ -44,11 +43,13 @@ public class Grid extends JPanel
                 buttonPlacementConstraint.gridx = x;
 
                 CellButton button = new CellButton(x + y * this.gridModel.getDimension().width, this);
+                button.setSize(button.getPreferredSize());
                 buttonArray[x + y * this.gridModel.getDimension().width] = button;
                 this.add(button, buttonPlacementConstraint);
                 //System.out.println("Created button " + (x + y * this.gridModel.getDimension().width));
             }
         }
+        revalidate();
     }
 
     public void restartGame()
