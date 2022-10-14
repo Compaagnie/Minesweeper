@@ -36,8 +36,9 @@ public class Grid extends JPanel
     private void buttonCreation()
     {
         GridBagConstraints buttonPlacementConstraint = new GridBagConstraints();
-        buttonPlacementConstraint.ipadx = 1;
-        buttonPlacementConstraint.ipady = 1;
+        buttonPlacementConstraint.weightx = 1;
+        buttonPlacementConstraint.weighty = 1;
+        buttonPlacementConstraint.fill = GridBagConstraints.BOTH;
         for (int y = 0; y < this.gridModel.getDimension().height; y++)
         {
             buttonPlacementConstraint.gridy = y;

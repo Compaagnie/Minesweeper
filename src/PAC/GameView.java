@@ -54,11 +54,8 @@ public class GameView extends JPanel
     {
         this.grid = new Grid(new Dimension(width,height), bombCount);
         this.grid.addEventListener(this::gridEventHandler);
-        gridScrollPane = new JScrollPane(grid);
-
-        gridScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        gridScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.add(gridScrollPane, BorderLayout.CENTER);
+        this.grid.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+        this.add(grid, BorderLayout.CENTER);
     }
 
     public void openMenu()
