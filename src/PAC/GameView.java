@@ -1,6 +1,9 @@
 package PAC;
 
+import Buttons.CellButton;
 import GridPAC.Grid;
+import SpeechRecognition.Recorder;
+import SpeechRecognition.SpeechRecognition;
 import GridPAC.GridEvent;
 
 import javax.swing.*;
@@ -12,11 +15,18 @@ import java.awt.event.KeyEvent;
 public class GameView extends JPanel
 {
     protected Minesweeper minesweeper;
-    protected Grid grid;
 
+    protected Grid grid;
+    protected SpeechRecognition speechRecognition;
+
+    protected Recorder recorder;
     public Timer gameTimer;
+
     protected JLabel flagFoundLabel;
-    protected JPanel gameInfoPanel;
+    protected JPanel gameInfoPanel = new JPanel();
+    protected JToggleButton micToggleButton;
+
+    protected JLabel gameStatusLabel;
 
     protected JScrollPane gridScrollPane;
 
@@ -31,13 +41,28 @@ public class GameView extends JPanel
         this.setLayout(new BorderLayout());
 
         this.minesweeper.add(this);
+        
+        recorder = new Recorder(1);
+        speechRecognition = new SpeechRecognition(this, recorder);
+       
+        speechRecognition.start();
 
         this.setupGrid(width, height, bombCount);
-
 
         gameInfoPanel = new JPanel();
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         this.add(gameInfoPanel, BorderLayout.EAST);
+        
+        gameStatusLabel = new JLabel();
+        gameInfoPanel.add(gameStatusLabel);
+
+        gameInfoPanel.add(Box.createVerticalGlue());
+
+        JButton backButton = new JButton("Menu");
+        gameInfoPanel.add(backButton);
+        backButton.addActionListener(e -> openMenu());
+
+        this.setupRestartButton(gameInfoPanel);
 
         CreateFlagDisplay();
 
@@ -100,7 +125,7 @@ public class GameView extends JPanel
     {
         JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
         gameInfoPanel.add(timeSpentLabel);
-
+        
         ActionListener timerAction = new ActionListener()
         {
             @Override
@@ -124,7 +149,8 @@ public class GameView extends JPanel
         };
         gameTimer.stop();
     }
-
+       
+        
     protected void CreateFlagDisplay()
     {
         flagFoundLabel = new JLabel("Flag: 0/" + grid.getBombCount());
@@ -139,5 +165,39 @@ public class GameView extends JPanel
         restartButton.addActionListener(e -> grid.restartGame());
         restartButton.setPreferredSize(new Dimension(120,60));
         restartButton.setMnemonic(KeyEvent.VK_R);
+    }
+
+    protected void setupGrid(int width, int height, int bombCount)
+    {
+        this.grid = new Grid(this, new Dimension(width,height), bombCount);
+        JScrollPane scrollPane = new JScrollPane(grid);
+
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public void openMenu()
+    {
+        speechRecognition.clear();
+        this.minesweeper.openMenu();
+    }
+
+    public void updateFlagNb()
+    {
+        this.flagFoundLabel.setText("Flags: " + grid.getFlagNumber()+"/"+ grid.getBombCount());
+    }
+
+    public void setGameStatus(String text) {
+        this.gameStatusLabel.setText(text);
+    }
+
+    public Grid getGrid()
+    {
+        return this.grid;
+    }
+
+    public Minesweeper getMinesweeper() {
+        return minesweeper;
     }
 }

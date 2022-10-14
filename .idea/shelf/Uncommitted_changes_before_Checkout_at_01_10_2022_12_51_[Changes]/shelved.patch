@@ -1,0 +1,49 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,11 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="texture and better game win conditions">
+-      <change afterPath="$PROJECT_DIR$/textures/top0.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/textures/wrongFlag.png" afterDir="false" />
++    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="README.md">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_09_2022_08_58__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+     </list>
+     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
+     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
+@@ -169,7 +168,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1663939837747</updated>
+     </task>
+-    <option name="localTasksCounter" value="14" />
++    <task id="LOCAL-00014" summary="README.md">
++      <created>1663941228236</created>
++      <option name="number" value="00014" />
++      <option name="presentableId" value="LOCAL-00014" />
++      <option name="project" value="LOCAL" />
++      <updated>1663941228236</updated>
++    </task>
++    <option name="localTasksCounter" value="15" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -198,6 +204,7 @@
+     <MESSAGE value="Simple menu with 4 presets (base game only)" />
+     <MESSAGE value="refactor du code" />
+     <MESSAGE value="texture and better game win conditions" />
+-    <option name="LAST_COMMIT_MESSAGE" value="texture and better game win conditions" />
++    <MESSAGE value="README.md" />
++    <option name="LAST_COMMIT_MESSAGE" value="README.md" />
+   </component>
+ </project>
+\ No newline at end of file

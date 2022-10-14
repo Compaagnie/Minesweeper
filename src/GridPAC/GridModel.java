@@ -12,6 +12,8 @@ public class GridModel
     protected final int bombCount;
     protected Boolean gridGenerated = false;
     protected Boolean gameOver = false;
+
+    private Boolean doFlagCheck = true;
     protected Integer[] CellArray;
     protected ArrayList<Integer> CellRevealedArray; // TODO : hashset ?
     protected ArrayList<Integer> FlagArray;
@@ -51,7 +53,6 @@ public class GridModel
                 i++; // Updating bomb placed count
             }
         }
-
         onCellChange.accept(new CellChangeEvent(this, clickPosition, "reveal"));
     }
 
@@ -91,7 +92,11 @@ public class GridModel
                     if (!CellRevealedArray.contains(n)) propagateReveal(n);
                 }
             }
-            else if (getCell(cell) != CellContent.BOMB)
+            else if (getCell(cell) == CellContent.BOMB)
+            {
+                this.gameIsLost(cell);
+            }
+            else
             {
                 int nbOfFlagsAround = 0;
                 for (int n : neighbours)
@@ -105,10 +110,6 @@ public class GridModel
                         if (!CellRevealedArray.contains(n)) propagateReveal(n);
                     }
                 }
-            }
-            else
-            {
-                this.gameIsLost(cell);
             }
         }
     }
@@ -146,10 +147,26 @@ public class GridModel
         if (CellArray.length - CellRevealedArray.size() == bombCount)
         //if (CellRevealedArray.size() + FlagArray.size() == CellArray.length - 1)
         {
+            /*
             for(int neigh : getNeighbours(position))
             {
                 if(!CellRevealedArray.contains(neigh) && !FlagArray.contains(neigh)) {
-                    onCellChange.accept(new CellChangeEvent(this, neigh, true));
+                    String revealInstr;
+                    System.out.println(neigh);
+                    if (neigh == CellContent.BOMB)
+                        revealInstr = "flag";
+                    else
+                        revealInstr = "reveal";
+                    onCellChange.accept(new CellChangeEvent(this, neigh, revealInstr));
+                }
+            }
+            gameOver = true;
+            */
+            doFlagCheck = false;
+            for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
+            {
+                if (!CellRevealedArray.contains(otherCell) && !FlagArray.contains(otherCell)) {
+                    onCellChange.accept(new CellChangeEvent(this, otherCell, "flag"));
                 }
             }
             onCellChange.accept(new CellChangeEvent(this, position, "win"));
@@ -159,24 +176,29 @@ public class GridModel
 
     public void gameWonFlagCheck()
     {
-        if (CellRevealedArray.size() + FlagArray.size() == CellArray.length)
+        if (doFlagCheck && CellRevealedArray.size() + FlagArray.size() == CellArray.length)
         {
-            onCellChange.accept(new CellChangeEvent(this, -1, true, true, true));
+            onCellChange.accept(new CellChangeEvent(this, -1, 1, true, true));
             gameOver = true;
         }
     }
 
     public void gameIsLost(int losingCell)
     {
+        gameOver = true;
+        doFlagCheck = false;
         for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
         {
             if ( otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
             {
+                onCellChange.accept(new CellChangeEvent(this, otherCell, 1));
+
 //                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
             }
             else if (!hasFlag(otherCell))
             {
-                if (!CellRevealedArray.contains(otherCell)) {
+                if (!CellRevealedArray.contains(otherCell)) 
+                {
                     CellRevealedArray.add(otherCell);
                 }
                 onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
@@ -188,7 +210,8 @@ public class GridModel
 
     public void removeTopButton(int position)
     {
-        if (!CellRevealedArray.contains(position)) CellRevealedArray.add(position);
+        if (!CellRevealedArray.contains(position)) 
+            CellRevealedArray.add(position);
         onCellChange.accept(new CellChangeEvent(this, position, "reveal"));
         gameWonRevealCheck(position);
     }
@@ -199,6 +222,7 @@ public class GridModel
         CellRevealedArray.clear();
         setGridGenerated(false);
         gameOver = false;
+        doFlagCheck = true;
         for (int i = 0; i < CellArray.length; i++)
         {
             recoverCell(i);

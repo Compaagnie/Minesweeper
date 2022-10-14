@@ -59,6 +59,10 @@ public class Grid extends JPanel
     public void restartGame()
     {
         this.gridModel.restartGame();
+        this.gameView.gameTimer.restart();
+        this.gameView.gameTimer.stop();
+        this.gameView.updateFlagNb();
+        this.gameView.setGameStatus("");
         this.triggerEventListeners("restart");
     }
 
@@ -69,10 +73,17 @@ public class Grid extends JPanel
 
     public void revealCell(int position)
     {
+        if (!this.gameView.gameTimer.isRunning())
+            this.gameView.gameTimer.start();
         this.triggerEventListeners("reveal");
         this.gridModel.revealCell(position);
     }
 
+    public void revealCellOnPointerPosition()
+    {
+        CellButton button = (CellButton) this.getComponentAt(MouseInfo.getPointerInfo().getLocation());
+        gridModel.revealCell(button.position);
+    }
     public boolean hasFlag(int position){
         return this.gridModel.hasFlag(position);
     }
@@ -87,6 +98,11 @@ public class Grid extends JPanel
     {
         gridModel.removeFlag(position);
         triggerEventListeners("flag");
+    }
+
+    public void toggleFlagOnPointerPosition(){
+        CellButton button = (CellButton) this.getComponentAt(MouseInfo.getPointerInfo().getLocation());
+        button.toggleFlag();
     }
 
     public int getCellCount() { return gridModel.getCellCount(); }
@@ -108,17 +124,16 @@ public class Grid extends JPanel
         //update UI for cell
         else if (e.reveal) this.buttonArray[e.position].revealButton();
         else this.buttonArray[e.position].resetButton();
-
     }
 
     public void onGameWin()
     {
-
+        gameView.setGameStatus("Won");
     }
 
     public void onGameLost()
     {
-
+        gameView.setGameStatus("Lost");
     }
 
     public int getFlagNumber()

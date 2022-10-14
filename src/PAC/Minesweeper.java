@@ -11,10 +11,12 @@ public class Minesweeper extends JFrame
     GameMenu gameMenu;
     GameView gameView;
 
+    Boolean enterPressed;
+
     public Minesweeper()
     {
         super("PAC.Minesweeper");
-
+        enterPressed = false;
         ButtonTextures buttonTextures = new ButtonTextures();
 
         this.setPreferredSize(new Dimension(900, 600));
@@ -53,5 +55,13 @@ public class Minesweeper extends JFrame
         gameMenu = new GameMenu(this);
     }
 
+    public void setEnterPressed(Boolean enterPressed) {
+        this.enterPressed = enterPressed;
+    }
+
+    public Boolean getEnterPressed() {
+        return enterPressed;
+    }
+    
     public void setGameView(GameView view) { this.gameView = view; }
 }
