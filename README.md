@@ -59,16 +59,19 @@ si top not visible
 
 
 À faire:
+- shop visuals
 - textures
   - bomb
   - losing bomb
   - losing flag
+- Info visuals
+  - Energy
+  - PowerUps
+  - Progress visualisation
+  
 - Advanced visuals
   - Zooming in/out
   - Aspect ratio
-- Info visuals
-  - Progress visualisation
-- speech   J
 - sketch
   - multiplayer
 
