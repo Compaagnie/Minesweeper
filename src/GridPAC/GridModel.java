@@ -53,8 +53,7 @@ public class GridModel
                 i++; // Updating bomb placed count
             }
         }
-
-        onCellChange.accept(new CellChangeEvent(this, clickPosition, 1));
+        onCellChange.accept(new CellChangeEvent(this, clickPosition, "reveal"));
     }
 
     public void revealCell(int position)
@@ -86,7 +85,6 @@ public class GridModel
             ArrayList<Integer> neighbours = this.getNeighbours(cell);
             this.removeTopButton(cell);
 
-//            TopButtonArray[cell].setVisible(false); // TODO
             if (getCell(cell) == CellContent.EMPTY)
             {
                 for (int n : neighbours)
@@ -153,26 +151,25 @@ public class GridModel
             for(int neigh : getNeighbours(position))
             {
                 if(!CellRevealedArray.contains(neigh) && !FlagArray.contains(neigh)) {
-                    int revealInstr;
+                    String revealInstr;
                     System.out.println(neigh);
                     if (neigh == CellContent.BOMB)
-                        revealInstr = 2;
+                        revealInstr = "flag";
                     else
-                        revealInstr = 1;
+                        revealInstr = "reveal";
                     onCellChange.accept(new CellChangeEvent(this, neigh, revealInstr));
                 }
             }
-            onCellChange.accept(new CellChangeEvent(this, position, 1, true, true));
             gameOver = true;
             */
             doFlagCheck = false;
             for (int otherCell = 0; otherCell < getCellCount(); otherCell++)
             {
                 if (!CellRevealedArray.contains(otherCell) && !FlagArray.contains(otherCell)) {
-                    onCellChange.accept(new CellChangeEvent(this, otherCell, 2));
+                    onCellChange.accept(new CellChangeEvent(this, otherCell, "flag"));
                 }
             }
-            onCellChange.accept(new CellChangeEvent(this, position, 1, true, true));
+            onCellChange.accept(new CellChangeEvent(this, position, "win"));
             gameOver = true;
         }
     }
@@ -200,19 +197,22 @@ public class GridModel
             }
             else if (!hasFlag(otherCell))
             {
-                if (!CellRevealedArray.contains(otherCell))
+                if (!CellRevealedArray.contains(otherCell)) 
+                {
                     CellRevealedArray.add(otherCell);
-                onCellChange.accept(new CellChangeEvent(this, otherCell, 1));
+                }
+                onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
             }
         }
-        onCellChange.accept(new CellChangeEvent(this, -1, 1, true, false));
+        onCellChange.accept(new CellChangeEvent(this, -1, "lost"));
+        gameOver = true;
     }
 
     public void removeTopButton(int position)
     {
-        if (!CellRevealedArray.contains(position))
+        if (!CellRevealedArray.contains(position)) 
             CellRevealedArray.add(position);
-        onCellChange.accept(new CellChangeEvent(this, position, 1));
+        onCellChange.accept(new CellChangeEvent(this, position, "reveal"));
         gameWonRevealCheck(position);
     }
 
@@ -232,7 +232,7 @@ public class GridModel
 
     public void recoverCell(int position)
     {
-        onCellChange.accept(new CellChangeEvent(this, position, 0));
+        onCellChange.accept(new CellChangeEvent(this, position, "reset"));
     }
 
     public Dimension getDimension() {
@@ -243,7 +243,7 @@ public class GridModel
         return gridGenerated;
     }
 
-    public Boolean isOver() {return  gameOver;}
+    public Boolean isOver() {return gameOver;}
 
     public void setGridGenerated(Boolean gridGenerated) {
         this.gridGenerated = gridGenerated;

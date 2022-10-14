@@ -12,9 +12,9 @@ import GridPAC.Grid;
 
 public class CellButton extends JButton
 {
-    private static final int sideLength = 48;
+    private static final int sideLength = 16;
     private static final int minSideLength = 16;
-    private static final int maxSideLength = 64;
+    private static final int maxSideLength = 16;
     private Image texture;
     public int position;
     protected Grid grid;
@@ -123,7 +123,6 @@ public class CellButton extends JButton
 
     private void onClickRevealed()
     {
-        System.out.println("reveal");
         grid.propagateReveal(this.position);
     }
 

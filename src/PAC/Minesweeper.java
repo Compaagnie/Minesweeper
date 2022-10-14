@@ -1,6 +1,7 @@
 package PAC;
 
 import Buttons.ButtonTextures;
+import PAC.Roguelike.RogueLikeController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +43,12 @@ public class Minesweeper extends JFrame
         gameView.setVisible(true);
     }
 
+    public void startRoguelikeGame()
+    {
+        this.remove(gameMenu);
+        RogueLikeController controller = new RogueLikeController(this);
+    }
+
     public void openMenu()
     {
         gameView.setVisible(false);
@@ -55,4 +62,6 @@ public class Minesweeper extends JFrame
     public Boolean getEnterPressed() {
         return enterPressed;
     }
+    
+    public void setGameView(GameView view) { this.gameView = view; }
 }

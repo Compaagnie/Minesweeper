@@ -59,16 +59,29 @@ si top not visible
 
 
 À faire:
-- textures
+- shop visuals
+  - Center components, Better layout
+  - Background (little market)
+
+
+- textures          Ju
   - bomb
   - losing bomb
   - losing flag
-- Advanced visuals
-  - Zooming in/out
-  - Aspect ratio
+
+
 - Info visuals
+  - Energy
+  - Column info (passive/active)
+  - Coin icon
+  - keys and power name (1-Line)
+  - PowerUps
   - Progress visualisation
-- speech   J
-- sketch
-  - multiplayer
+  
+
+- Advanced visuals
+  - Background
+  - Menu Layout
+  - Zooming in/out
+  - ! Aspect ratio, always square grid
 
