@@ -19,7 +19,6 @@ public class GridModel
     protected ArrayList<Integer> FlagArray;
     protected Consumer<CellChangeEvent> onCellChange;
 
-
     public GridModel(Dimension _dimension, int _bombCount, Consumer<CellChangeEvent> cellChangeListener)
     {
         this.onCellChange = cellChangeListener;
@@ -178,7 +177,7 @@ public class GridModel
     {
         if (doFlagCheck && CellRevealedArray.size() + FlagArray.size() == CellArray.length)
         {
-            onCellChange.accept(new CellChangeEvent(this, -1, 1, true, true));
+            onCellChange.accept(new CellChangeEvent(this, -1, "win"));
             gameOver = true;
         }
     }
@@ -191,7 +190,7 @@ public class GridModel
         {
             if ( otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
             {
-                onCellChange.accept(new CellChangeEvent(this, otherCell, 1));
+                onCellChange.accept(new CellChangeEvent(this, otherCell, "lost"));
 
 //                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
             }

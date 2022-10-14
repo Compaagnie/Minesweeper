@@ -1,13 +1,13 @@
 package SpeechRecognition;
 
 import PAC.GameView;
-import ai.picovoice.leopard.*;
-import org.apache.commons.cli.*;
+import ai.picovoice.leopard.Leopard;
+import ai.picovoice.leopard.LeopardException;
+import ai.picovoice.leopard.LeopardTranscript;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +24,6 @@ public class SpeechRecognition extends Thread
     Leopard leopard;
 
     Scanner scanner;
-    KeyListener spaceListener;
     final int audioDeviceIndex = 1;
 
     Boolean spacePressed, notTreated, stop;
@@ -33,8 +32,6 @@ public class SpeechRecognition extends Thread
 
     public SpeechRecognition(GameView gameView, Recorder recorder)
     {
-        HelpFormatter formatter = new HelpFormatter();
-
         this.gameView = gameView;
         this.recorder = recorder;
         this.wordArrayList = new ArrayList<>();
@@ -74,8 +71,8 @@ public class SpeechRecognition extends Thread
                 recorder.end();
                 while (recorder.isAlive()) { }
                 short[] pcm = recorder.getPCM();
-                System.out.println(pcm);
-                LeopardTranscript transcript = null;
+                System.out.println(Arrays.toString(pcm));
+                LeopardTranscript transcript;
                 try {
                     transcript = leopard.process(pcm);
                 } catch (LeopardException e) {
@@ -110,10 +107,6 @@ public class SpeechRecognition extends Thread
             }
         }
         wordArrayList.clear();
-    }
-
-    public void setSpacePressed(Boolean spacePressed) {
-        this.spacePressed = spacePressed;
     }
 
     public void clear() {

@@ -1,10 +1,9 @@
 package PAC;
 
-import Buttons.CellButton;
 import GridPAC.Grid;
+import GridPAC.GridEvent;
 import SpeechRecognition.Recorder;
 import SpeechRecognition.SpeechRecognition;
-import GridPAC.GridEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,11 +23,9 @@ public class GameView extends JPanel
 
     protected JLabel flagFoundLabel;
     protected JPanel gameInfoPanel = new JPanel();
-    protected JToggleButton micToggleButton;
 
     protected JLabel gameStatusLabel;
 
-    protected JScrollPane gridScrollPane;
 
     protected int timerSeconds = 0;
 
@@ -56,14 +53,6 @@ public class GameView extends JPanel
         gameStatusLabel = new JLabel();
         gameInfoPanel.add(gameStatusLabel);
 
-        gameInfoPanel.add(Box.createVerticalGlue());
-
-        JButton backButton = new JButton("Menu");
-        gameInfoPanel.add(backButton);
-        backButton.addActionListener(e -> openMenu());
-
-        this.setupRestartButton(gameInfoPanel);
-
         CreateFlagDisplay();
 
         CreateTimerDisplay();
@@ -85,6 +74,7 @@ public class GameView extends JPanel
 
     public void openMenu()
     {
+        speechRecognition.clear();
         this.minesweeper.openMenu();
     }
 
@@ -126,14 +116,9 @@ public class GameView extends JPanel
         JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
         gameInfoPanel.add(timeSpentLabel);
         
-        ActionListener timerAction = new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                timerSeconds++;
-                timeSpentLabel.setText("Time: "+ String.format("%02d:%02d:%02d", timerSeconds / 360, timerSeconds / 60, timerSeconds % 60));
-            }
+        ActionListener timerAction = e -> {
+            timerSeconds++;
+            timeSpentLabel.setText("Time: "+ String.format("%02d:%02d:%02d", timerSeconds / 360, timerSeconds / 60, timerSeconds % 60));
         };
 
         gameTimer = new Timer(1000, timerAction)
@@ -165,27 +150,6 @@ public class GameView extends JPanel
         restartButton.addActionListener(e -> grid.restartGame());
         restartButton.setPreferredSize(new Dimension(120,60));
         restartButton.setMnemonic(KeyEvent.VK_R);
-    }
-
-    protected void setupGrid(int width, int height, int bombCount)
-    {
-        this.grid = new Grid(this, new Dimension(width,height), bombCount);
-        JScrollPane scrollPane = new JScrollPane(grid);
-
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.add(scrollPane, BorderLayout.CENTER);
-    }
-
-    public void openMenu()
-    {
-        speechRecognition.clear();
-        this.minesweeper.openMenu();
-    }
-
-    public void updateFlagNb()
-    {
-        this.flagFoundLabel.setText("Flags: " + grid.getFlagNumber()+"/"+ grid.getBombCount());
     }
 
     public void setGameStatus(String text) {

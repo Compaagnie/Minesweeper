@@ -59,10 +59,6 @@ public class Grid extends JPanel
     public void restartGame()
     {
         this.gridModel.restartGame();
-        this.gameView.gameTimer.restart();
-        this.gameView.gameTimer.stop();
-        this.gameView.updateFlagNb();
-        this.gameView.setGameStatus("");
         this.triggerEventListeners("restart");
     }
 
@@ -73,8 +69,6 @@ public class Grid extends JPanel
 
     public void revealCell(int position)
     {
-        if (!this.gameView.gameTimer.isRunning())
-            this.gameView.gameTimer.start();
         this.triggerEventListeners("reveal");
         this.gridModel.revealCell(position);
     }
@@ -128,12 +122,12 @@ public class Grid extends JPanel
 
     public void onGameWin()
     {
-        gameView.setGameStatus("Won");
+        triggerEventListeners("over");
     }
 
     public void onGameLost()
     {
-        gameView.setGameStatus("Lost");
+        triggerEventListeners("over");
     }
 
     public int getFlagNumber()
