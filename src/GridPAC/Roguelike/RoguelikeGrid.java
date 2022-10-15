@@ -3,6 +3,7 @@ package GridPAC.Roguelike;
 import GridPAC.CellChangeEvent;
 import GridPAC.Grid;
 import PAC.Roguelike.RoguelikeModel;
+import PAC.Roguelike.RoguelikeView;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -13,7 +14,7 @@ public class RoguelikeGrid extends Grid
 
     public RoguelikeGrid(RoguelikeModel _roguelikeModel, Dimension _dimension, int _bombCount, Supplier<Boolean> hasRevive)
     {
-        super(_dimension, _bombCount);
+        super(null, _dimension, _bombCount);
         this.roguelikeModel = _roguelikeModel;
         gridModel = new RoguelikeGridModel(_dimension, _bombCount, this::cellChanged, hasRevive);
     }

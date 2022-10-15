@@ -1,11 +1,10 @@
 package SpeechRecognition;
 
 import PAC.GameView;
-import ai.picovoice.leopard.*;
-import org.apache.commons.cli.*;
+import ai.picovoice.leopard.Leopard;
+import ai.picovoice.leopard.LeopardException;
+import ai.picovoice.leopard.LeopardTranscript;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +32,7 @@ public class SpeechRecognition extends Thread
 
     public SpeechRecognition(GameView gameView, Recorder recorder)
     {
-        HelpFormatter formatter = new HelpFormatter();
-
+        //todo : helpformatter ? what is that ?
         this.gameView = gameView;
         this.recorder = recorder;
         this.wordArrayList = new ArrayList<>();

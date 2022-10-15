@@ -1,6 +1,7 @@
 package GridPAC;
 
 import Buttons.CellButton;
+import PAC.GameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.util.function.Consumer;
 public class Grid extends JPanel
 {
     public final Dimension dimensions;
+    private final GameView gameView;
     protected GridModel gridModel;
 
     protected CellButton[] buttonArray;
@@ -18,9 +20,9 @@ public class Grid extends JPanel
 
     protected ArrayList<Consumer<GridEvent>> eventListeners = new ArrayList<>();
 
-    public Grid(Dimension _dimension, int _bombCount)
+    public Grid(GameView _gameView, Dimension _dimension, int _bombCount)
     {
-
+        this.gameView = _gameView;
         dimensions = _dimension;
         gridModel = new GridModel(_dimension, _bombCount, this::cellChanged);
 
@@ -59,10 +61,7 @@ public class Grid extends JPanel
     public void restartGame()
     {
         this.gridModel.restartGame();
-        this.gameView.gameTimer.restart();
-        this.gameView.gameTimer.stop();
-        this.gameView.updateFlagNb();
-        this.gameView.setGameStatus("");
+        this.setGameViewStatus("");
         this.triggerEventListeners("restart");
     }
 
@@ -73,8 +72,6 @@ public class Grid extends JPanel
 
     public void revealCell(int position)
     {
-        if (!this.gameView.gameTimer.isRunning())
-            this.gameView.gameTimer.start();
         this.triggerEventListeners("reveal");
         this.gridModel.revealCell(position);
     }
@@ -128,12 +125,12 @@ public class Grid extends JPanel
 
     public void onGameWin()
     {
-        gameView.setGameStatus("Won");
+        setGameViewStatus("Won");
     }
 
     public void onGameLost()
     {
-        gameView.setGameStatus("Lost");
+        setGameViewStatus("Lost");
     }
 
     public int getFlagNumber()
@@ -153,5 +150,10 @@ public class Grid extends JPanel
     public void triggerEventListeners(String command)
     {
         for(Consumer<GridEvent> listener: this.eventListeners) listener.accept(new GridEvent(command));
+    }
+
+    protected void setGameViewStatus(String status)
+    {
+        if(this.gameView != null) this.gameView.setGameStatus(status);
     }
 }

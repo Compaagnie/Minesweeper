@@ -178,7 +178,7 @@ public class GridModel
     {
         if (doFlagCheck && CellRevealedArray.size() + FlagArray.size() == CellArray.length)
         {
-            onCellChange.accept(new CellChangeEvent(this, -1, 1, true, true));
+            onCellChange.accept(new CellChangeEvent(this, -1, "won"));
             gameOver = true;
         }
     }
@@ -191,8 +191,8 @@ public class GridModel
         {
             if ( otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
             {
-                onCellChange.accept(new CellChangeEvent(this, otherCell, 1));
-
+                //todo : lost with position = show losing icon
+                onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
 //                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
             }
             else if (!hasFlag(otherCell))

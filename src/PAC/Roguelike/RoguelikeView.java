@@ -19,7 +19,7 @@ public class RoguelikeView extends GameView
     protected JLabel energyLabel;
     protected JPanel passivePowerUpPanel;
     protected JPanel activePowerUpPanel;
-    protected Component centerComponent;
+    protected JComponent centerComponent;
     protected RogueLikeController controller;
     protected JScrollPane centerScrollPane = new JScrollPane();
 
@@ -62,24 +62,37 @@ public class RoguelikeView extends GameView
 
         activePowerUpPanel = new JPanel();
         activePowerUpPanel.setLayout(new BoxLayout(activePowerUpPanel, BoxLayout.PAGE_AXIS));
-        powerUpPanel.add(activePowerUpPanel, 0);
+        powerUpPanel.add(activePowerUpPanel);
         activePowerUpPanel.setOpaque(false);
+        activePowerUpPanel.add(new JLabel("Active:"));
 
         passivePowerUpPanel = new JPanel();
         passivePowerUpPanel.setLayout(new BoxLayout(passivePowerUpPanel, BoxLayout.PAGE_AXIS));
-        powerUpPanel.add(passivePowerUpPanel, 1);
+        powerUpPanel.add(passivePowerUpPanel);
         passivePowerUpPanel.setOpaque(false);
+        passivePowerUpPanel.add(new JLabel("Passive:"));
 
         gameInfoPanel.add(Box.createVerticalGlue());
 
         super.CreateBackButton();
 
-        this.setupRestartButton(gameInfoPanel);
+        this.setupRestartButton();
 
         setPowerUpKeys();
 
         this.setFocusable(true);
         this.requestFocusInWindow();
+    }
+
+    @Override
+    protected void setupRestartButton()
+    {
+        JButton restartButton = new JButton("Restart Game");
+        gameInfoPanel.add(restartButton);
+
+        restartButton.addActionListener(e -> controller.onRestart());
+        restartButton.setPreferredSize(new Dimension(120,60));
+        restartButton.setMnemonic(KeyEvent.VK_R);
     }
 
     @Override
@@ -132,7 +145,7 @@ public class RoguelikeView extends GameView
         if(centerComponent != null)
         {
             this.centerComponent.setVisible(false);
-            this.centerScrollPane.getViewport().remove(centerComponent);
+            this.remove(centerComponent);
             centerComponent = null;
         }
     }
@@ -147,7 +160,8 @@ public class RoguelikeView extends GameView
     {
         this.removeCenterComponent();
         this.centerComponent = newCenterComponent;
-        this.centerScrollPane.getViewport().add(this.centerComponent);
+        this.centerComponent.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+        this.add(centerComponent, BorderLayout.CENTER);
         this.centerComponent.setVisible(true);
         repaint();
     }
@@ -155,7 +169,7 @@ public class RoguelikeView extends GameView
     @Override
     protected void gridEventHandler(GridEvent event)
     {
-        System.out.println("Grid event : " + event.command);
+//        System.out.println("Grid event : " + event.command);
         switch (event.command)
         {
             case "flag" : updateFlagNb(); break;

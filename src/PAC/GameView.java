@@ -56,14 +56,6 @@ public class GameView extends JPanel
         gameStatusLabel = new JLabel();
         gameInfoPanel.add(gameStatusLabel);
 
-        gameInfoPanel.add(Box.createVerticalGlue());
-
-        JButton backButton = new JButton("Menu");
-        gameInfoPanel.add(backButton);
-        backButton.addActionListener(e -> openMenu());
-
-        this.setupRestartButton(gameInfoPanel);
-
         CreateFlagDisplay();
 
         CreateTimerDisplay();
@@ -72,25 +64,15 @@ public class GameView extends JPanel
 
         CreateBackButton();
 
-        this.setupRestartButton(gameInfoPanel);
+        this.setupRestartButton();
     }
 
     protected void setupGrid(int width, int height, int bombCount)
     {
-        this.grid = new Grid(new Dimension(width,height), bombCount);
+        this.grid = new Grid(this, new Dimension(width,height), bombCount);
         this.grid.addEventListener(this::gridEventHandler);
         this.grid.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
         this.add(grid, BorderLayout.CENTER);
-    }
-
-    public void openMenu()
-    {
-        this.minesweeper.openMenu();
-    }
-
-    public void updateFlagNb()
-    {
-        this.flagFoundLabel.setText("Flags: " + grid.getFlagNumber()+"/"+ grid.getBombCount());
     }
 
     protected void gridEventHandler(GridEvent event)
@@ -157,29 +139,19 @@ public class GameView extends JPanel
         gameInfoPanel.add(flagFoundLabel);
     }
 
-    protected void setupRestartButton(JPanel parent)
+    protected void setupRestartButton()
     {
         JButton restartButton = new JButton("Restart Game");
-        parent.add(restartButton);
+        gameInfoPanel.add(restartButton);
 
         restartButton.addActionListener(e -> grid.restartGame());
         restartButton.setPreferredSize(new Dimension(120,60));
         restartButton.setMnemonic(KeyEvent.VK_R);
     }
 
-    protected void setupGrid(int width, int height, int bombCount)
-    {
-        this.grid = new Grid(this, new Dimension(width,height), bombCount);
-        JScrollPane scrollPane = new JScrollPane(grid);
-
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.add(scrollPane, BorderLayout.CENTER);
-    }
-
     public void openMenu()
     {
-        speechRecognition.clear();
+        if(this.speechRecognition != null) this.speechRecognition.clear();
         this.minesweeper.openMenu();
     }
 
