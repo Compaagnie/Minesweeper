@@ -1,6 +1,6 @@
 package PAC;
 
-import Buttons.MenuButton;
+import CustomComponents.Buttons.MenuButton;
 
 import javax.swing.*;
 import java.awt.*;

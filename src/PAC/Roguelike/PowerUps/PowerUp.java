@@ -9,5 +9,6 @@ public interface PowerUp
     int IMAGE_SIZE = 64;
     default Image getImage() { return null; }; // todo : implement this
     String getName();
+    String getDescription();
     boolean isActive();
 }

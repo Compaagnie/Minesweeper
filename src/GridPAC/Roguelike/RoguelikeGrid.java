@@ -61,7 +61,11 @@ public class RoguelikeGrid extends Grid
             }
         }
         //update UI for cell
-        else if (e.reveal) this.buttonArray[e.position].revealButton();
+        else if (e.reveal)
+        {
+            this.buttonArray[e.position].revealButton();
+            triggerEventListeners("reveal");
+        }
         else this.buttonArray[e.position].resetButton();
     }
 }

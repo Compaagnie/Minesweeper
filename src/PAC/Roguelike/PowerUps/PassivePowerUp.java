@@ -44,7 +44,19 @@ public enum PassivePowerUp implements PowerUp
         else if(this == PassivePowerUp.FREE_FIRST_SKILL) return "Free first skill";
         else if(this == PassivePowerUp.SHOP_AHEAD) return "Shop ahead";
         else if(this == PassivePowerUp.EASY_GRID) return "Easy grid";
-        else return String.valueOf(this.ordinal());
+        else return "unassigned name";
+    }
+
+    @Override
+    public String getDescription()
+    {
+        if(this == PassivePowerUp.DOUBLE_COIN) return "Doubles the coin gained from grid clears";
+        else if(this == PassivePowerUp.DOUBLE_EDGED_SWORD) return "+50% bombs but also +200%coins";
+        else if(this == PassivePowerUp.REVIVE) return "Revive once";
+        else if(this == PassivePowerUp.FREE_FIRST_SKILL) return "The first skill is free";
+        else if(this == PassivePowerUp.SHOP_AHEAD) return "There will be a shop after this power-up";
+        else if(this == PassivePowerUp.EASY_GRID) return "The next grid will be easier (-50% bombs)";
+        else return "unassigned description";
     }
 
     @Override

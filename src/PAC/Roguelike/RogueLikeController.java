@@ -21,6 +21,7 @@ public class RogueLikeController
         view.setVisible(true);
         model.addChangeListener(e -> view.update());
         model.addEventListener(this::roguelikeEventHandler);
+        model.init();
         view.setGrid(model.grid);
         view.setCenterComponent(model.grid);
     }
@@ -30,10 +31,8 @@ public class RogueLikeController
 //        System.out.println(e.newGrid + " " + e.newCenterComponent);
         if(e.newGrid != null) view.setGrid(e.newGrid);
         if(e.newCenterComponent != null) view.setCenterComponent(e.newCenterComponent);
-        if(e.powerUpChange != null)
-        {
-            view.handlePowerUpUpdate(e.powerUpChange, e.addedPowerUp);
-        }
+        if(e.powerUpChange != null) view.handlePowerUpUpdate(e.powerUpChange, e.addedPowerUp);
+
     }
 
     public void executePowerUp(int powerUpSlot)

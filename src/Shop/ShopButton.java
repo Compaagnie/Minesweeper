@@ -15,7 +15,6 @@ public class ShopButton extends JButton
     public final static int COIN_IMAGE_SIZE = 32;
     public final static Image coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
     public final int small_margin = 5; // margin between border and other elements (image - margin - text - margin - border)
-
     protected Rectangle2D textBounds = null;
 
     public ShopButton(Shop _shop, String text)
@@ -69,10 +68,15 @@ public class ShopButton extends JButton
 
         pen.setColor(Color.black);
 
+        Dimension iconDimensions;
+        if(this.getIcon() != null) iconDimensions = new Dimension(this.getIcon().getIconWidth(), this.getIcon().getIconHeight());
+        else iconDimensions = new Dimension(PowerUp.IMAGE_SIZE, PowerUp.IMAGE_SIZE);
+
         Image iconImage = ((ImageIcon) this.getIcon()).getImage();
         if(!isEnabled() && iconImage != null) iconImage = applyGreyFilter(iconImage);
         pen.drawImage(iconImage, small_margin, small_margin, null);
-        pen.drawString(getText(), small_margin + PowerUp.IMAGE_SIZE, PowerUp.IMAGE_SIZE);
+
+        pen.drawString(getText(), small_margin + iconDimensions.width, iconDimensions.height);
 
         if(isSelected)
         {

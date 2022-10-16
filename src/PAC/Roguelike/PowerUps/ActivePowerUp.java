@@ -16,6 +16,7 @@ public enum ActivePowerUp implements PowerUp
 
     public final int shopCost;
     private final int energyCost;
+    private int shortcut;
 
     ActivePowerUp()
     {
@@ -58,7 +59,17 @@ public enum ActivePowerUp implements PowerUp
         else if (this == COLUMN_REVEAL) return "Column reveal";
         else if (this == LINE_REVEAL) return "Line reveal";
         else if (this == RADAR_REVEAL) return "Radar";
-        else return String.valueOf(this.ordinal());
+        else return "unassigned name";
+    }
+
+    @Override
+    public String getDescription()
+    {
+        if(this == BOMB_REVEAL) return "Reveals random bombs that are not yet revealed";
+        else if (this == COLUMN_REVEAL) return "Select then reveal a whole column";
+        else if (this == LINE_REVEAL) return "Select then reveal a whole line";
+        else if (this == RADAR_REVEAL) return "Reveals a cell and its neighbours";
+        else return "unassigned description";
     }
 
     @Override
@@ -78,4 +89,7 @@ public enum ActivePowerUp implements PowerUp
     public boolean isActive() { return true; }
 
     public int getEnergyCost(){ return energyCost; }
+
+    public int getShortcut() { return shortcut;}
+    public void setShortcut(int _shortcut) { this.shortcut = _shortcut; }
 }

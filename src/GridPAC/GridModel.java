@@ -210,8 +210,7 @@ public class GridModel
 
     public void removeTopButton(int position)
     {
-        if (!CellRevealedArray.contains(position)) 
-            CellRevealedArray.add(position);
+        if (!CellRevealedArray.contains(position)) CellRevealedArray.add(position);
         onCellChange.accept(new CellChangeEvent(this, position, "reveal"));
         gameWonRevealCheck(position);
     }

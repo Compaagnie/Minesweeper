@@ -1,5 +1,6 @@
 package PAC.Roguelike;
 
+import CustomComponents.Buttons.CellButton;
 import GridPAC.Roguelike.RoguelikeGrid;
 import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.PowerUps.PassivePowerUp;
@@ -36,7 +37,11 @@ public class RoguelikeModel
     public RoguelikeModel()
     {
         setupCurrentLevelGrid();
-        getDebugPowerUps(); // todo : remove this when not debugging
+    }
+
+    public void init()
+    {
+        getDebugPowerUps();
     }
 
     public void addChangeListener(ChangeListener listener) {this.changeListeners.add(listener);}
@@ -78,6 +83,8 @@ public class RoguelikeModel
                 float absolute_y = grid.dimensions.height * mouse.y/ (float) grid.getHeight();
 
                 int currentMouseCell = ((int)absolute_x + (int)absolute_y * grid.dimensions.width);
+                Component mouseComponent = grid.getComponentAt(mouse);
+                try {currentMouseCell = ((CellButton) mouseComponent).position; } catch (ClassCastException ignore){}
                 if(activePowerUp.use(this.grid, currentMouseCell))
                 {
                     if((!isFirstSkill || !has(PassivePowerUp.FREE_FIRST_SKILL)) && !DEBUG_MODE)
@@ -137,7 +144,7 @@ public class RoguelikeModel
         int size = (level+1) * 4;
 
         if(has(PassivePowerUp.DOUBLE_EDGED_SWORD)) BOMB_PERCENT *= 1.5f;
-        if(has(PassivePowerUp.EASY_GRID)) BOMB_PERCENT /= 2f;
+        if(tryConsumePowerUp(PassivePowerUp.EASY_GRID)) BOMB_PERCENT /= 2f;
 
         int bomb_count = (int) (size * size * (BOMB_PERCENT / 100f));
         return new RoguelikeGrid(this, new Dimension(size, size), bomb_count, () -> has(PassivePowerUp.REVIVE));
@@ -202,6 +209,7 @@ public class RoguelikeModel
     public void add(ActivePowerUp powerUp)
     {
         this.activePowerUps.add(powerUp);
+        powerUp.setShortcut(activePowerUps.size());
         triggerEventListeners(new RoguelikeEvent(powerUp, true));
     }
 
@@ -245,6 +253,17 @@ public class RoguelikeModel
 //            this.add(ActivePowerUp.BOMB_REVEAL);
 //            this.add(ActivePowerUp.LINE_REVEAL);
 //            this.add(ActivePowerUp.COLUMN_REVEAL);
+        }
+    }
+
+    //Consumes the powerUp if the user has it, and returns true if it was indeed consumed
+    private boolean tryConsumePowerUp(PassivePowerUp powerUp)
+    {
+        if(!has(powerUp)) return false;
+        else
+        {
+            remove(powerUp);
+            return true;
         }
     }
 }

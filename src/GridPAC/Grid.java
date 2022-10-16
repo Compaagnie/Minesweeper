@@ -1,6 +1,6 @@
 package GridPAC;
 
-import Buttons.CellButton;
+import CustomComponents.Buttons.CellButton;
 import PAC.GameView;
 
 import javax.swing.*;
@@ -72,7 +72,6 @@ public class Grid extends JPanel
 
     public void revealCell(int position)
     {
-        this.triggerEventListeners("reveal");
         this.gridModel.revealCell(position);
     }
 
@@ -119,7 +118,11 @@ public class Grid extends JPanel
             }
         }
         //update UI for cell
-        else if (e.reveal) this.buttonArray[e.position].revealButton();
+        else if (e.reveal)
+        {
+            this.buttonArray[e.position].revealButton();
+            triggerEventListeners("reveal");
+        }
         else this.buttonArray[e.position].resetButton();
     }
 
@@ -156,4 +159,6 @@ public class Grid extends JPanel
     {
         if(this.gameView != null) this.gameView.setGameStatus(status);
     }
+
+    public int getRevealedCount() { return this.gridModel.CellRevealedArray.size(); }
 }

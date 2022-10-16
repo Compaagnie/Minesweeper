@@ -1,4 +1,4 @@
-package Buttons;
+package CustomComponents.Buttons;
 
 
 import javax.swing.*;

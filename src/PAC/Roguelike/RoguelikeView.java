@@ -1,16 +1,22 @@
 package PAC.Roguelike;
 
+import CustomComponents.VSlider;
 import GridPAC.GridEvent;
 import GridPAC.Roguelike.RoguelikeGrid;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import PAC.GameView;
 import PAC.Minesweeper;
+import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.PowerUps.PowerUp;
 import PAC.Roguelike.PowerUps.PowerUpComponent;
+import Shop.ShopButton;
 
 public class RoguelikeView extends GameView
 {
@@ -22,6 +28,11 @@ public class RoguelikeView extends GameView
     protected JComponent centerComponent;
     protected RogueLikeController controller;
     protected JScrollPane centerScrollPane = new JScrollPane();
+
+
+
+    public final static int COIN_IMAGE_SIZE = 16;
+    public final static int POWERUP_IMAGE_SIZE = 64;
 
     public RoguelikeView(RogueLikeController _controller, Minesweeper minesweeper)
     {
@@ -39,9 +50,22 @@ public class RoguelikeView extends GameView
         this.centerScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.centerScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+        JPanel globalInfoPanel = new JPanel();
+        globalInfoPanel.setLayout(new BoxLayout(globalInfoPanel, BoxLayout.LINE_AXIS));
+        this.add(globalInfoPanel, BorderLayout.EAST);
+        globalInfoPanel.add(bombFoundSlider);
+        globalInfoPanel.add(revealedSlider);
+        bombFoundSlider.setFillColor(Color.red);
+        bombFoundSlider.setMinimum(0);
+        revealedSlider.setFillColor(Color.green);
+        revealedSlider.setMinimum(0);
+
         gameInfoPanel = new JPanel();
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
-        this.add(gameInfoPanel, BorderLayout.EAST);
+        globalInfoPanel.add(gameInfoPanel);
+
+
+
 
         this.CreateFlagDisplay();
         super.CreateTimerDisplay();
@@ -49,15 +73,18 @@ public class RoguelikeView extends GameView
         levelLabel = new JLabel("Level : 0");
         gameInfoPanel.add(levelLabel);
 
-        currencyLabel = new JLabel("Coins : 0");
+        currencyLabel = new JLabel(" 0");
         gameInfoPanel.add(currencyLabel);
+        currencyLabel.setIcon(new ImageIcon(ShopButton.coinImage.getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH)));
+//        currencyLabel.setHorizontalTextPosition(JLabel.EAST);
+//        currencyLabel.setVerticalTextPosition(JLabel.CENTER);
 
         energyLabel = new JLabel("Energy: 0/0");
         gameInfoPanel.add(energyLabel);
 
         JPanel powerUpPanel = new JPanel();
+        powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.PAGE_AXIS));
         gameInfoPanel.add(powerUpPanel);
-        powerUpPanel.setLayout(new GridLayout(1,2));
         powerUpPanel.setOpaque(false);
 
         activePowerUpPanel = new JPanel();
@@ -90,7 +117,7 @@ public class RoguelikeView extends GameView
         JButton restartButton = new JButton("Restart Game");
         gameInfoPanel.add(restartButton);
 
-        restartButton.addActionListener(e -> controller.onRestart());
+        restartButton.addActionListener(e -> { this.onRestart(); controller.onRestart(); } );
         restartButton.setPreferredSize(new Dimension(120,60));
         restartButton.setMnemonic(KeyEvent.VK_R);
     }
@@ -112,11 +139,24 @@ public class RoguelikeView extends GameView
                 public void keyTyped(KeyEvent e)
                 {
 //                    System.out.println("Typed: " + e.getKeyChar());
-                    if(grid != null && grid.isGenerated() && Character.isDigit(e.getKeyChar()))
+                    super.keyTyped(e);
+                    if(grid != null && grid.isGenerated())
                     {
-                        if(e.getKeyChar() == '0') controller.executePowerUp(9);
-                        else controller.executePowerUp(e.getKeyChar() - '1');
+                        if(Character.isDigit(e.getKeyChar()))
+                        {
+                            if(e.getKeyChar() == '0') controller.executePowerUp(9);
+                            else controller.executePowerUp(e.getKeyChar() - '1');
+                        }
+                        else
+                        {
+                            char[] charAsAZERTY = new char[]{'&', 'é', '\"', '\'', '(', '-', 'è', '_', 'ç', 'à'};
+                            for(int i = 0; i < charAsAZERTY.length; ++i)
+                            {
+                                if(charAsAZERTY[i] == e.getKeyChar()) controller.executePowerUp(i);
+                            }
+                        }
                     }
+
                 }
             }
         );
@@ -132,9 +172,13 @@ public class RoguelikeView extends GameView
 
     public void update()
     {
-        this.currencyLabel.setText("Coins: " + controller.getCurrencyCount());
+        this.currencyLabel.setText(" " + controller.getCurrencyCount());
         this.levelLabel.setText("Level: " + controller.getCurrentLevel());
         this.energyLabel.setText("Energy: " + controller.getCurrentEnergy() + "/" + controller.getMaxEnergy());
+        this.bombFoundSlider.setMaximum(grid.getBombCount());
+        this.bombFoundSlider.setValue(grid.getFlagNumber());
+        this.revealedSlider.setMaximum(grid.getCellCount() - grid.getBombCount());
+        this.revealedSlider.setValue(grid.getRevealedCount());
         this.updateFlagNb();
         repaint();
     }
@@ -172,7 +216,7 @@ public class RoguelikeView extends GameView
 //        System.out.println("Grid event : " + event.command);
         switch (event.command)
         {
-            case "flag" : updateFlagNb(); break;
+            case "flag" : update(); break;
             case "restart" :
             {
                 this.onRestart();
@@ -185,6 +229,7 @@ public class RoguelikeView extends GameView
                 {
                     gameTimer.start();
                     flagFoundLabel.setVisible(true);
+                    update();
                 }
             } break;
 
@@ -192,6 +237,8 @@ public class RoguelikeView extends GameView
             {
                 gameTimer.stop();
                 flagFoundLabel.setVisible(false);
+                bombFoundSlider.setValue(0);
+                revealedSlider.setValue(0);
             } break;
 
             default : System.out.println("[WARNING] Grid event not handled by view : " + event.command);
@@ -220,9 +267,20 @@ public class RoguelikeView extends GameView
         else
         {
             panel.add(Box.createRigidArea(new Dimension(0,0)));
-            panel.add(new PowerUpComponent(powerUpChange));
+            if(!powerUpChange.isActive()) panel.add(new PowerUpComponent(powerUpChange, POWERUP_IMAGE_SIZE));
+            else panel.add(new PowerUpComponent(powerUpChange, ((ActivePowerUp) powerUpChange).getShortcut(), POWERUP_IMAGE_SIZE));
         }
         repaint();
         revalidate();
+    }
+
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        activePowerUpPanel.removeAll();
+        activePowerUpPanel.add(new JLabel("Active:"));
+        passivePowerUpPanel.removeAll();
+        passivePowerUpPanel.add(new JLabel("Passive:"));
     }
 }

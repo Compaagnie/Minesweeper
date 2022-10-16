@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Starting roguelike with new grid on each win and formula based grid.">
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Post merge fixes, added simple helper to understand powerups, needs more details.">
+      <change afterPath="$PROJECT_DIR$/src/CustomComponents/VSlider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_10_2022_11_04_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_10_2022_11_04__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_10_2022_11_13_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_10_2022_11_13__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_10_2022_12_56_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_10_2022_12_56__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/CellChangeEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/ButtonTextures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponents/Buttons/ButtonTextures.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/CellButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponents/Buttons/CellButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/MenuButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponents/Buttons/MenuButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons/MenuButtonUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponents/Buttons/MenuButtonUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GridPAC/GridModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/GridModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Roguelike/RoguelikeGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Minesweeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Minesweeper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/ActivePowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/ActivePowerUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PassivePowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PassivePowerUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PowerUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PowerUpComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/PowerUps/PowerUpComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RogueLikeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RogueLikeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SpeechRecognition/SpeechRecognition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SpeechRecognition/SpeechRecognition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Shop/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop/Shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Shop/ShopButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop/ShopButton.java" afterDir="false" />
     </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
@@ -17,6 +36,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,6 +66,14 @@
     </recent_temporary>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Post merge fixes, added simple helper to understand powerups, needs more details.">
+      <created>1665847400144</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1665847400144</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -52,6 +86,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Post merge fixes, added simple helper to understand powerups, needs more details." />
+    <option name="LAST_COMMIT_MESSAGE" value="Post merge fixes, added simple helper to understand powerups, needs more details." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Minesweeper$Main.ic" NAME="Main Coverage Results" MODIFIED="1665067924095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

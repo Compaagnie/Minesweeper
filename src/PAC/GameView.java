@@ -1,6 +1,6 @@
 package PAC;
 
-import Buttons.CellButton;
+import CustomComponents.VSlider;
 import GridPAC.Grid;
 import SpeechRecognition.Recorder;
 import SpeechRecognition.SpeechRecognition;
@@ -24,11 +24,11 @@ public class GameView extends JPanel
 
     protected JLabel flagFoundLabel;
     protected JPanel gameInfoPanel = new JPanel();
-    protected JToggleButton micToggleButton;
 
     protected JLabel gameStatusLabel;
 
-    protected JScrollPane gridScrollPane;
+    protected VSlider bombFoundSlider = new VSlider();
+    protected VSlider revealedSlider = new VSlider();
 
     protected int timerSeconds = 0;
 
@@ -49,9 +49,19 @@ public class GameView extends JPanel
 
         this.setupGrid(width, height, bombCount);
 
+        JPanel globalInfoPanel = new JPanel();
+        globalInfoPanel.setLayout(new BoxLayout(globalInfoPanel, BoxLayout.LINE_AXIS));
+        this.add(globalInfoPanel, BorderLayout.EAST);
+        globalInfoPanel.add(bombFoundSlider);
+        globalInfoPanel.add(revealedSlider);
+        bombFoundSlider.setFillColor(Color.red);
+        bombFoundSlider.setMinimum(0);
+        revealedSlider.setFillColor(Color.green);
+        revealedSlider.setMinimum(0);
+
         gameInfoPanel = new JPanel();
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
-        this.add(gameInfoPanel, BorderLayout.EAST);
+        globalInfoPanel.add(gameInfoPanel);
         
         gameStatusLabel = new JLabel();
         gameInfoPanel.add(gameStatusLabel);
@@ -73,6 +83,8 @@ public class GameView extends JPanel
         this.grid.addEventListener(this::gridEventHandler);
         this.grid.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
         this.add(grid, BorderLayout.CENTER);
+        this.bombFoundSlider.setMaximum(grid.getBombCount());
+        this.revealedSlider.setMaximum(grid.getCellCount()-grid.getBombCount());
     }
 
     protected void gridEventHandler(GridEvent event)
@@ -80,7 +92,11 @@ public class GameView extends JPanel
         switch (event.command)
         {
             case "flag" : updateFlagNb(); break;
-            case "reveal" : if(!grid.isOver()) gameTimer.start(); break;
+            case "reveal" : if(!grid.isOver())
+            {
+                gameTimer.start();
+                revealedSlider.setValue(grid.getRevealedCount());
+            } break;
             case "restart" : onRestart(); break;
             case "over" : gameTimer.stop(); break;
 
@@ -93,6 +109,8 @@ public class GameView extends JPanel
     {
         gameTimer.restart();
         gameTimer.stop();
+        revealedSlider.setValue(0);
+        bombFoundSlider.setValue(0);
         updateFlagNb();
     }
 
@@ -108,14 +126,10 @@ public class GameView extends JPanel
         JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
         gameInfoPanel.add(timeSpentLabel);
         
-        ActionListener timerAction = new ActionListener()
+        ActionListener timerAction = e ->
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                timerSeconds++;
-                timeSpentLabel.setText("Time: "+ String.format("%02d:%02d:%02d", timerSeconds / 360, timerSeconds / 60, timerSeconds % 60));
-            }
+            timerSeconds++;
+            timeSpentLabel.setText("Time: "+ String.format("%02d:%02d:%02d", timerSeconds / 360, timerSeconds / 60, timerSeconds % 60));
         };
 
         gameTimer = new Timer(1000, timerAction)
@@ -158,6 +172,7 @@ public class GameView extends JPanel
     public void updateFlagNb()
     {
         this.flagFoundLabel.setText("Flags: " + grid.getFlagNumber()+"/"+ grid.getBombCount());
+        this.bombFoundSlider.setValue(grid.getFlagNumber());
     }
 
     public void setGameStatus(String text) {

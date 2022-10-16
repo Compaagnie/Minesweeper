@@ -16,6 +16,7 @@ public class Shop extends JPanel
     protected ActivePowerUp selectedActive = null;
     protected ShopButton currentSelectedButton = null;
     protected RoguelikeModel roguelikeModel;
+    public final static int POWER_UP_IMAGE_SIZE = 64;
 
     public Shop(RoguelikeModel roguelikeModel, boolean isFreeShop, Runnable whenDoneCallback)
     {
@@ -56,7 +57,8 @@ public class Shop extends JPanel
         for(int i = 0; i < PassivePowerUp.COUNT.ordinal(); ++i)
         {
             PassivePowerUp powerUp = PassivePowerUp.values()[i];
-            if(!roguelikeModel.has(powerUp)) missingPowerUps.add(powerUp);
+            if(!roguelikeModel.has(powerUp) && /*not shop in shop*/!(!isFree && powerUp == PassivePowerUp.SHOP_AHEAD))
+                missingPowerUps.add(powerUp);
         }
 
         for(int i = 0; i < ActivePowerUp.COUNT.ordinal(); ++i)
@@ -78,15 +80,16 @@ public class Shop extends JPanel
             ShopButton button = new ShopButton(this, powerUp.getName());
             button.setVerticalTextPosition(SwingConstants.BOTTOM);
             Image powerUpImage = powerUp.getImage();
-            if(powerUpImage != null) button.setIcon(new ImageIcon(powerUp.getImage()));
+            if(powerUpImage != null) button.setIcon(new ImageIcon(powerUpImage.getScaledInstance(POWER_UP_IMAGE_SIZE, POWER_UP_IMAGE_SIZE, Image.SCALE_SMOOTH)));
             else System.out.println("[WARNING] Could not find image for power up: " + powerUp.getName());
-            if(!isFree) button.addActionListener(e -> buy(powerUp, button));
-            else button.addActionListener(e -> select(powerUp, button));
-            if(!isFree)
+            if(isFree) button.addActionListener(e -> select(powerUp, button));
+            else
             {
+                button.addActionListener(e -> buy(powerUp, button));
                 button.setPrice(powerUp.getShopCost());
                 button.setEnabled(powerUp.getShopCost() <= roguelikeModel.getCurrencyCount());
             }
+            button.setToolTipText(powerUp.getDescription());
             powerUpPanel.add(button);
         }
         this.repaint();

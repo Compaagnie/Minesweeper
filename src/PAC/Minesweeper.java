@@ -1,6 +1,6 @@
 package PAC;
 
-import Buttons.ButtonTextures;
+import CustomComponents.Buttons.ButtonTextures;
 import PAC.Roguelike.RogueLikeController;
 
 import javax.swing.*;
