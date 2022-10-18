@@ -111,7 +111,7 @@ public class Grid extends JPanel
                 if(e.won) onGameWin();
                 else onGameLost();
             }
-            if (e.position != -1)
+            if (e.position != -1 && !e.won)
             {
                 if (hasFlag(e.position)){
                     buttonArray[e.position].setTexture(ButtonTextures.getTopTexture(2));
