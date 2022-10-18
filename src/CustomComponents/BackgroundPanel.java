@@ -1,8 +1,7 @@
 package CustomComponents;
 
-import java.awt.*;
-import java.awt.image.*;
 import javax.swing.*;
+import java.awt.*;
 
 /*
  *  Support custom painting on a panel in the form of
@@ -22,11 +21,16 @@ public class BackgroundPanel extends JPanel
 	public static final int ACTUAL = 2;
 
 	private Paint painter;
-	private Image image;
+	private static Image image = (new ImageIcon("textures/background.jpeg").getImage());
+
 	private int style = SCALED;
 	private float alignmentX = 0.5f;
 	private float alignmentY = 0.5f;
 	private boolean isTransparentAdd = true;
+
+	public BackgroundPanel(){
+
+	}
 
 	/*
 	 *  Set image as the background with the SCALED style
@@ -72,7 +76,7 @@ public class BackgroundPanel extends JPanel
 	 */
 	public void setImage(Image image)
 	{
-		this.image = image;
+		BackgroundPanel.image = image;
 		repaint();
 	}
 
@@ -99,7 +103,7 @@ public class BackgroundPanel extends JPanel
 	 */
 	public void setImageAlignmentX(float alignmentX)
 	{
-		this.alignmentX = alignmentX > 1.0f ? 1.0f : alignmentX < 0.0f ? 0.0f : alignmentX;
+		this.alignmentX = alignmentX > 1.0f ? 1.0f : Math.max(alignmentX, 0.0f);
 		repaint();
 	}
 
@@ -108,7 +112,7 @@ public class BackgroundPanel extends JPanel
 	 */
 	public void setImageAlignmentY(float alignmentY)
 	{
-		this.alignmentY = alignmentY > 1.0f ? 1.0f : alignmentY < 0.0f ? 0.0f : alignmentY;
+		this.alignmentY = alignmentY > 1.0f ? 1.0f : Math.max(alignmentY, 0.0f);
 		repaint();
 	}
 
@@ -165,9 +169,8 @@ public class BackgroundPanel extends JPanel
 	{
 		component.setOpaque( false );
 
-		if (component instanceof JScrollPane)
+		if (component instanceof JScrollPane scrollPane)
 		{
-			JScrollPane scrollPane = (JScrollPane)component;
 			JViewport viewport = scrollPane.getViewport();
 			viewport.setOpaque( false );
 			Component c = viewport.getView();
@@ -201,22 +204,11 @@ public class BackgroundPanel extends JPanel
 
 		if (image == null ) return;
 
-		switch (style)
-		{
-			case SCALED :
-				drawScaled(g);
-				break;
-
-			case TILED  :
-				drawTiled(g);
-				break;
-
-			case ACTUAL :
-				drawActual(g);
-				break;
-
-			default:
-            	drawScaled(g);
+		switch (style) {
+			case SCALED -> drawScaled(g);
+			case TILED -> drawTiled(g);
+			case ACTUAL -> drawActual(g);
+			default -> drawScaled(g);
 		}
 	}
 

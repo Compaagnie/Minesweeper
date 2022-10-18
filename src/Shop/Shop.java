@@ -1,5 +1,7 @@
 package Shop;
 
+import CustomComponents.BackgroundPanel;
+import CustomComponents.Buttons.MenuButton;
 import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.PowerUps.PassivePowerUp;
 import PAC.Roguelike.PowerUps.PowerUp;
@@ -10,7 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Shop extends JPanel
+public class Shop extends BackgroundPanel
 {
     protected PassivePowerUp selectedPassive = null;
     protected ActivePowerUp selectedActive = null;
@@ -20,6 +22,7 @@ public class Shop extends JPanel
 
     public Shop(RoguelikeModel roguelikeModel, boolean isFreeShop, Runnable whenDoneCallback)
     {
+        super();
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.roguelikeModel = roguelikeModel;
 
@@ -27,7 +30,7 @@ public class Shop extends JPanel
 
         this.add(Box.createGlue());
 
-        JButton doneButton = new JButton("Done");
+        MenuButton doneButton = new MenuButton("Done");
         doneButton.addActionListener(e -> close(whenDoneCallback));
         this.add(doneButton);
 

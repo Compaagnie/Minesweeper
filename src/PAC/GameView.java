@@ -32,11 +32,11 @@ public class GameView extends BackgroundPanel
 
     protected int timerSeconds = 0;
 
-    public GameView(){super(new ImageIcon("textures/background.jpeg").getImage(), 0);}
+    public GameView(){super();}
 
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
     {
-        super(new ImageIcon("textures/background.jpeg").getImage(), 0);
+        super();
         this.minesweeper = minesweeper;
         this.setLayout(new BorderLayout());
 
@@ -68,7 +68,7 @@ public class GameView extends BackgroundPanel
         gameInfoPanel = new JPanel();
         gameInfoPanel.setOpaque(false);
         gameInfoPanel.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();;
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weightx = 0;
