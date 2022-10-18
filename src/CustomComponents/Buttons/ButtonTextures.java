@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class ButtonTextures
 {
-    static Image[] bottomTextures = new Image[10];
+    static Image[] bottomTextures = new Image[11];
     static Image[] topTextures = new Image[3];
 
-    static String path = "textures/";
+    static String path = "textures/cells/";
 
     public ButtonTextures()
     {
@@ -30,13 +30,15 @@ public class ButtonTextures
         {
             topTextures[0] = ImageIO.read(new File(path + "top0.png"));
             topTextures[1] = ImageIO.read(new File(path + "flag.png"));
+            topTextures[2] = ImageIO.read(new File(path + "wrongFlag.png"));
             String fileName = "";
-            for(int i = 0; i < bottomTextures.length - 1; i++)
+            for(int i = 0; i < bottomTextures.length - 2; i++)
             {
                 fileName = path + i + ".png";
                 bottomTextures[i] = ImageIO.read(new File(fileName));
             }
-            bottomTextures[9] = ImageIO.read(new File(fileName));
+            bottomTextures[9] = ImageIO.read(new File(path + "bomb.png"));
+            bottomTextures[10] = ImageIO.read(new File(path + "losingBomb.png"));
 
         } catch (IOException e) {
             throw new RuntimeException(e);

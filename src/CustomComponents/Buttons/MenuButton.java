@@ -35,7 +35,6 @@ public class MenuButton extends JButton {
     }
     @Override
     public void paintComponent(Graphics pen){
-        super.paintComponent(pen);
         ui.paint(pen, this);
     }
 

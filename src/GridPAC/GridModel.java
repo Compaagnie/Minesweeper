@@ -196,7 +196,7 @@ public class GridModel
             if ( otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
             {
                 //todo : lost with position = show losing icon
-                onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
+                onCellChange.accept(new CellChangeEvent(this, otherCell, "lost"));
 //                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
             }
             else if (!hasFlag(otherCell))
@@ -208,7 +208,6 @@ public class GridModel
                 onCellChange.accept(new CellChangeEvent(this, otherCell, "reveal"));
             }
         }
-        onCellChange.accept(new CellChangeEvent(this, -1, "lost"));
         gameOver = true;
     }
 

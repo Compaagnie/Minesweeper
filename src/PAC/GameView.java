@@ -141,8 +141,10 @@ public class GameView extends BackgroundPanel
         globalInfoPanel.setOpaque(false);
         bombFoundSlider.setFillColor(Color.red);
         bombFoundSlider.setMinimum(0);
+        bombFoundSlider.setValue(0);
         revealedSlider.setFillColor(Color.green);
         revealedSlider.setMinimum(0);
+        revealedSlider.setValue(0);
     }
 
     protected void setupGrid(int width, int height, int bombCount)

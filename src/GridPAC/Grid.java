@@ -1,5 +1,6 @@
 package GridPAC;
 
+import CustomComponents.Buttons.ButtonTextures;
 import CustomComponents.Buttons.CellButton;
 import PAC.GameView;
 
@@ -107,7 +108,8 @@ public class Grid extends JPanel
 
     public void cellChanged(CellChangeEvent e)
     {
-        if(e.flagToggle) buttonArray[e.position].toggleFlag();
+        if(e.flagToggle)
+            buttonArray[e.position].toggleFlag();
         else if (e.finish)
         {
             if(!isOver())
@@ -115,6 +117,16 @@ public class Grid extends JPanel
                 triggerEventListeners("over");
                 if(e.won) onGameWin();
                 else onGameLost();
+            }
+            if (e.position != -1)
+            {
+                if (hasFlag(e.position)){
+                    buttonArray[e.position].setTexture(ButtonTextures.getTopTexture(2));
+                }
+                else
+                {
+                    buttonArray[e.position].setTexture(ButtonTextures.getBottomTexture(10));
+                }
             }
         }
         //update UI for cell
