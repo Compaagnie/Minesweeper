@@ -1,5 +1,6 @@
 package PAC;
 
+import CustomComponents.BackgroundPanel;
 import CustomComponents.Buttons.MenuButton;
 
 import javax.swing.*;
@@ -7,17 +8,31 @@ import java.awt.*;
 
 public class GameMenu extends JPanel
 {
+    BackgroundPanel menuPanel;
+    BackgroundPanel modeSelectionPanel;
+    BackgroundPanel selectionPanel;
     Minesweeper minesweeper;
 
     public GameMenu(Minesweeper minesweeper)
     {
         this.minesweeper = minesweeper;
 
-        JPanel modeSelectionPanel = new JPanel();
+        createPresetButtons();
+        createCustomPresetMenu();
+        createModelSelection();
+        System.out.println(minesweeper.getComponents());
+    }
+
+    private void createModelSelection() {
+        modeSelectionPanel = new BackgroundPanel(new ImageIcon("textures/background.jpeg").getImage(), 0);
         modeSelectionPanel.setLayout(new GridBagLayout());
         this.minesweeper.add(modeSelectionPanel);
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0; constraints.gridy = 0; constraints.weightx = 0; constraints.weighty = 0; constraints.insets = new Insets(10,10,10,10);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.insets = new Insets(10,10,10,10);
 
         MenuButton rogueLikeModeButton = new MenuButton("Roguelike");
         rogueLikeModeButton.addActionListener(e -> {modeSelectionPanel.setVisible(false); minesweeper.startRoguelikeGame();});
@@ -25,13 +40,13 @@ public class GameMenu extends JPanel
         constraints.gridx ++;
 
         MenuButton standardModeButton = new MenuButton("Standard");
-        standardModeButton.addActionListener(e -> {modeSelectionPanel.setVisible(false); createPresetButtons();});
+        standardModeButton.addActionListener(e -> {modeSelectionPanel.setVisible(false); menuPanel.setVisible(true); minesweeper.add(menuPanel);});
         modeSelectionPanel.add(standardModeButton, constraints);
     }
 
     private void createPresetButtons()
     {
-        JPanel menuPanel = new JPanel();
+        menuPanel = new BackgroundPanel(new ImageIcon("textures/background.jpeg").getImage(), 0);
         menuPanel.setLayout(new GridBagLayout());
         menuPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         GridBagConstraints constraints = new GridBagConstraints();
@@ -41,8 +56,6 @@ public class GameMenu extends JPanel
         constraints.weighty = 0;
         constraints.insets = new Insets(10,10,10,10);
 
-        this.minesweeper.add(menuPanel);
-
         MenuButton presetButton1 = new MenuButton("8x8 : 10 bombs");
         presetButton1.addActionListener( e -> { menuPanel.setVisible(false); this.minesweeper.startGame(8,8,10);});
         MenuButton presetButton2 = new MenuButton("16x16 : 40 bombs");
@@ -51,25 +64,29 @@ public class GameMenu extends JPanel
         presetButton3.addActionListener(e -> { menuPanel.setVisible(false); this.minesweeper.startGame(30,16,99); });
 
         MenuButton presetButtonCustom = new MenuButton("? : Custom");
-        presetButtonCustom.addActionListener(e -> { menuPanel.setVisible(false); createCustomPresetMenu(); });
+        presetButtonCustom.addActionListener(e -> { menuPanel.setVisible(false); selectionPanel.setVisible(true); minesweeper.add(selectionPanel); });
 
         menuPanel.add(presetButton1, constraints);
-        constraints.gridx = 1;
+        constraints.gridy++;
         menuPanel.add(presetButton2, constraints);
-        constraints.gridx = 0;
-        constraints.gridy = 1;
+        constraints.gridy++;
         menuPanel.add(presetButton3, constraints);
-        constraints.gridx = 1;
+        constraints.gridy++;
         menuPanel.add(presetButtonCustom, constraints);
+
+        MenuButton backButton = new MenuButton("Back");
+        backButton.addActionListener(e -> {menuPanel.setVisible(false); modeSelectionPanel.setVisible(true); minesweeper.add(modeSelectionPanel);});
+        constraints.gridy++;
+        menuPanel.add(backButton, constraints);
     }
 
     private void createCustomPresetMenu()
     {
-        JPanel selectionPanel = new JPanel();
+        selectionPanel = new BackgroundPanel(new ImageIcon("textures/background.jpeg").getImage(), 0);
         selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.PAGE_AXIS));
         selectionPanel.setMaximumSize(new Dimension(300, 200));
         selectionPanel.setPreferredSize(new Dimension(300, 200));
-        minesweeper.add(selectionPanel);
+        selectionPanel.setVisible(false);
 
         selectionPanel.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -130,6 +147,10 @@ public class GameMenu extends JPanel
         constraints.gridy++;
         selectionPanel.add(confirmButton, constraints);
 
+        MenuButton backButton = new MenuButton("Back");
+        backButton.addActionListener(e -> {selectionPanel.setVisible(false); menuPanel.setVisible(true); minesweeper.add(menuPanel);});
+        constraints.gridy++;
+        selectionPanel.add(backButton, constraints);
 //        revalidate();
 //        repaint();
     }

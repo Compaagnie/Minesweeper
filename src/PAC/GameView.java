@@ -7,15 +7,11 @@ import GridPAC.Grid;
 import SpeechRecognition.Recorder;
 import SpeechRecognition.SpeechRecognition;
 import GridPAC.GridEvent;
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-import static java.awt.Transparency.TRANSLUCENT;
 import static java.awt.event.KeyEvent.VK_ENTER;
 
 public class GameView extends BackgroundPanel
@@ -63,20 +59,53 @@ public class GameView extends BackgroundPanel
         revealedSlider.setFillColor(Color.green);
         revealedSlider.setMinimum(0);
 
+        setUpInfoPanel(globalInfoPanel);
+    }
+
+    private void setUpInfoPanel(JPanel globalInfoPanel) {
         gameInfoPanel = new JPanel();
         gameInfoPanel.setOpaque(false);
-        gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
-        globalInfoPanel.add(gameInfoPanel);
+        gameInfoPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.insets = new Insets(10,10,10,10);
         
-        gameStatusLabel = new JLabel();
-        gameInfoPanel.add(gameStatusLabel);
+        globalInfoPanel.add(gameInfoPanel);
 
-        CreateFlagDisplay();
+        CreateStatusLabel(constraints);
+        constraints.gridy++;
 
-        CreateTimerDisplay();
+        CreateFlagDisplay(constraints);
+        constraints.gridy++;
 
-        gameInfoPanel.add(Box.createVerticalGlue());
 
+        CreateTimerDisplay(constraints);
+        constraints.gridy++;
+
+        constraints.weighty = 1;
+        gameInfoPanel.add(Box.createVerticalGlue(), constraints);
+        constraints.weighty = 0;
+        constraints.gridy++;
+
+        CreateRecordButton(constraints);
+        constraints.gridy++;
+
+        constraints.weighty = 1;
+        gameInfoPanel.add(Box.createVerticalGlue(), constraints);
+        constraints.weighty = 0;
+        constraints.gridy++;
+
+
+        CreateBackButton(constraints);
+        constraints.gridy++;
+
+        this.setupRestartButton(constraints);
+    }
+
+    private void CreateRecordButton(GridBagConstraints constraints) {
         MenuButton recordButton = new MenuButton("Record");
         recordButton.addKeyListener(new KeyAdapter() {
             @Override
@@ -94,14 +123,13 @@ public class GameView extends BackgroundPanel
             }
         });
         recordButton.setMnemonic(VK_ENTER);
-        gameInfoPanel.add(recordButton);
+        gameInfoPanel.add(recordButton, constraints);
+    }
 
-        gameInfoPanel.add(Box.createVerticalGlue());
-
-
-        CreateBackButton();
-
-        this.setupRestartButton();
+    private void CreateStatusLabel(GridBagConstraints constraints)
+    {
+        gameStatusLabel = new JLabel();
+        gameInfoPanel.add(gameStatusLabel, constraints);
     }
 
     protected void setupGrid(int width, int height, int bombCount)
@@ -141,17 +169,17 @@ public class GameView extends BackgroundPanel
         updateFlagNb();
     }
 
-    protected void CreateBackButton()
+    protected void CreateBackButton(GridBagConstraints constraints)
     {
-        JButton backButton = new JButton("Menu");
-        gameInfoPanel.add(backButton);
+        MenuButton backButton = new MenuButton("Menu");
+        gameInfoPanel.add(backButton, constraints);
         backButton.addActionListener(e -> openMenu());
     }
 
-    protected void CreateTimerDisplay()
+    protected void CreateTimerDisplay(GridBagConstraints constraints)
     {
         JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
-        gameInfoPanel.add(timeSpentLabel);
+        gameInfoPanel.add(timeSpentLabel, constraints);
         
         ActionListener timerAction = e ->
         {
@@ -174,19 +202,18 @@ public class GameView extends BackgroundPanel
     }
        
         
-    protected void CreateFlagDisplay()
+    protected void CreateFlagDisplay(GridBagConstraints constraints)
     {
         flagFoundLabel = new JLabel("Flag: 0/" + grid.getBombCount());
-        gameInfoPanel.add(flagFoundLabel);
+        gameInfoPanel.add(flagFoundLabel, constraints);
     }
 
-    protected void setupRestartButton()
+    protected void setupRestartButton(GridBagConstraints constraints)
     {
-        JButton restartButton = new JButton("Restart Game");
-        gameInfoPanel.add(restartButton);
+        MenuButton restartButton = new MenuButton("Restart Game");
+        gameInfoPanel.add(restartButton, constraints);
 
         restartButton.addActionListener(e -> grid.restartGame());
-        restartButton.setPreferredSize(new Dimension(120,60));
         restartButton.setMnemonic(KeyEvent.VK_R);
     }
 

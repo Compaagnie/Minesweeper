@@ -22,6 +22,13 @@ public class SpeechRecognition extends Thread
     String libraryPath;
     Leopard leopard;
 
+    List<String> flagKeyWords = List.of(new String[]{
+            "flag","flagged","place"
+    });
+    List<String> revealKeyWords = List.of(new String[]{
+            "reveal","clear","propagate"
+    });
+
     Scanner scanner;
     final int audioDeviceIndex = 1;
 
@@ -31,7 +38,6 @@ public class SpeechRecognition extends Thread
 
     public SpeechRecognition(GameView gameView, Recorder recorder)
     {
-        //todo : helpformatter ? what is that ?
         this.gameView = gameView;
         this.recorder = recorder;
         this.wordArrayList = new ArrayList<>();
@@ -97,20 +103,18 @@ public class SpeechRecognition extends Thread
     {
         for (LeopardTranscript.Word word: wordArrayList)
         {
-            if (word.getWord().equalsIgnoreCase("flag"))
+            if (flagKeyWords.contains(word.getWord().toLowerCase()))
             {
                 gameView.getGrid().toggleFlagOnPointerPosition();
+                break;
             }
-            else if (word.getWord().equalsIgnoreCase("reveal") || word.getWord().equalsIgnoreCase("clear"))
+            else if (revealKeyWords.contains(word.getWord().toLowerCase()))
             {
                 gameView.getGrid().revealCellOnPointerPosition();
+                break;
             }
         }
         wordArrayList.clear();
-    }
-
-    public void setSpacePressed(Boolean spacePressed) {
-        this.spacePressed = spacePressed;
     }
 
     public void clear() {

@@ -1,15 +1,11 @@
 package PAC.Roguelike;
 
-import CustomComponents.VSlider;
 import GridPAC.GridEvent;
 import GridPAC.Roguelike.RoguelikeGrid;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import PAC.GameView;
 import PAC.Minesweeper;
@@ -61,49 +57,65 @@ public class RoguelikeView extends GameView
         revealedSlider.setMinimum(0);
 
         gameInfoPanel = new JPanel();
-        gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
-        globalInfoPanel.add(gameInfoPanel);
+        gameInfoPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.insets = new Insets(10,10,10,10);        globalInfoPanel.add(gameInfoPanel);
 
-
-
-
-        this.CreateFlagDisplay();
-        super.CreateTimerDisplay();
+        this.CreateFlagDisplay(constraints);
+        constraints.gridy++;
+        super.CreateTimerDisplay(constraints);
+        constraints.gridy++;
 
         levelLabel = new JLabel("Level : 0");
-        gameInfoPanel.add(levelLabel);
+        gameInfoPanel.add(levelLabel, constraints);
+        constraints.gridy++;
 
         currencyLabel = new JLabel(" 0");
-        gameInfoPanel.add(currencyLabel);
+        gameInfoPanel.add(currencyLabel, constraints);
+        constraints.gridy++;
+
         currencyLabel.setIcon(new ImageIcon(ShopButton.coinImage.getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH)));
 //        currencyLabel.setHorizontalTextPosition(JLabel.EAST);
 //        currencyLabel.setVerticalTextPosition(JLabel.CENTER);
 
         energyLabel = new JLabel("Energy: 0/0");
-        gameInfoPanel.add(energyLabel);
+        gameInfoPanel.add(energyLabel, constraints);
+        constraints.gridy++;
 
         JPanel powerUpPanel = new JPanel();
         powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.PAGE_AXIS));
-        gameInfoPanel.add(powerUpPanel);
+        gameInfoPanel.add(powerUpPanel, constraints);
+        constraints.gridy++;
         powerUpPanel.setOpaque(false);
 
         activePowerUpPanel = new JPanel();
         activePowerUpPanel.setLayout(new BoxLayout(activePowerUpPanel, BoxLayout.PAGE_AXIS));
-        powerUpPanel.add(activePowerUpPanel);
+        powerUpPanel.add(activePowerUpPanel, constraints);
+        constraints.gridy++;
         activePowerUpPanel.setOpaque(false);
         activePowerUpPanel.add(new JLabel("Active:"));
 
         passivePowerUpPanel = new JPanel();
         passivePowerUpPanel.setLayout(new BoxLayout(passivePowerUpPanel, BoxLayout.PAGE_AXIS));
-        powerUpPanel.add(passivePowerUpPanel);
+        powerUpPanel.add(passivePowerUpPanel, constraints);
+        constraints.gridy++;
         passivePowerUpPanel.setOpaque(false);
         passivePowerUpPanel.add(new JLabel("Passive:"));
 
-        gameInfoPanel.add(Box.createVerticalGlue());
+        constraints.weighty = 1;
+        gameInfoPanel.add(Box.createVerticalGlue(), constraints);
+        constraints.weighty = 0;
+        constraints.gridy++;
 
-        super.CreateBackButton();
+        super.CreateBackButton(constraints);
+        constraints.gridy++;
 
-        this.setupRestartButton();
+        this.setupRestartButton(constraints);
+        constraints.gridy++;
 
         setPowerUpKeys();
 
@@ -112,7 +124,7 @@ public class RoguelikeView extends GameView
     }
 
     @Override
-    protected void setupRestartButton()
+    protected void setupRestartButton(GridBagConstraints constraints)
     {
         JButton restartButton = new JButton("Restart Game");
         gameInfoPanel.add(restartButton);
@@ -123,7 +135,7 @@ public class RoguelikeView extends GameView
     }
 
     @Override
-    protected void CreateFlagDisplay()
+    protected void CreateFlagDisplay(GridBagConstraints constraints)
     {
         flagFoundLabel = new JLabel("Flag: 0/" + controller.getBombCount());
         gameInfoPanel.add(flagFoundLabel);

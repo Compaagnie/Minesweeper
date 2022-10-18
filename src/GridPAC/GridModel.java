@@ -72,6 +72,10 @@ public class GridModel
         {
             propagateReveal(position);
         }
+        else if (CellRevealedArray.contains(position))
+        {
+            propagateReveal(position);
+        }
         else
         {
             removeTopButton(position);
