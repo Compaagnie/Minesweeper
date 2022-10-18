@@ -77,7 +77,7 @@ public class Grid extends JPanel
 
     public void revealCellOnPointerPosition()
     {
-        CellButton button = (CellButton) this.getComponentAt(MouseInfo.getPointerInfo().getLocation());
+        CellButton button = (CellButton) this.getComponentAt(this.getMousePosition());
         gridModel.revealCell(button.position);
     }
     public boolean hasFlag(int position){
@@ -97,7 +97,7 @@ public class Grid extends JPanel
     }
 
     public void toggleFlagOnPointerPosition(){
-        CellButton button = (CellButton) this.getComponentAt(MouseInfo.getPointerInfo().getLocation());
+        CellButton button = (CellButton) this.getComponentAt(this.getMousePosition());
         button.toggleFlag();
     }
 

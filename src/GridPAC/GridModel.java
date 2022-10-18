@@ -274,8 +274,10 @@ public class GridModel
 
     public void addFlag(int position)
     {
-        FlagArray.add(position);
-        gameWonFlagCheck();
+        if (!CellRevealedArray.contains(position)){
+            FlagArray.add(position);
+            gameWonFlagCheck();
+        }
     }
 
     public void removeFlag(Integer position)

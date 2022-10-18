@@ -23,7 +23,6 @@ public class SpeechRecognition extends Thread
     Leopard leopard;
 
     Scanner scanner;
-    KeyListener spaceListener;
     final int audioDeviceIndex = 1;
 
     Boolean spacePressed, notTreated, stop;

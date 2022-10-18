@@ -1,18 +1,24 @@
 package PAC;
 
+import CustomComponents.Buttons.MenuButton;
 import CustomComponents.VSlider;
+import CustomComponents.BackgroundPanel;
 import GridPAC.Grid;
 import SpeechRecognition.Recorder;
 import SpeechRecognition.SpeechRecognition;
 import GridPAC.GridEvent;
+import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class GameView extends JPanel
+import static java.awt.Transparency.TRANSLUCENT;
+import static java.awt.event.KeyEvent.VK_ENTER;
+
+public class GameView extends BackgroundPanel
 {
     protected Minesweeper minesweeper;
 
@@ -24,19 +30,17 @@ public class GameView extends JPanel
 
     protected JLabel flagFoundLabel;
     protected JPanel gameInfoPanel = new JPanel();
-
     protected JLabel gameStatusLabel;
-
     protected VSlider bombFoundSlider = new VSlider();
     protected VSlider revealedSlider = new VSlider();
 
     protected int timerSeconds = 0;
 
-    public GameView(){super();}
+    public GameView(){super(new ImageIcon("textures/background.jpeg").getImage(), 0);}
 
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
     {
-        super();
+        super(new ImageIcon("textures/background.jpeg").getImage(), 0);
         this.minesweeper = minesweeper;
         this.setLayout(new BorderLayout());
 
@@ -60,6 +64,7 @@ public class GameView extends JPanel
         revealedSlider.setMinimum(0);
 
         gameInfoPanel = new JPanel();
+        gameInfoPanel.setOpaque(false);
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.PAGE_AXIS));
         globalInfoPanel.add(gameInfoPanel);
         
@@ -71,6 +76,28 @@ public class GameView extends JPanel
         CreateTimerDisplay();
 
         gameInfoPanel.add(Box.createVerticalGlue());
+
+        MenuButton recordButton = new MenuButton("Record");
+        recordButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == VK_ENTER){
+                    minesweeper.setEnterPressed(true);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == VK_ENTER){
+                    minesweeper.setEnterPressed(false);
+                }
+            }
+        });
+        recordButton.setMnemonic(VK_ENTER);
+        gameInfoPanel.add(recordButton);
+
+        gameInfoPanel.add(Box.createVerticalGlue());
+
 
         CreateBackButton();
 

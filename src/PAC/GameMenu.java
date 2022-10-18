@@ -14,16 +14,19 @@ public class GameMenu extends JPanel
         this.minesweeper = minesweeper;
 
         JPanel modeSelectionPanel = new JPanel();
-        modeSelectionPanel.setLayout(new GridLayout(1,2));
+        modeSelectionPanel.setLayout(new GridBagLayout());
         this.minesweeper.add(modeSelectionPanel);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0; constraints.gridy = 0; constraints.weightx = 0; constraints.weighty = 0; constraints.insets = new Insets(10,10,10,10);
 
-        JButton rogueLikeModeButton = new JButton("Roguelike");
+        MenuButton rogueLikeModeButton = new MenuButton("Roguelike");
         rogueLikeModeButton.addActionListener(e -> {modeSelectionPanel.setVisible(false); minesweeper.startRoguelikeGame();});
-        modeSelectionPanel.add(rogueLikeModeButton);
+        modeSelectionPanel.add(rogueLikeModeButton, constraints);
+        constraints.gridx ++;
 
-        JButton standardModeButton = new JButton("Standard");
+        MenuButton standardModeButton = new MenuButton("Standard");
         standardModeButton.addActionListener(e -> {modeSelectionPanel.setVisible(false); createPresetButtons();});
-        modeSelectionPanel.add(standardModeButton);
+        modeSelectionPanel.add(standardModeButton, constraints);
     }
 
     private void createPresetButtons()
@@ -40,11 +43,11 @@ public class GameMenu extends JPanel
 
         this.minesweeper.add(menuPanel);
 
-        JButton presetButton1 = new JButton("8x8 : 10 bombs");
+        MenuButton presetButton1 = new MenuButton("8x8 : 10 bombs");
         presetButton1.addActionListener( e -> { menuPanel.setVisible(false); this.minesweeper.startGame(8,8,10);});
-        JButton presetButton2 = new JButton("16x16 : 40 bombs");
+        MenuButton presetButton2 = new MenuButton("16x16 : 40 bombs");
         presetButton2.addActionListener(e -> { menuPanel.setVisible(false); this.minesweeper.startGame(16,16,40);});
-        JButton presetButton3 = new JButton("30x16 : 99 bombs");
+        MenuButton presetButton3 = new MenuButton("30x16 : 99 bombs");
         presetButton3.addActionListener(e -> { menuPanel.setVisible(false); this.minesweeper.startGame(30,16,99); });
 
         MenuButton presetButtonCustom = new MenuButton("? : Custom");
@@ -104,7 +107,7 @@ public class GameMenu extends JPanel
         selectionPanel.add(bombPanel, constraints);
 
 
-        JButton confirmButton = new JButton("Start");
+        MenuButton confirmButton = new MenuButton("Start");
         confirmButton.addActionListener(e ->
         {
             try
