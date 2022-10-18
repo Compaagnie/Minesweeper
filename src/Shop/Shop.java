@@ -153,4 +153,7 @@ public class Shop extends JPanel
     {
         return roguelikeModel.getCurrencyCount();
     }
+
+    @Override
+    public Dimension getPreferredSize(){return getParent().getSize();}
 }

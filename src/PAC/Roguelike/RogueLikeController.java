@@ -67,4 +67,6 @@ public class RogueLikeController
         }
         return powerUps;
     }
+
+    public boolean isInShop(){return model.isInShop();}
 }

@@ -60,24 +60,10 @@ si top not visible
 
 À faire:
 - shop visuals
-  - Center components, Better layout
-  - Background (little market)
+  - Center components, Better layout j
 
-
-- textures          Ju
-  - bomb
-  - losing bomb
-  - losing flag
-
-
-- Info visuals
-  - Energy
-  - Column info (passive/active)
   
 
 - Advanced visuals
-  - Background
-  - Menu Layout
   - Zooming in/out
-  - ! Aspect ratio, always square grid
 

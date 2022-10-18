@@ -32,6 +32,8 @@ public class RoguelikeModel
     protected ArrayList<Consumer<RoguelikeEvent>> eventListeners = new ArrayList<>();
 
     protected boolean isFirstSkill = true;
+
+    protected boolean isInShop = false;
     private final boolean DEBUG_MODE = true; // todo : remove this when not debugging
 
     public RoguelikeModel()
@@ -159,10 +161,11 @@ public class RoguelikeModel
     {
         updateCurrency(+1); // Todo : currency formula
         refillEnergy();
-        grid = null;
+        this.grid = null;
 
         // free stage store : choose one of 3 power ups
         Shop shop = new Shop(this, true, this::freeShopExited);
+        this.isInShop = true;
         triggerEventListeners(new RoguelikeEvent(shop));
         triggerChangeListeners();
     }
@@ -183,6 +186,7 @@ public class RoguelikeModel
         this.updateLevel();
         this.setupCurrentLevelGrid();
         this.isFirstSkill = true;
+        this.isInShop = false;
         triggerChangeListeners();
     }
 
@@ -266,4 +270,6 @@ public class RoguelikeModel
             return true;
         }
     }
+
+    public boolean isInShop(){ return isInShop; }
 }

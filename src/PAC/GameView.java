@@ -33,6 +33,7 @@ public class GameView extends BackgroundPanel
     protected int timerSeconds = 0;
 
     protected JPanel globalInfoPanel = new JPanel();
+    protected JPanel centerPanel = new JPanel();
 
     protected Font labelFont;
     protected Color labelTextColor;
@@ -42,10 +43,17 @@ public class GameView extends BackgroundPanel
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
     {
         super(new ImageIcon("textures/background.jpeg").getImage(), 0);
+
+        this.labelFont = this.getFont().deriveFont(22.0f);
+        this.labelTextColor = Color.white;
+
         this.minesweeper = minesweeper;
         this.setLayout(new BorderLayout());
 
         this.minesweeper.add(this);
+        this.add(centerPanel, BorderLayout.CENTER);
+        this.centerPanel.setOpaque(false);
+        this.centerPanel.setLayout(new GridBagLayout());
 
         this.initSpeechRecognition();
 
@@ -132,8 +140,8 @@ public class GameView extends BackgroundPanel
         constraints.gridy++;
     }
 
-    protected void CreateGeneralPanelAndSliders() {
-
+    protected void CreateGeneralPanelAndSliders()
+    {
         globalInfoPanel.setLayout(new BoxLayout(globalInfoPanel, BoxLayout.LINE_AXIS));
         this.add(globalInfoPanel, BorderLayout.EAST);
         globalInfoPanel.add(bombFoundSlider);
@@ -152,7 +160,10 @@ public class GameView extends BackgroundPanel
         this.grid = new Grid(this, new Dimension(width,height), bombCount);
         this.grid.addEventListener(this::gridEventHandler);
         this.grid.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
-        this.add(grid, BorderLayout.CENTER);
+        this.grid.setOpaque(false);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.CENTER;
+        this.centerPanel.add(grid,constraints);
         this.bombFoundSlider.setMaximum(grid.getBombCount());
         this.revealedSlider.setMaximum(grid.getCellCount()-grid.getBombCount());
     }
@@ -223,6 +234,7 @@ public class GameView extends BackgroundPanel
     protected void CreateFlagDisplay(GridBagConstraints constraints)
     {
         flagFoundLabel = new JLabel("Flag: 0/" + grid.getBombCount());
+        setCurrentSettingToLabel(flagFoundLabel);
         gameInfoPanel.add(flagFoundLabel, constraints);
         constraints.gridy++;
     }

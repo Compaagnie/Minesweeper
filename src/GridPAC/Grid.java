@@ -17,8 +17,6 @@ public class Grid extends JPanel
 
     protected CellButton[] buttonArray;
 
-    protected final Icon redIcon;
-
     protected ArrayList<Consumer<GridEvent>> eventListeners = new ArrayList<>();
 
     public Grid(GameView _gameView, Dimension _dimension, int _bombCount)
@@ -29,15 +27,12 @@ public class Grid extends JPanel
 
         this.setLayout(new GridBagLayout());
 
-        buttonArray = new CellButton[_dimension.width * _dimension.height];
-
         buttonCreation();
-
-        redIcon = new ImageIcon("textures/redIcon.png");
     }
 
     private void buttonCreation()
     {
+        buttonArray = new CellButton[this.dimensions.width * this.dimensions.height];
         GridBagConstraints buttonPlacementConstraint = new GridBagConstraints();
         buttonPlacementConstraint.weightx = 1;
         buttonPlacementConstraint.weighty = 1;
@@ -50,10 +45,8 @@ public class Grid extends JPanel
                 buttonPlacementConstraint.gridx = x;
 
                 CellButton button = new CellButton(x + y * this.gridModel.getDimension().width, this);
-                button.setSize(button.getPreferredSize());
                 buttonArray[x + y * this.gridModel.getDimension().width] = button;
                 this.add(button, buttonPlacementConstraint);
-                //System.out.println("Created button " + (x + y * this.gridModel.getDimension().width));
             }
         }
         revalidate();
@@ -173,4 +166,25 @@ public class Grid extends JPanel
     }
 
     public int getRevealedCount() { return this.gridModel.CellRevealedArray.size(); }
+
+    public Dimension computeSize()
+    {
+        int width = (int)((float)this.getParent().getWidth()/dimensions.getWidth());
+        int height = (int)((float)this.getParent().getHeight()/dimensions.getHeight());
+        int size = Math.min(width, height);
+        System.out.println("Dim : " + size + "x" + size);
+        return new Dimension(dimensions.width*size,dimensions.height*size);
+    }
+
+    @Override
+    public Dimension getSize() { return computeSize(); }
+
+    @Override
+    public Dimension getMaximumSize() { return computeSize(); }
+
+    @Override
+    public Dimension getMinimumSize() { return computeSize(); }
+
+    @Override
+    public Dimension getPreferredSize() { return computeSize(); }
 }

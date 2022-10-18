@@ -25,7 +25,8 @@ public class RoguelikeView extends GameView
     protected JPanel activePowerUpPanel;
     protected JComponent centerComponent;
     protected RogueLikeController controller;
-    protected JScrollPane centerScrollPane = new JScrollPane();
+    protected JPanel centerPanel = new JPanel(new GridBagLayout());
+
 
     public final static int COIN_IMAGE_SIZE = 32;
     public final static int POWERUP_IMAGE_SIZE = 64;
@@ -45,9 +46,8 @@ public class RoguelikeView extends GameView
         labelFont = this.getFont().deriveFont(22.f);
         labelTextColor = Color.white;
 
-        this.add(centerScrollPane, BorderLayout.CENTER);
-        this.centerScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        this.centerScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.add(centerPanel, BorderLayout.CENTER);
+        centerPanel.setOpaque(false);
 
         globalInfoPanel.setLayout(new BoxLayout(globalInfoPanel, BoxLayout.LINE_AXIS));
         this.add(globalInfoPanel, BorderLayout.EAST);
@@ -122,10 +122,18 @@ public class RoguelikeView extends GameView
     private void CreatePowerUpPane(GridBagConstraints constraints)
     {
         JPanel powerUpPanel = new JPanel();
-        powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.LINE_AXIS));
+        JScrollPane powerUpScrollPane = new JScrollPane(powerUpPanel);
+        powerUpScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        powerUpScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        powerUpScrollPane.setOpaque(false);
+        powerUpScrollPane.getViewport().setOpaque(false);
+        powerUpScrollPane.setBorder(null);
+        powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.PAGE_AXIS));
         powerUpPanel.setOpaque(false);
         constraints.weighty = 1;
-        gameInfoPanel.add(powerUpPanel, constraints);
+        constraints.weightx = 1;
+        gameInfoPanel.add(powerUpScrollPane, constraints);
+        constraints.weightx = 0;
         constraints.weighty = 0;
         constraints.gridy++;
 
@@ -134,7 +142,7 @@ public class RoguelikeView extends GameView
         activePowerUpPanel.setLayout(new BoxLayout(activePowerUpPanel, BoxLayout.PAGE_AXIS));
         powerUpPanel.add(activePowerUpPanel);
         activePowerUpPanel.setOpaque(false);
-        JLabel activeLabel = new JLabel("Active:");
+        JLabel activeLabel = new JLabel("Actives");
         setCurrentSettingToLabel(activeLabel);
         activePowerUpPanel.add(activeLabel);
 
@@ -144,9 +152,15 @@ public class RoguelikeView extends GameView
         powerUpPanel.add(passivePowerUpPanel);
         passivePowerUpPanel.setOpaque(false);
         powerUpPanel.add(passivePowerUpPanel);
-        JLabel passiveLabel = new JLabel("Passive:");
+        JLabel passiveLabel = new JLabel("Passives");
         setCurrentSettingToLabel(passiveLabel);
         passivePowerUpPanel.add(passiveLabel);
+
+        int min_width = Math.max(Math.max(activeLabel.getWidth(), PowerUp.IMAGE_SIZE) , passiveLabel.getWidth());
+        int scrollBarWidth = (Integer) UIManager.get("ScrollBar.width");
+        powerUpScrollPane.setMinimumSize(new Dimension(2*min_width + scrollBarWidth, 2*PowerUp.IMAGE_SIZE + passiveLabel.getHeight() + activeLabel.getHeight()));
+        revalidate();
+        repaint();
     }
 
     @Override
@@ -213,7 +227,10 @@ public class RoguelikeView extends GameView
     public void update()
     {
         this.currencyLabel.setText(" " + controller.getCurrencyCount());
-        this.levelLabel.setText("Level: " + controller.getCurrentLevel());
+        String levelText = "Level: " + controller.getCurrentLevel();
+        String gridinfo = "";
+        if(!controller.isInShop()) gridinfo = " (" + grid.dimensions.width+ "x"+ grid.dimensions.height + ":" + String.format("%d",(int)(100.f*(float)controller.getBombCount()/(float)grid.getCellCount())) + "%)";
+        this.levelLabel.setText(levelText + gridinfo);
         this.energyLabel.setText("Energy: " + controller.getCurrentEnergy() + "/" + controller.getMaxEnergy());
         this.bombFoundSlider.setMaximum(grid.getBombCount());
         this.bombFoundSlider.setValue(grid.getFlagNumber());
@@ -229,8 +246,8 @@ public class RoguelikeView extends GameView
         if(centerComponent != null)
         {
             this.centerComponent.setVisible(false);
-            this.remove(centerComponent);
-            centerComponent = null;
+            this.centerPanel.remove(centerComponent);
+            this.centerComponent = null;
         }
     }
 
@@ -245,8 +262,11 @@ public class RoguelikeView extends GameView
         this.removeCenterComponent();
         this.centerComponent = newCenterComponent;
         this.centerComponent.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
-        this.add(centerComponent, BorderLayout.CENTER);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.CENTER;
+        this.centerPanel.add(centerComponent, constraints);
         this.centerComponent.setVisible(true);
+        this.centerComponent.setOpaque(false);
         repaint();
     }
 
@@ -323,10 +343,11 @@ public class RoguelikeView extends GameView
         super.onRestart();
         activePowerUpPanel.removeAll();
         JLabel activeLabel = new JLabel("Active:");
+        setCurrentSettingToLabel(activeLabel);
         activePowerUpPanel.add(activeLabel);
         passivePowerUpPanel.removeAll();
         JLabel passiveLabel = new JLabel("Passive:");
-        passiveLabel.setFont(labelFont);
+        setCurrentSettingToLabel(passiveLabel);
         passivePowerUpPanel.add(passiveLabel);
     }
 }
