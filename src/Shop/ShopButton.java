@@ -4,12 +4,17 @@ import PAC.Roguelike.PowerUps.PowerUp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class ShopButton extends JButton
 {
-    private Shop shop;
+    Color paintColor;
+    static Color backgroundColor = new Color(0,0,0,0);
+    static Color fillColor = new Color(117, 139, 190);
+    static Color hoverColor = new Color(66, 108, 204);
     private boolean isSelected = false;
     private int price = 0;
     public final static int COIN_IMAGE_SIZE = 32;
@@ -17,13 +22,31 @@ public class ShopButton extends JButton
     public static final int small_margin = 20; // margin between border and other elements (image - margin - text - margin - border)
     static Dimension size = new Dimension( 160, 160);
 
-    public ShopButton(Shop _shop, String text)
+    public ShopButton(String text)
     {
         super(text);
-        this.shop = _shop;
         coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
         setPreferredSize(size);
         setSize(size);
+        setBorder(BorderFactory.createEmptyBorder());
+        paintColor = fillColor;
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setSelected(!isSelected);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                paintColor = hoverColor;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!isSelected)
+                    paintColor = fillColor;
+            }
+        });
     }
 
     @Override
@@ -44,7 +67,11 @@ public class ShopButton extends JButton
         BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
         Graphics bufferedPen = image.getGraphics();
 
+
+        bufferedPen.setColor(backgroundColor);
         bufferedPen.fillRect(0,0, (int) size.getWidth(), (int) size.getHeight());
+        bufferedPen.setColor(paintColor);
+        bufferedPen.fillRoundRect(0,0, (int) size.getWidth(), (int) size.getHeight(), 20,20);
         bufferedPen.setColor(Color.black);
 
         bufferedPen.drawImage(((ImageIcon) getIcon()).getImage(), (int) (getWidth()/2. - PowerUp.IMAGE_SIZE/2), small_margin, null);
@@ -160,13 +187,22 @@ public class ShopButton extends JButton
 
     public void select()
     {
+        paintColor = hoverColor;
         isSelected = true;
         repaint();
     }
     public void unSelect()
     {
+        paintColor = fillColor;
         isSelected = false;
         repaint();
+    }
+
+    public void setSelected(Boolean bool){
+        if (bool)
+            select();
+        else
+            unSelect();
     }
 
     public void setPrice(int _price){ this.price = _price; }

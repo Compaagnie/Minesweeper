@@ -1,6 +1,5 @@
 package Shop;
 
-import CustomComponents.BackgroundPanel;
 import CustomComponents.Buttons.MenuButton;
 import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.PowerUps.PassivePowerUp;
@@ -95,7 +94,7 @@ public class Shop extends JPanel
 
         for(PowerUp powerUp : missingPowerUps)
         {
-            ShopButton button = new ShopButton(this, powerUp.getName());
+            ShopButton button = new ShopButton(powerUp.getName());
             Image powerUpImage = powerUp.getImage();
             if(powerUpImage != null) button.setIcon(new ImageIcon(powerUpImage.getScaledInstance(POWER_UP_IMAGE_SIZE, POWER_UP_IMAGE_SIZE, Image.SCALE_SMOOTH)));
             else System.out.println("[WARNING] Could not find image for power up: " + powerUp.getName());
