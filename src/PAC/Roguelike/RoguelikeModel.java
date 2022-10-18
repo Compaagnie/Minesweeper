@@ -19,7 +19,7 @@ public class RoguelikeModel
     //TODO : move from view to here
 
     protected int currentLevel = 1;
-    protected int currencyCount = 0;
+    protected int currencyCount = 20;
     protected ArrayList<ActivePowerUp> activePowerUps = new ArrayList<>();
     protected int passivePowerUps = 0;
     private int energy = 5;

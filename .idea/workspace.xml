@@ -4,28 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="better speech control and background">
-      <change afterPath="$PROJECT_DIR$/textures/cells/wrongFlag.png" afterDir="false" />
+    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="textures">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/leopard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomComponents/Buttons/ButtonTextures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponents/Buttons/ButtonTextures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomComponents/Buttons/MenuButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponents/Buttons/MenuButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridPAC/GridModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridPAC/GridModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PAC/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CustomComponents/Buttons/MenuButtonUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponents/Buttons/MenuButtonUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PAC/Roguelike/RoguelikeModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Shop/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop/Shop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Shop/ShopButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop/ShopButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/0.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/6.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/7.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/8.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/flag.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/flag.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/top0.png" beforeDir="false" afterPath="$PROJECT_DIR$/textures/cells/top0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/wrongFlag.png" beforeDir="false" />
     </list>
     <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
     <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
@@ -56,13 +40,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/textures/cells" />
@@ -105,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666080397398</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="textures">
+      <created>1666093157369</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666093157369</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -122,7 +113,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Post merge fixes, added simple helper to understand powerups, needs more details." />
     <MESSAGE value="better speech control and background" />
-    <option name="LAST_COMMIT_MESSAGE" value="better speech control and background" />
+    <MESSAGE value="textures" />
+    <option name="LAST_COMMIT_MESSAGE" value="textures" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Minesweeper$Main.ic" NAME="Main Coverage Results" MODIFIED="1665067924095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

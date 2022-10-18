@@ -13,30 +13,23 @@ public class ShopButton extends JButton
     private boolean isSelected = false;
     private int price = 0;
     public final static int COIN_IMAGE_SIZE = 32;
-    public final static Image coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
-    public final int small_margin = 5; // margin between border and other elements (image - margin - text - margin - border)
-    protected Rectangle2D textBounds = null;
+    public static Image coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
+    public static final int small_margin = 20; // margin between border and other elements (image - margin - text - margin - border)
+    static Dimension size = new Dimension( 160, 160);
 
     public ShopButton(Shop _shop, String text)
     {
         super(text);
         this.shop = _shop;
-    }
-
-    private Dimension computePreferredSize()
-    {
-        if(textBounds == null) return new Dimension(1,1);
-        else
-        {
-            return new Dimension(2*small_margin + (int) textBounds.getWidth() + 1 + PowerUp.IMAGE_SIZE,
-                    2*small_margin + PowerUp.IMAGE_SIZE);
-        }
+        coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
+        setPreferredSize(size);
+        setSize(size);
     }
 
     @Override
     public Dimension getPreferredSize()
     {
-        return computePreferredSize();
+        return size;
     }
 
     @Override
@@ -46,19 +39,49 @@ public class ShopButton extends JButton
     }
 
     @Override
+    public void paintComponent(Graphics pen)
+    {
+        BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
+        Graphics bufferedPen = image.getGraphics();
+        this.setEnabled(shop.getCurrencyCount() >= this.price);
+
+
+
+        bufferedPen.fillRect(0,0, (int) size.getWidth(), (int) size.getHeight());
+        bufferedPen.setColor(Color.black);
+
+        bufferedPen.drawImage(((ImageIcon) getIcon()).getImage(), (int) (getWidth()/2. - PowerUp.IMAGE_SIZE/2), small_margin, null);
+
+        bufferedPen.drawString(getText(), (int) (size.getWidth()/2. - pen.getFontMetrics().stringWidth(getText())/2.), (int) (small_margin + PowerUp.IMAGE_SIZE + pen.getFontMetrics().getStringBounds(getText(),pen).getHeight()));
+
+        if(this.price != 0)
+        {
+            String costString = String.valueOf(price);
+            Rectangle2D costBound = pen.getFontMetrics().getStringBounds(costString, pen);
+            int costWidth = (int) costBound.getWidth();
+            int costHeight = (int) costBound.getHeight();
+
+            int coinImageX = (int) (size.getWidth()/2. - COIN_IMAGE_SIZE/2.);
+            int coinImageY = (int) (small_margin + PowerUp.IMAGE_SIZE + pen.getFontMetrics().getStringBounds(getText(),pen).getHeight() + small_margin);
+
+            bufferedPen.drawImage(coinImage, coinImageX, coinImageY, null);
+            bufferedPen.drawString(costString, (int) (size.getWidth()/2 - costWidth/2), (int) (coinImageY + COIN_IMAGE_SIZE/2 + costHeight/2 -1));
+        }
+
+        if(isEnabled())
+            pen.drawImage(image, 0, 0, image.getWidth(), image.getWidth(), null);
+        else
+            pen.drawImage(applyGreyFilter(image), 0, 0, image.getWidth(), image.getWidth(), null);
+    }
+
+    /*
+    @Override
     public void paintComponent(Graphics _pen)
     {
         this.setEnabled(shop.getCurrencyCount() >= this.price);
 
         Graphics2D pen = (Graphics2D) _pen;
         super.paintComponent(pen);
-        Rectangle2D newBounds = pen.getFontMetrics().getStringBounds(this.getText(), pen);
-        if(this.textBounds != newBounds)
-        {
-            this.textBounds = newBounds;
-            this.setPreferredSize(computePreferredSize());
-            this.revalidate();
-        }
         Color previousColor = pen.getColor();
 
         if(isEnabled()) pen.setColor(Color.white);
@@ -76,7 +99,7 @@ public class ShopButton extends JButton
         if(!isEnabled() && iconImage != null) iconImage = applyGreyFilter(iconImage);
         pen.drawImage(iconImage, small_margin, small_margin, null);
 
-        pen.drawString(getText(), small_margin + iconDimensions.width, iconDimensions.height);
+        pen.drawString(getText(), (int) (small_margin + iconDimensions.width/2. - pen.getFontMetrics().stringWidth(getText())/2.), (int) (iconDimensions.height + pen.getFontMetrics().getStringBounds(getText(),pen).getHeight()));
 
         if(isSelected)
         {
@@ -106,6 +129,7 @@ public class ShopButton extends JButton
         }
         pen.setColor(previousColor);
     }
+    */
 
     private Image applyGreyFilter(Image sourceImage)
     {

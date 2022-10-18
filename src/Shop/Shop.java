@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Shop extends BackgroundPanel
+public class Shop extends JPanel
 {
     protected PassivePowerUp selectedPassive = null;
     protected ActivePowerUp selectedActive = null;
@@ -27,17 +27,25 @@ public class Shop extends BackgroundPanel
     public Shop(RoguelikeModel roguelikeModel, boolean isFreeShop, Runnable whenDoneCallback)
     {
         super();
-        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.insets = new Insets(10,10,10,10);
         this.roguelikeModel = roguelikeModel;
 
-        SetPowerUps(isFreeShop);
-
-        this.add(Box.createGlue());
+        powerUpPanel = new JPanel();
+        powerUpPanel.setOpaque(false);
+        this.add(powerUpPanel, constraints);
 
         MenuButton doneButton = new MenuButton("Done");
         doneButton.addActionListener(e -> close(whenDoneCallback));
-        this.add(doneButton);
+        constraints.gridy++;
+        this.add(doneButton, constraints);
 
+        SetPowerUps(isFreeShop);
         setFocusable(true);
         requestFocusInWindow();
     }
@@ -52,10 +60,13 @@ public class Shop extends BackgroundPanel
 
     private void SetPowerUps(boolean isFree)
     {
-        powerUpPanel = new JPanel();
-        this.add(powerUpPanel);
-        powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.LINE_AXIS));
-
+        powerUpPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.insets = new Insets(10,10,10,10);
         // todo : random power ups, active and passive, depending on what's missing or not
         //  actual view with highlight on selected thing
 
@@ -85,8 +96,6 @@ public class Shop extends BackgroundPanel
         for(PowerUp powerUp : missingPowerUps)
         {
             ShopButton button = new ShopButton(this, powerUp.getName());
-            button.setOpaque(false);
-            button.setVerticalTextPosition(SwingConstants.BOTTOM);
             Image powerUpImage = powerUp.getImage();
             if(powerUpImage != null) button.setIcon(new ImageIcon(powerUpImage.getScaledInstance(POWER_UP_IMAGE_SIZE, POWER_UP_IMAGE_SIZE, Image.SCALE_SMOOTH)));
             else System.out.println("[WARNING] Could not find image for power up: " + powerUp.getName());
@@ -99,7 +108,9 @@ public class Shop extends BackgroundPanel
             }
             button.setToolTipText(powerUp.getDescription());
             shopItems.add(button);
-            powerUpPanel.add(button);
+            powerUpPanel.add(button, constraints);
+            constraints.gridx++;
+            button.repaint();button.revalidate();
         }
 
         if(missingPowerUps.size() == 0) powerUpPanel.add(new JLabel("Congratulations ! You have acquired all power ups"));

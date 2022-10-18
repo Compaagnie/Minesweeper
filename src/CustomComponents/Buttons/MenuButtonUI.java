@@ -10,5 +10,6 @@ public class MenuButtonUI {
         String label = c.getText();
         pen.setColor(Color.BLACK);
         pen.drawString(label, (int) (c.getWidth()/2. - pen.getFontMetrics().stringWidth(label)/2.), (int) (c.getHeight()/2. + pen.getFontMetrics().getLineMetrics(label,pen).getHeight()/2.));
+        pen.setColor(new Color(0,0,0,0));
     }
 }
