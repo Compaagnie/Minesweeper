@@ -9,7 +9,7 @@ public class MenuButton extends JButton {
     MenuButtonUI ui;
 
     Color paintColor;
-
+    static Color backgroundColor = new Color(0,0,0,0);
     static Color fillColor = new Color(117, 139, 190);
     static Color hoverColor = new Color(66, 108, 204);
     public MenuButton(String text)
@@ -18,6 +18,7 @@ public class MenuButton extends JButton {
         setPreferredSize(new Dimension(200,30));
         setMinimumSize(new Dimension(200,30));
         setBorder(BorderFactory.createEmptyBorder());
+        setBackground(backgroundColor);
         paintColor = fillColor;
         this.ui = new MenuButtonUI();
         addMouseListener(new MouseAdapter() {
@@ -34,7 +35,7 @@ public class MenuButton extends JButton {
     }
     @Override
     public void paintComponent(Graphics pen){
-        //super.paintComponent(pen);
+        super.paintComponent(pen);
         ui.paint(pen, this);
     }
 
