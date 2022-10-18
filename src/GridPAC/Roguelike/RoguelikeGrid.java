@@ -1,5 +1,6 @@
 package GridPAC.Roguelike;
 
+import CustomComponents.Buttons.ButtonTextures;
 import GridPAC.CellChangeEvent;
 import GridPAC.Grid;
 import PAC.Roguelike.RoguelikeModel;
@@ -57,6 +58,17 @@ public class RoguelikeGrid extends Grid
                     triggerEventListeners("over");
                     if(e.won) onGameWin();
                     else onGameLost();
+                }
+                if (e.position != -1 && !e.won)
+                {
+                    if (hasFlag(e.position))
+                    {
+                        buttonArray[e.position].setTexture(ButtonTextures.getTopTexture(2));
+                    }
+                    else
+                    {
+                        buttonArray[e.position].setTexture(ButtonTextures.getBottomTexture(10));
+                    }
                 }
             }
         }

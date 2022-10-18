@@ -7,7 +7,7 @@ public interface PowerUp
 {
     int getShopCost();
     int IMAGE_SIZE = 64;
-    default Image getImage() { return null; }; // todo : implement this
+    default Image getImage() { return null; };
     String getName();
     String getDescription();
     boolean isActive();

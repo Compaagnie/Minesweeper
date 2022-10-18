@@ -1,6 +1,8 @@
 package SpeechRecognition;
 
 import PAC.GameView;
+import PAC.Roguelike.PowerUps.ActivePowerUp;
+import PAC.Roguelike.RoguelikeView;
 import ai.picovoice.leopard.Leopard;
 import ai.picovoice.leopard.LeopardException;
 import ai.picovoice.leopard.LeopardTranscript;
@@ -15,9 +17,7 @@ public class SpeechRecognition extends Thread
 {
     private final static String accessKey = "rd9J3I9zJKmWbMPPg6JbEy/efOEMTrVYQPTyxdeoxkSHYrvwLnLZXA==";
     private GameView gameView;
-
     private Recorder recorder;
-
     String modelPath;
     String libraryPath;
     Leopard leopard;
@@ -79,7 +79,8 @@ public class SpeechRecognition extends Thread
                 short[] pcm = recorder.getPCM();
                 System.out.println(pcm);
                 LeopardTranscript transcript = null;
-                try {
+                try
+                {
                     transcript = leopard.process(pcm);
                 } catch (LeopardException e) {
                     throw new RuntimeException(e);
@@ -112,6 +113,18 @@ public class SpeechRecognition extends Thread
             {
                 gameView.getGrid().revealCellOnPointerPosition();
                 break;
+            }
+            //Power Ups
+            else if (gameView.isRogueLike())
+            {
+                for(ActivePowerUp powerUp : ActivePowerUp.values())
+                {
+                    if(powerUp.getKeyWords().contains(word))
+                    {
+                        ((RoguelikeView) gameView).usePowerUp(powerUp.ordinal());
+                        break;
+                    }
+                }
             }
         }
         wordArrayList.clear();

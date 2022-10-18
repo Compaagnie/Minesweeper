@@ -90,7 +90,7 @@ public class RoguelikeGridModel extends GridModel
             {
                 if (otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
                 {
-//                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
+                    onCellChange.accept(new CellChangeEvent(this, otherCell, "lost"));
                 }
                 else if (!hasFlag(otherCell))
                 {

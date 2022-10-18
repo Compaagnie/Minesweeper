@@ -145,7 +145,7 @@ public class Shop extends JPanel
             else roguelikeModel.add((PassivePowerUp) powerUp);
             roguelikeModel.updateCurrency(-powerUp.getShopCost());
             shopItems.remove(button);
-            if(shopItems.size()==0) powerUpPanel.add(new JLabel("No power up available"));
+            if(shopItems.size() == 0) powerUpPanel.add(new JLabel("No power up available"));
         }
     }
 

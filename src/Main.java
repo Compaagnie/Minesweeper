@@ -20,7 +20,7 @@ public class Main
         try {
             FileInputStream fileInputStream = new FileInputStream("Elevator Music - 1 hour.mp3");
             player = new Player(fileInputStream);
-            //player.play();
+            player.play();
         } catch (FileNotFoundException | JavaLayerException e) {
             throw new RuntimeException(e);
         }

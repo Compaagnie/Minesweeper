@@ -172,7 +172,6 @@ public class Grid extends JPanel
         int width = (int)((float)this.getParent().getWidth()/dimensions.getWidth());
         int height = (int)((float)this.getParent().getHeight()/dimensions.getHeight());
         int size = Math.min(width, height);
-        System.out.println("Dim : " + size + "x" + size);
         return new Dimension(dimensions.width*size,dimensions.height*size);
     }
 

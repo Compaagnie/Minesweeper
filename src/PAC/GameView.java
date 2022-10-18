@@ -20,18 +20,14 @@ public class GameView extends BackgroundPanel
 
     protected Grid grid;
     protected SpeechRecognition speechRecognition;
-
     protected Recorder recorder;
     public Timer gameTimer;
-
     protected JLabel flagFoundLabel;
     protected JPanel gameInfoPanel = new JPanel();
     protected JLabel gameStatusLabel;
     protected VSlider bombFoundSlider = new VSlider();
     protected VSlider revealedSlider = new VSlider();
-
     protected int timerSeconds = 0;
-
     protected JPanel globalInfoPanel = new JPanel();
     protected JPanel centerPanel = new JPanel();
 
@@ -136,6 +132,7 @@ public class GameView extends BackgroundPanel
     private void CreateStatusLabel(GridBagConstraints constraints)
     {
         gameStatusLabel = new JLabel();
+        setCurrentSettingToLabel(gameStatusLabel);
         gameInfoPanel.add(gameStatusLabel, constraints);
         constraints.gridy++;
     }
@@ -277,5 +274,10 @@ public class GameView extends BackgroundPanel
     {
         label.setFont(labelFont);
         label.setForeground(labelTextColor);
+    }
+
+    public boolean isRogueLike()
+    {
+        return false;
     }
 }

@@ -27,7 +27,6 @@ public class RoguelikeView extends GameView
     protected RogueLikeController controller;
     protected JPanel centerPanel = new JPanel(new GridBagLayout());
 
-
     public final static int COIN_IMAGE_SIZE = 32;
     public final static int POWERUP_IMAGE_SIZE = 64;
 
@@ -42,6 +41,8 @@ public class RoguelikeView extends GameView
     public void init()
     {
         this.setLayout(new BorderLayout());
+
+        initSpeechRecognition();
 
         labelFont = this.getFont().deriveFont(22.f);
         labelTextColor = Color.white;
@@ -198,15 +199,19 @@ public class RoguelikeView extends GameView
                     {
                         if(Character.isDigit(e.getKeyChar()))
                         {
-                            if(e.getKeyChar() == '0') controller.executePowerUp(9);
-                            else controller.executePowerUp(e.getKeyChar() - '1');
+                            if(e.getKeyChar() == '0') thisView.usePowerUp(9);
+                            else thisView.usePowerUp(e.getKeyChar() - '1');
                         }
                         else
                         {
                             char[] charAsAZERTY = new char[]{'&', 'é', '\"', '\'', '(', '-', 'è', '_', 'ç', 'à'};
                             for(int i = 0; i < charAsAZERTY.length; ++i)
                             {
-                                if(charAsAZERTY[i] == e.getKeyChar()) controller.executePowerUp(i);
+                                if(charAsAZERTY[i] == e.getKeyChar())
+                                {
+                                    thisView.usePowerUp(i);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -222,6 +227,11 @@ public class RoguelikeView extends GameView
                 thisView.requestFocusInWindow();
             }
         });
+    }
+
+    public void usePowerUp(int index)
+    {
+        controller.executePowerUp(index);
     }
 
     public void update()
@@ -349,5 +359,11 @@ public class RoguelikeView extends GameView
         JLabel passiveLabel = new JLabel("Passive:");
         setCurrentSettingToLabel(passiveLabel);
         passivePowerUpPanel.add(passiveLabel);
+    }
+
+    @Override
+    public boolean isRogueLike()
+    {
+        return true;
     }
 }

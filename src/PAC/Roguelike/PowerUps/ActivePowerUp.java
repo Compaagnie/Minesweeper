@@ -3,7 +3,10 @@ package PAC.Roguelike.PowerUps;
 import GridPAC.Roguelike.RoguelikeGrid;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.*;
+import java.lang.reflect.Array;
 
 public enum ActivePowerUp implements PowerUp
 {
@@ -92,4 +95,25 @@ public enum ActivePowerUp implements PowerUp
 
     public int getShortcut() { return shortcut;}
     public void setShortcut(int _shortcut) { this.shortcut = _shortcut; }
+
+    public List<String> getKeyWords()
+    {
+        if(this == BOMB_REVEAL)
+        {
+            return List.of(new String[]{"bomb", "random"});
+        }
+        else if (this == COLUMN_REVEAL)
+        {
+            return List.of(new String[]{"column", "vertical"});
+        }
+        else if (this == LINE_REVEAL)
+        {
+            return List.of(new String[]{"line", "horizontal"});
+        }
+        else if (this == RADAR_REVEAL)
+        {
+            return List.of(new String[]{"radar", "zone"});
+        }
+        else return List.of(new String[]{});
+    }
 }

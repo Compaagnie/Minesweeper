@@ -16,8 +16,6 @@ import static java.awt.Toolkit.getDefaultToolkit;
 
 public class RoguelikeModel
 {
-    //TODO : move from view to here
-
     protected int currentLevel = 1;
     protected int currencyCount = 20;
     protected ArrayList<ActivePowerUp> activePowerUps = new ArrayList<>();
@@ -32,9 +30,12 @@ public class RoguelikeModel
     protected ArrayList<Consumer<RoguelikeEvent>> eventListeners = new ArrayList<>();
 
     protected boolean isFirstSkill = true;
-
     protected boolean isInShop = false;
     private final boolean DEBUG_MODE = true; // todo : remove this when not debugging
+
+    public final int START_BOMB_COUNT = 10;
+    public final int INCR_BOMB_COUNT = 2;
+    public final int SIZE_MULTIPLIER = 4;
 
     public RoguelikeModel()
     {
@@ -139,11 +140,10 @@ public class RoguelikeModel
 
     protected RoguelikeGrid getGridFromLevel(int level)
     {
-        // TODO : non-rectangular grids ?
         // todo : magic number to constant & design check
 
-        int BOMB_PERCENT = 10 + 2*level;
-        int size = (level+1) * 4;
+        int BOMB_PERCENT = START_BOMB_COUNT + INCR_BOMB_COUNT*level;
+        int size = (level+1) * SIZE_MULTIPLIER;
 
         if(has(PassivePowerUp.DOUBLE_EDGED_SWORD)) BOMB_PERCENT *= 1.5f;
         if(tryConsumePowerUp(PassivePowerUp.EASY_GRID)) BOMB_PERCENT /= 2f;

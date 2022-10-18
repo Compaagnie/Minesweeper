@@ -15,7 +15,7 @@ public class GridModel
 
     private Boolean doFlagCheck = true;
     protected Integer[] CellArray;
-    protected ArrayList<Integer> CellRevealedArray; // TODO : hashset ?
+    protected ArrayList<Integer> CellRevealedArray;
     protected ArrayList<Integer> FlagArray;
     protected Consumer<CellChangeEvent> onCellChange;
 
@@ -195,9 +195,7 @@ public class GridModel
         {
             if ( otherCell == losingCell || ( hasFlag(otherCell) && getCell(otherCell) != CellContent.BOMB))
             {
-                //todo : lost with position = show losing icon
                 onCellChange.accept(new CellChangeEvent(this, otherCell, "lost"));
-//                TopButtonArray[otherCell].setIcon(redIcon); // TODO : this
             }
             else if (!hasFlag(otherCell))
             {
