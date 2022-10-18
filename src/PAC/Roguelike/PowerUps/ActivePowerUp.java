@@ -3,10 +3,8 @@ package PAC.Roguelike.PowerUps;
 import GridPAC.Roguelike.RoguelikeGrid;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.*;
-import java.lang.reflect.Array;
+import java.util.List;
 
 public enum ActivePowerUp implements PowerUp
 {
@@ -108,11 +106,11 @@ public enum ActivePowerUp implements PowerUp
         }
         else if (this == LINE_REVEAL)
         {
-            return List.of(new String[]{"line", "horizontal"});
+            return List.of(new String[]{"line", "horizontal", "row"});
         }
         else if (this == RADAR_REVEAL)
         {
-            return List.of(new String[]{"radar", "zone", "scan"});
+            return List.of(new String[]{"radar", "zone", "scan", "area"});
         }
         else return List.of(new String[]{});
     }
