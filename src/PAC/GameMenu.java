@@ -20,11 +20,10 @@ public class GameMenu extends JPanel
         createPresetButtons();
         createCustomPresetMenu();
         createModelSelection();
-        System.out.println(minesweeper.getComponents());
     }
 
     private void createModelSelection() {
-        modeSelectionPanel = new BackgroundPanel(new ImageIcon("textures/background.jpeg").getImage(), 0);
+        modeSelectionPanel = new BackgroundPanel();
         modeSelectionPanel.setLayout(new GridBagLayout());
         this.minesweeper.add(modeSelectionPanel);
         GridBagConstraints constraints = new GridBagConstraints();
@@ -46,7 +45,7 @@ public class GameMenu extends JPanel
 
     private void createPresetButtons()
     {
-        menuPanel = new BackgroundPanel(new ImageIcon("textures/background.jpeg").getImage(), 0);
+        menuPanel = new BackgroundPanel();
         menuPanel.setLayout(new GridBagLayout());
         menuPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         GridBagConstraints constraints = new GridBagConstraints();
@@ -82,7 +81,7 @@ public class GameMenu extends JPanel
 
     private void createCustomPresetMenu()
     {
-        selectionPanel = new BackgroundPanel(new ImageIcon("textures/background.jpeg").getImage(), 0);
+        selectionPanel = new BackgroundPanel();
         selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.PAGE_AXIS));
         selectionPanel.setMaximumSize(new Dimension(300, 200));
         selectionPanel.setPreferredSize(new Dimension(300, 200));

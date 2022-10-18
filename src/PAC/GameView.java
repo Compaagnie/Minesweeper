@@ -45,9 +45,6 @@ public class GameView extends BackgroundPanel
         this.minesweeper = minesweeper;
         this.setLayout(new BorderLayout());
 
-        labelFont = this.getFont().deriveFont(22.0f);
-        labelTextColor = Color.white;
-
         this.minesweeper.add(this);
 
         this.initSpeechRecognition();
@@ -63,6 +60,7 @@ public class GameView extends BackgroundPanel
     {
         recorder = new Recorder(1);
         speechRecognition = new SpeechRecognition(this, recorder);
+       
         speechRecognition.start();
     }
 
@@ -77,7 +75,7 @@ public class GameView extends BackgroundPanel
         constraints.weightx = 0;
         constraints.weighty = 0;
         constraints.insets = new Insets(10,10,10,10);
-
+        
         globalInfoPanel.add(gameInfoPanel);
 
         CreateStatusLabel(constraints);
@@ -100,6 +98,7 @@ public class GameView extends BackgroundPanel
 
 
         CreateBackButton(constraints);
+        constraints.gridy++;
 
         this.setupRestartButton(constraints);
     }
@@ -197,7 +196,7 @@ public class GameView extends BackgroundPanel
         setCurrentSettingToLabel(timeSpentLabel);
         gameInfoPanel.add(timeSpentLabel, constraints);
         constraints.gridy++;
-        
+
         ActionListener timerAction = e ->
         {
             timerSeconds++;
