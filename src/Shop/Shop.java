@@ -18,6 +18,10 @@ public class Shop extends JPanel
     protected RoguelikeModel roguelikeModel;
     public final static int POWER_UP_IMAGE_SIZE = 64;
 
+    ArrayList<ShopButton> shopItems = new ArrayList<>();
+
+    JPanel powerUpPanel;
+
     public Shop(RoguelikeModel roguelikeModel, boolean isFreeShop, Runnable whenDoneCallback)
     {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -45,7 +49,7 @@ public class Shop extends JPanel
 
     private void SetPowerUps(boolean isFree)
     {
-        JPanel powerUpPanel = new JPanel();
+        powerUpPanel = new JPanel();
         this.add(powerUpPanel);
         powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.LINE_AXIS));
 
@@ -78,6 +82,7 @@ public class Shop extends JPanel
         for(PowerUp powerUp : missingPowerUps)
         {
             ShopButton button = new ShopButton(this, powerUp.getName());
+            button.setOpaque(false);
             button.setVerticalTextPosition(SwingConstants.BOTTOM);
             Image powerUpImage = powerUp.getImage();
             if(powerUpImage != null) button.setIcon(new ImageIcon(powerUpImage.getScaledInstance(POWER_UP_IMAGE_SIZE, POWER_UP_IMAGE_SIZE, Image.SCALE_SMOOTH)));
@@ -90,8 +95,12 @@ public class Shop extends JPanel
                 button.setEnabled(powerUp.getShopCost() <= roguelikeModel.getCurrencyCount());
             }
             button.setToolTipText(powerUp.getDescription());
+            shopItems.add(button);
             powerUpPanel.add(button);
         }
+
+        if(missingPowerUps.size() == 0) powerUpPanel.add(new JLabel("Congratulations ! You have acquired all power ups"));
+
         this.repaint();
     }
 
@@ -121,6 +130,8 @@ public class Shop extends JPanel
             if(powerUp.isActive()) roguelikeModel.add((ActivePowerUp) powerUp);
             else roguelikeModel.add((PassivePowerUp) powerUp);
             roguelikeModel.updateCurrency(-powerUp.getShopCost());
+            shopItems.remove(button);
+            if(shopItems.size()==0) powerUpPanel.add(new JLabel("No power up available"));
         }
     }
 

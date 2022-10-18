@@ -1,5 +1,6 @@
 package PAC.Roguelike;
 
+import CustomComponents.Buttons.MenuButton;
 import GridPAC.GridEvent;
 import GridPAC.Roguelike.RoguelikeGrid;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import PAC.GameImages;
 import PAC.GameView;
 import PAC.Minesweeper;
 import PAC.Roguelike.PowerUps.ActivePowerUp;
@@ -25,16 +27,14 @@ public class RoguelikeView extends GameView
     protected RogueLikeController controller;
     protected JScrollPane centerScrollPane = new JScrollPane();
 
-
-
-    public final static int COIN_IMAGE_SIZE = 16;
+    public final static int COIN_IMAGE_SIZE = 32;
     public final static int POWERUP_IMAGE_SIZE = 64;
 
-    public RoguelikeView(RogueLikeController _controller, Minesweeper minesweeper)
+    public RoguelikeView(RogueLikeController _controller, Minesweeper _minesweeper)
     {
         // Created grid, info panel and buttons
         super();
-        this.minesweeper = minesweeper;
+        this.minesweeper = _minesweeper;
         this.controller = _controller;
     }
 
@@ -42,69 +42,43 @@ public class RoguelikeView extends GameView
     {
         this.setLayout(new BorderLayout());
 
+        labelFont = this.getFont().deriveFont(22.f);
+        labelTextColor = Color.white;
+
         this.add(centerScrollPane, BorderLayout.CENTER);
         this.centerScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.centerScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        JPanel globalInfoPanel = new JPanel();
         globalInfoPanel.setLayout(new BoxLayout(globalInfoPanel, BoxLayout.LINE_AXIS));
         this.add(globalInfoPanel, BorderLayout.EAST);
-        globalInfoPanel.add(bombFoundSlider);
-        globalInfoPanel.add(revealedSlider);
-        bombFoundSlider.setFillColor(Color.red);
-        bombFoundSlider.setMinimum(0);
-        revealedSlider.setFillColor(Color.green);
-        revealedSlider.setMinimum(0);
+
+        super.CreateGeneralPanelAndSliders();
 
         gameInfoPanel = new JPanel();
         gameInfoPanel.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();;
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weightx = 0;
         constraints.weighty = 0;
-        constraints.insets = new Insets(10,10,10,10);        globalInfoPanel.add(gameInfoPanel);
+        constraints.insets = new Insets(10, 10, 10, 10);
+        gameInfoPanel.setOpaque(false);
+
+        globalInfoPanel.add(gameInfoPanel);
 
         this.CreateFlagDisplay(constraints);
-        constraints.gridy++;
         super.CreateTimerDisplay(constraints);
+
+        this.CreateLevelLabel(constraints);
+        this.CreateCurrencyLabel(constraints);
+        this.CreateEnergyLabel(constraints);
+        this.CreatePowerUpPane(constraints);
+        constraints.weighty = 1;
+        gameInfoPanel.add(Box.createVerticalGlue());
+        constraints.weighty = 0;
         constraints.gridy++;
 
-        levelLabel = new JLabel("Level : 0");
-        gameInfoPanel.add(levelLabel, constraints);
-        constraints.gridy++;
-
-        currencyLabel = new JLabel(" 0");
-        gameInfoPanel.add(currencyLabel, constraints);
-        constraints.gridy++;
-
-        currencyLabel.setIcon(new ImageIcon(ShopButton.coinImage.getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH)));
-//        currencyLabel.setHorizontalTextPosition(JLabel.EAST);
-//        currencyLabel.setVerticalTextPosition(JLabel.CENTER);
-
-        energyLabel = new JLabel("Energy: 0/0");
-        gameInfoPanel.add(energyLabel, constraints);
-        constraints.gridy++;
-
-        JPanel powerUpPanel = new JPanel();
-        powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.PAGE_AXIS));
-        gameInfoPanel.add(powerUpPanel, constraints);
-        constraints.gridy++;
-        powerUpPanel.setOpaque(false);
-
-        activePowerUpPanel = new JPanel();
-        activePowerUpPanel.setLayout(new BoxLayout(activePowerUpPanel, BoxLayout.PAGE_AXIS));
-        powerUpPanel.add(activePowerUpPanel, constraints);
-        constraints.gridy++;
-        activePowerUpPanel.setOpaque(false);
-        activePowerUpPanel.add(new JLabel("Active:"));
-
-        passivePowerUpPanel = new JPanel();
-        passivePowerUpPanel.setLayout(new BoxLayout(passivePowerUpPanel, BoxLayout.PAGE_AXIS));
-        powerUpPanel.add(passivePowerUpPanel, constraints);
-        constraints.gridy++;
-        passivePowerUpPanel.setOpaque(false);
-        passivePowerUpPanel.add(new JLabel("Passive:"));
+        super.CreateRecordButton(constraints);
 
         constraints.weighty = 1;
         gameInfoPanel.add(Box.createVerticalGlue(), constraints);
@@ -112,25 +86,77 @@ public class RoguelikeView extends GameView
         constraints.gridy++;
 
         super.CreateBackButton(constraints);
-        constraints.gridy++;
-
         this.setupRestartButton(constraints);
-        constraints.gridy++;
-
-        setPowerUpKeys();
-
+        this.setPowerUpKeys();
         this.setFocusable(true);
         this.requestFocusInWindow();
+    }
+
+    private void CreateLevelLabel(GridBagConstraints constraints)
+    {
+        levelLabel = new JLabel("Level : 0");
+        setCurrentSettingToLabel(levelLabel);
+        gameInfoPanel.add(levelLabel, constraints);
+        constraints.gridy++;
+    }
+    private void CreateCurrencyLabel(GridBagConstraints constraints)
+    {
+        currencyLabel = new JLabel(" 0");
+        setCurrentSettingToLabel(currencyLabel);
+        gameInfoPanel.add(currencyLabel, constraints);
+        constraints.gridy++;
+
+        currencyLabel.setIcon(new ImageIcon(ShopButton.coinImage.getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH)));
+    }
+
+    private void CreateEnergyLabel(GridBagConstraints constraints)
+    {
+        energyLabel = new JLabel("Energy: 0/0");
+        setCurrentSettingToLabel(energyLabel);
+        energyLabel.setIcon(new ImageIcon(GameImages.ENERGY.image));
+        energyLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+        gameInfoPanel.add(energyLabel, constraints);
+        constraints.gridy++;
+    }
+
+    private void CreatePowerUpPane(GridBagConstraints constraints)
+    {
+        JPanel powerUpPanel = new JPanel();
+        powerUpPanel.setLayout(new BoxLayout(powerUpPanel, BoxLayout.LINE_AXIS));
+        powerUpPanel.setOpaque(false);
+        constraints.weighty = 1;
+        gameInfoPanel.add(powerUpPanel, constraints);
+        constraints.weighty = 0;
+        constraints.gridy++;
+
+        activePowerUpPanel = new JPanel();
+        activePowerUpPanel.setOpaque(false);
+        activePowerUpPanel.setLayout(new BoxLayout(activePowerUpPanel, BoxLayout.PAGE_AXIS));
+        powerUpPanel.add(activePowerUpPanel);
+        activePowerUpPanel.setOpaque(false);
+        JLabel activeLabel = new JLabel("Active:");
+        setCurrentSettingToLabel(activeLabel);
+        activePowerUpPanel.add(activeLabel);
+
+        passivePowerUpPanel = new JPanel();
+        passivePowerUpPanel.setOpaque(false);
+        passivePowerUpPanel.setLayout(new BoxLayout(passivePowerUpPanel, BoxLayout.PAGE_AXIS));
+        powerUpPanel.add(passivePowerUpPanel);
+        passivePowerUpPanel.setOpaque(false);
+        powerUpPanel.add(passivePowerUpPanel);
+        JLabel passiveLabel = new JLabel("Passive:");
+        setCurrentSettingToLabel(passiveLabel);
+        passivePowerUpPanel.add(passiveLabel);
     }
 
     @Override
     protected void setupRestartButton(GridBagConstraints constraints)
     {
-        JButton restartButton = new JButton("Restart Game");
-        gameInfoPanel.add(restartButton);
+        MenuButton restartButton = new MenuButton("Restart Game");
+        gameInfoPanel.add(restartButton, constraints);
+        constraints.gridy++;
 
         restartButton.addActionListener(e -> { this.onRestart(); controller.onRestart(); } );
-        restartButton.setPreferredSize(new Dimension(120,60));
         restartButton.setMnemonic(KeyEvent.VK_R);
     }
 
@@ -138,7 +164,9 @@ public class RoguelikeView extends GameView
     protected void CreateFlagDisplay(GridBagConstraints constraints)
     {
         flagFoundLabel = new JLabel("Flag: 0/" + controller.getBombCount());
-        gameInfoPanel.add(flagFoundLabel);
+        setCurrentSettingToLabel(flagFoundLabel);
+        gameInfoPanel.add(flagFoundLabel, constraints);
+        constraints.gridy++;
     }
 
     private void setPowerUpKeys()
@@ -278,9 +306,12 @@ public class RoguelikeView extends GameView
         }
         else
         {
+            PowerUpComponent component;
+            if(!powerUpChange.isActive()) component = new PowerUpComponent(powerUpChange, POWERUP_IMAGE_SIZE);
+            else component = new PowerUpComponent(powerUpChange, ((ActivePowerUp) powerUpChange).getShortcut(), POWERUP_IMAGE_SIZE);
+            component.setOpaque(false);
             panel.add(Box.createRigidArea(new Dimension(0,0)));
-            if(!powerUpChange.isActive()) panel.add(new PowerUpComponent(powerUpChange, POWERUP_IMAGE_SIZE));
-            else panel.add(new PowerUpComponent(powerUpChange, ((ActivePowerUp) powerUpChange).getShortcut(), POWERUP_IMAGE_SIZE));
+            panel.add(component);
         }
         repaint();
         revalidate();
@@ -291,8 +322,11 @@ public class RoguelikeView extends GameView
     {
         super.onRestart();
         activePowerUpPanel.removeAll();
-        activePowerUpPanel.add(new JLabel("Active:"));
+        JLabel activeLabel = new JLabel("Active:");
+        activePowerUpPanel.add(activeLabel);
         passivePowerUpPanel.removeAll();
-        passivePowerUpPanel.add(new JLabel("Passive:"));
+        JLabel passiveLabel = new JLabel("Passive:");
+        passiveLabel.setFont(labelFont);
+        passivePowerUpPanel.add(passiveLabel);
     }
 }

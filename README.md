@@ -73,10 +73,6 @@ si top not visible
 - Info visuals
   - Energy
   - Column info (passive/active)
-  - Coin icon
-  - keys and power name (1-Line)
-  - PowerUps
-  - Progress visualisation
   
 
 - Advanced visuals

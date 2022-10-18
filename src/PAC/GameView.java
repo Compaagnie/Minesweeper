@@ -32,6 +32,11 @@ public class GameView extends BackgroundPanel
 
     protected int timerSeconds = 0;
 
+    protected JPanel globalInfoPanel = new JPanel();
+
+    protected Font labelFont;
+    protected Color labelTextColor;
+
     public GameView(){super(new ImageIcon("textures/background.jpeg").getImage(), 0);}
 
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
@@ -40,29 +45,29 @@ public class GameView extends BackgroundPanel
         this.minesweeper = minesweeper;
         this.setLayout(new BorderLayout());
 
+        labelFont = this.getFont().deriveFont(22.0f);
+        labelTextColor = Color.white;
+
         this.minesweeper.add(this);
-        
-        recorder = new Recorder(1);
-        speechRecognition = new SpeechRecognition(this, recorder);
-       
-        speechRecognition.start();
+
+        this.initSpeechRecognition();
 
         this.setupGrid(width, height, bombCount);
 
-        JPanel globalInfoPanel = new JPanel();
-        globalInfoPanel.setLayout(new BoxLayout(globalInfoPanel, BoxLayout.LINE_AXIS));
-        this.add(globalInfoPanel, BorderLayout.EAST);
-        globalInfoPanel.add(bombFoundSlider);
-        globalInfoPanel.add(revealedSlider);
-        bombFoundSlider.setFillColor(Color.red);
-        bombFoundSlider.setMinimum(0);
-        revealedSlider.setFillColor(Color.green);
-        revealedSlider.setMinimum(0);
+        CreateGeneralPanelAndSliders();
 
         setUpInfoPanel(globalInfoPanel);
     }
 
-    private void setUpInfoPanel(JPanel globalInfoPanel) {
+    protected void initSpeechRecognition()
+    {
+        recorder = new Recorder(1);
+        speechRecognition = new SpeechRecognition(this, recorder);
+        speechRecognition.start();
+    }
+
+    private void setUpInfoPanel(JPanel globalInfoPanel)
+    {
         gameInfoPanel = new JPanel();
         gameInfoPanel.setOpaque(false);
         gameInfoPanel.setLayout(new GridBagLayout());
@@ -72,18 +77,13 @@ public class GameView extends BackgroundPanel
         constraints.weightx = 0;
         constraints.weighty = 0;
         constraints.insets = new Insets(10,10,10,10);
-        
+
         globalInfoPanel.add(gameInfoPanel);
 
         CreateStatusLabel(constraints);
-        constraints.gridy++;
-
         CreateFlagDisplay(constraints);
-        constraints.gridy++;
-
-
         CreateTimerDisplay(constraints);
-        constraints.gridy++;
+
 
         constraints.weighty = 1;
         gameInfoPanel.add(Box.createVerticalGlue(), constraints);
@@ -91,7 +91,7 @@ public class GameView extends BackgroundPanel
         constraints.gridy++;
 
         CreateRecordButton(constraints);
-        constraints.gridy++;
+
 
         constraints.weighty = 1;
         gameInfoPanel.add(Box.createVerticalGlue(), constraints);
@@ -100,12 +100,11 @@ public class GameView extends BackgroundPanel
 
 
         CreateBackButton(constraints);
-        constraints.gridy++;
 
         this.setupRestartButton(constraints);
     }
 
-    private void CreateRecordButton(GridBagConstraints constraints) {
+    protected void CreateRecordButton(GridBagConstraints constraints) {
         MenuButton recordButton = new MenuButton("Record");
         recordButton.addKeyListener(new KeyAdapter() {
             @Override
@@ -124,12 +123,27 @@ public class GameView extends BackgroundPanel
         });
         recordButton.setMnemonic(VK_ENTER);
         gameInfoPanel.add(recordButton, constraints);
+        constraints.gridy++;
     }
 
     private void CreateStatusLabel(GridBagConstraints constraints)
     {
         gameStatusLabel = new JLabel();
         gameInfoPanel.add(gameStatusLabel, constraints);
+        constraints.gridy++;
+    }
+
+    protected void CreateGeneralPanelAndSliders() {
+
+        globalInfoPanel.setLayout(new BoxLayout(globalInfoPanel, BoxLayout.LINE_AXIS));
+        this.add(globalInfoPanel, BorderLayout.EAST);
+        globalInfoPanel.add(bombFoundSlider);
+        globalInfoPanel.add(revealedSlider);
+        globalInfoPanel.setOpaque(false);
+        bombFoundSlider.setFillColor(Color.red);
+        bombFoundSlider.setMinimum(0);
+        revealedSlider.setFillColor(Color.green);
+        revealedSlider.setMinimum(0);
     }
 
     protected void setupGrid(int width, int height, int bombCount)
@@ -174,12 +188,15 @@ public class GameView extends BackgroundPanel
         MenuButton backButton = new MenuButton("Menu");
         gameInfoPanel.add(backButton, constraints);
         backButton.addActionListener(e -> openMenu());
+        constraints.gridy++;
     }
 
     protected void CreateTimerDisplay(GridBagConstraints constraints)
     {
         JLabel timeSpentLabel = new JLabel("Time: 00:00:00");
+        setCurrentSettingToLabel(timeSpentLabel);
         gameInfoPanel.add(timeSpentLabel, constraints);
+        constraints.gridy++;
         
         ActionListener timerAction = e ->
         {
@@ -206,6 +223,7 @@ public class GameView extends BackgroundPanel
     {
         flagFoundLabel = new JLabel("Flag: 0/" + grid.getBombCount());
         gameInfoPanel.add(flagFoundLabel, constraints);
+        constraints.gridy++;
     }
 
     protected void setupRestartButton(GridBagConstraints constraints)
@@ -240,5 +258,11 @@ public class GameView extends BackgroundPanel
 
     public Minesweeper getMinesweeper() {
         return minesweeper;
+    }
+
+    protected void setCurrentSettingToLabel(JLabel label)
+    {
+        label.setFont(labelFont);
+        label.setForeground(labelTextColor);
     }
 }
