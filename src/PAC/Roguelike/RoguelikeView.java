@@ -229,9 +229,14 @@ public class RoguelikeView extends GameView
         });
     }
 
-    public void usePowerUp(int index)
+    protected void usePowerUp(int index)
     {
         controller.executePowerUp(index);
+    }
+
+    public void usePowerUp(ActivePowerUp powerUp)
+    {
+        controller.usePowerUp(powerUp);
     }
 
     public void update()

@@ -120,7 +120,7 @@ public class SpeechRecognition extends Thread
                 {
                     if(powerUp.getKeyWords().contains(word.getWord().toLowerCase()))
                     {
-                        ((RoguelikeView) gameView).usePowerUp(powerUp.ordinal());
+                        ((RoguelikeView) gameView).usePowerUp(powerUp);
                         break;
                     }
                 }

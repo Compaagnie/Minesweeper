@@ -1,6 +1,7 @@
 package PAC.Roguelike;
 
 import PAC.Minesweeper;
+import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.PowerUps.PassivePowerUp;
 import PAC.Roguelike.PowerUps.PowerUp;
 
@@ -40,7 +41,6 @@ public class RogueLikeController
         this.model.executePowerUp(powerUpSlot);
     }
 
-
     public int getCurrencyCount()
     {
         return model.getCurrencyCount();
@@ -58,15 +58,7 @@ public class RogueLikeController
 
     public void onRestart() { model.restart(); }
 
-    public ArrayList<PowerUp> getPowerUps()
-    {
-        ArrayList<PowerUp> powerUps = new ArrayList<>(model.activePowerUps);
-        for(PassivePowerUp passivePowerUp : PassivePowerUp.values())
-        {
-            if(model.has(passivePowerUp)) powerUps.add(passivePowerUp);
-        }
-        return powerUps;
-    }
-
     public boolean isInShop(){return model.isInShop();}
+
+    public void usePowerUp(ActivePowerUp powerUp){ model.usePowerUp(powerUp); }
 }

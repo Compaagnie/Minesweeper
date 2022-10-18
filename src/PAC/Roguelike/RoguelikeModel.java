@@ -272,4 +272,13 @@ public class RoguelikeModel
     }
 
     public boolean isInShop(){ return isInShop; }
+
+    public void usePowerUp(ActivePowerUp powerUp)
+    {
+        for(int i = 0; i < activePowerUps.size(); ++i)
+        {
+            if(activePowerUps.get(i) == powerUp)
+                executePowerUp(i);
+        }
+    }
 }
