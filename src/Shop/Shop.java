@@ -110,12 +110,15 @@ public class Shop extends JPanel
             shopItems.add(button);
             powerUpPanel.add(button, constraints);
             constraints.gridx++;
-            button.repaint();button.revalidate();
+
+            button.repaint();
+            button.revalidate();
         }
 
         if(missingPowerUps.size() == 0) powerUpPanel.add(new JLabel("Congratulations ! You have acquired all power ups"));
 
         this.repaint();
+        this.revalidate();
     }
 
     private void select(PowerUp powerUp, ShopButton button)

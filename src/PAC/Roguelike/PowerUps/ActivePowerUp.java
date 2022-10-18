@@ -112,7 +112,7 @@ public enum ActivePowerUp implements PowerUp
         }
         else if (this == RADAR_REVEAL)
         {
-            return List.of(new String[]{"radar", "zone"});
+            return List.of(new String[]{"radar", "zone", "scan"});
         }
         else return List.of(new String[]{});
     }

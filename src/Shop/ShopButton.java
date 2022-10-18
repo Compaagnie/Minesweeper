@@ -43,16 +43,13 @@ public class ShopButton extends JButton
     {
         BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
         Graphics bufferedPen = image.getGraphics();
-        this.setEnabled(shop.getCurrencyCount() >= this.price);
-
-
 
         bufferedPen.fillRect(0,0, (int) size.getWidth(), (int) size.getHeight());
         bufferedPen.setColor(Color.black);
 
         bufferedPen.drawImage(((ImageIcon) getIcon()).getImage(), (int) (getWidth()/2. - PowerUp.IMAGE_SIZE/2), small_margin, null);
 
-        bufferedPen.drawString(getText(), (int) (size.getWidth()/2. - pen.getFontMetrics().stringWidth(getText())/2.), (int) (small_margin + PowerUp.IMAGE_SIZE + pen.getFontMetrics().getStringBounds(getText(),pen).getHeight()));
+        bufferedPen.drawString(getText(), (int) (size.getWidth()/2. - pen.getFontMetrics().getStringBounds(getText(), bufferedPen).getWidth()/2.), (int) (small_margin + PowerUp.IMAGE_SIZE + pen.getFontMetrics().getStringBounds(getText(),pen).getHeight()));
 
         if(this.price != 0)
         {
@@ -65,7 +62,7 @@ public class ShopButton extends JButton
             int coinImageY = (int) (small_margin + PowerUp.IMAGE_SIZE + pen.getFontMetrics().getStringBounds(getText(),pen).getHeight() + small_margin);
 
             bufferedPen.drawImage(coinImage, coinImageX, coinImageY, null);
-            bufferedPen.drawString(costString, (int) (size.getWidth()/2 - costWidth/2), (int) (coinImageY + COIN_IMAGE_SIZE/2 + costHeight/2 -1));
+            bufferedPen.drawString(costString, (int) (size.getWidth()/2 - costWidth/2), coinImageY + COIN_IMAGE_SIZE/2 + costHeight/2 -1);
         }
 
         if(isEnabled())

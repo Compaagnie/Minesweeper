@@ -73,7 +73,7 @@ public class GameView extends BackgroundPanel
         gameInfoPanel = new JPanel();
         gameInfoPanel.setOpaque(false);
         gameInfoPanel.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();;
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weightx = 0;
@@ -109,7 +109,7 @@ public class GameView extends BackgroundPanel
 
     protected void CreateRecordButton(GridBagConstraints constraints) {
         MenuButton recordButton = new MenuButton("Record");
-        recordButton.addKeyListener(new KeyAdapter() {
+        this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == VK_ENTER){
@@ -247,7 +247,6 @@ public class GameView extends BackgroundPanel
 
     public void openMenu()
     {
-        if(this.speechRecognition != null) this.speechRecognition.clear();
         this.minesweeper.openMenu();
     }
 

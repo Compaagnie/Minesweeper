@@ -7,7 +7,6 @@ import ai.picovoice.leopard.Leopard;
 import ai.picovoice.leopard.LeopardException;
 import ai.picovoice.leopard.LeopardTranscript;
 
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -119,7 +118,7 @@ public class SpeechRecognition extends Thread
             {
                 for(ActivePowerUp powerUp : ActivePowerUp.values())
                 {
-                    if(powerUp.getKeyWords().contains(word))
+                    if(powerUp.getKeyWords().contains(word.getWord().toLowerCase()))
                     {
                         ((RoguelikeView) gameView).usePowerUp(powerUp.ordinal());
                         break;
@@ -128,9 +127,5 @@ public class SpeechRecognition extends Thread
             }
         }
         wordArrayList.clear();
-    }
-
-    public void clear() {
-        leopard.delete();
     }
 }
