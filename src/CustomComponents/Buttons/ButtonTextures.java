@@ -4,8 +4,8 @@ import GridPAC.CellContent;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ButtonTextures
 {
@@ -16,33 +16,26 @@ public class ButtonTextures
 
     public ButtonTextures()
     {
-        loadTextures();
-    }
-
-    public static void setPath(String _path)
-    {
-        path = _path;
-    }
-
-    public static void loadTextures()
-    {
-        try
-        {
-            topTextures[0] = ImageIO.read(new File(path + "top0.png"));
-            topTextures[1] = ImageIO.read(new File(path + "flag.png"));
-            topTextures[2] = ImageIO.read(new File(path + "wrongFlag.png"));
-            String fileName = "";
-            for(int i = 0; i < bottomTextures.length - 2; i++)
-            {
-                fileName = path + i + ".png";
-                bottomTextures[i] = ImageIO.read(new File(fileName));
-            }
-            bottomTextures[9] = ImageIO.read(new File(path + "bomb.png"));
-            bottomTextures[10] = ImageIO.read(new File(path + "losingBomb.png"));
-
+        try {
+            loadTextures();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void loadTextures() throws IOException {
+        topTextures[0] = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path + "top0.png")));
+        topTextures[1] = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path + "flag.png")));
+        topTextures[2] = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path + "wrongFlag.png")));
+        String fileName;
+        for(int i = 0; i < bottomTextures.length - 2; i++)
+        {
+            fileName = path + i + ".png";
+            bottomTextures[i] = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(fileName)));
+
+        }
+        bottomTextures[9] = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path + "bomb.png")));
+        bottomTextures[10] = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path + "losingBomb.png")));
     }
 
     public static Image getBottomTexture(int textureNb)

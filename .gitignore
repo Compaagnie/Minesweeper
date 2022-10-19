@@ -25,7 +25,6 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
-.DS_Store
-/textures/redIcon.kra
-/textures/greenIcon.kra
+*.xml
+*.kra
+*.jar

@@ -1,7 +1,9 @@
 package PAC.Roguelike.PowerUps;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public enum PassivePowerUp implements PowerUp
 {
@@ -71,7 +73,11 @@ public enum PassivePowerUp implements PowerUp
         else if(this == PassivePowerUp.SHOP_AHEAD) iconName = "shop_ahead.png";
         else if(this == PassivePowerUp.EASY_GRID) iconName = "easymode.png";
         else return null;
-        return new ImageIcon("textures/powerups/" + iconName).getImage().getScaledInstance(imgDimensions.width,imgDimensions.height, Image.SCALE_SMOOTH);
+        try {
+            return ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("textures/powerups/" + iconName)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

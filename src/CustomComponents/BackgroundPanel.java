@@ -1,7 +1,10 @@
 package CustomComponents;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 /*
  *  Support custom painting on a panel in the form of
@@ -16,59 +19,17 @@ import java.awt.*;
  */
 public class BackgroundPanel extends JPanel
 {
-	public static final int SCALED = 0;
-	public static final int TILED = 1;
-	public static final int ACTUAL = 2;
-
-	private Paint painter;
-	private static Image image = (new ImageIcon("textures/background.jpeg").getImage());
-
-	private int style = SCALED;
-	private float alignmentX = 0.5f;
-	private float alignmentY = 0.5f;
-	private boolean isTransparentAdd = true;
+	private static Image image;
+	{
+		try {
+			image = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("textures/background.jpeg")));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public BackgroundPanel(){
 
-	}
-
-	/*
-	 *  Set image as the background with the SCALED style
-	 */
-	public BackgroundPanel(Image image)
-	{
-		this(image, SCALED);
-	}
-
-	/*
-	 *  Set image as the background with the specified style
-	 */
-	public BackgroundPanel(Image image, int style)
-	{
-		setImage( image );
-		setStyle( style );
-		setLayout( new BorderLayout() );
-	}
-
-	/*
-	 *  Set image as the backround with the specified style and alignment
-	 */
-	public BackgroundPanel(Image image, int style, float alignmentX, float alignmentY)
-	{
-		setImage( image );
-		setStyle( style );
-		setImageAlignmentX( alignmentX );
-		setImageAlignmentY( alignmentY );
-		setLayout( new BorderLayout() );
-	}
-
-	/*
-	 *  Use the Paint interface to paint a background
-	 */
-	public BackgroundPanel(Paint painter)
-	{
-		setPaint( painter );
-		setLayout( new BorderLayout() );
 	}
 
 	/*
@@ -77,42 +38,6 @@ public class BackgroundPanel extends JPanel
 	public void setImage(Image image)
 	{
 		BackgroundPanel.image = image;
-		repaint();
-	}
-
-	/*
-	 *	Set the style used to paint the background image
-	 */
-	public void setStyle(int style)
-	{
-		this.style = style;
-		repaint();
-	}
-
-	/*
-	 *	Set the Paint object used to paint the background
-	 */
-	public void setPaint(Paint painter)
-	{
-		this.painter = painter;
-		repaint();
-	}
-
-	/*
-	 *  Specify the horizontal alignment of the image when using ACTUAL style
-	 */
-	public void setImageAlignmentX(float alignmentX)
-	{
-		this.alignmentX = alignmentX > 1.0f ? 1.0f : Math.max(alignmentX, 0.0f);
-		repaint();
-	}
-
-	/*
-	 *  Specify the horizontal alignment of the image when using ACTUAL style
-	 */
-	public void setImageAlignmentY(float alignmentY)
-	{
-		this.alignmentY = alignmentY > 1.0f ? 1.0f : Math.max(alignmentY, 0.0f);
 		repaint();
 	}
 
@@ -141,22 +66,8 @@ public class BackgroundPanel extends JPanel
 	 */
 	public void add(JComponent component, Object constraints)
 	{
-		if (isTransparentAdd)
-		{
-			makeComponentTransparent(component);
-		}
-
+		makeComponentTransparent(component);
 		super.add(component, constraints);
-	}
-
-	/*
-	 *  Controls whether components added to this panel should automatically
-	 *  be made transparent. That is, setOpaque(false) will be invoked.
-	 *  The default is set to true.
-	 */
-	public void setTransparentAdd(boolean isTransparentAdd)
-	{
-		this.isTransparentAdd = isTransparentAdd;
 	}
 
 	/*
@@ -189,27 +100,7 @@ public class BackgroundPanel extends JPanel
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-
-		//  Invoke the painter for the background
-
-		if (painter != null)
-		{
-			Dimension d = getSize();
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setPaint(painter);
-			g2.fill( new Rectangle(0, 0, d.width, d.height) );
-		}
-
-		//  Draw the image
-
-		if (image == null ) return;
-
-		switch (style) {
-			case SCALED -> drawScaled(g);
-			case TILED -> drawTiled(g);
-			case ACTUAL -> drawActual(g);
-			default -> drawScaled(g);
-		}
+		drawScaled(g);
 	}
 
 	/*
@@ -219,39 +110,5 @@ public class BackgroundPanel extends JPanel
 	{
 		Dimension d = getSize();
 		g.drawImage(image, 0, 0, d.width, d.height, null);
-	}
-
-	/*
-	 *  Custom painting code for drawing TILED images as the background
-	 */
-	private void drawTiled(Graphics g)
-	{
-		   Dimension d = getSize();
-		   int width = image.getWidth( null );
-		   int height = image.getHeight( null );
-
-		   for (int x = 0; x < d.width; x += width)
-		   {
-			   for (int y = 0; y < d.height; y += height)
-			   {
-				   g.drawImage( image, x, y, null, null );
-			   }
-		   }
-	}
-
-	/*
-	 *  Custom painting code for drawing the ACTUAL image as the background.
-	 *  The image is positioned in the panel based on the horizontal and
-	 *  vertical alignments specified.
-	 */
-	private void drawActual(Graphics g)
-	{
-		Dimension d = getSize();
-		Insets insets = getInsets();
-		int width = d.width - insets.left - insets.right;
-		int height = d.height - insets.top - insets.left;
-		float x = (width - image.getWidth(null)) * alignmentX;
-		float y = (height - image.getHeight(null)) * alignmentY;
-		g.drawImage(image, (int)x + insets.left, (int)y + insets.top, this);
 	}
 }

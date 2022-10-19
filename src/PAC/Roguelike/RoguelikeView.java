@@ -3,18 +3,22 @@ package PAC.Roguelike;
 import CustomComponents.Buttons.MenuButton;
 import GridPAC.GridEvent;
 import GridPAC.Roguelike.RoguelikeGrid;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 import PAC.GameImages;
 import PAC.GameView;
 import PAC.Minesweeper;
 import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.PowerUps.PowerUp;
 import PAC.Roguelike.PowerUps.PowerUpComponent;
-import Shop.ShopButton;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.Objects;
 
 public class RoguelikeView extends GameView
 {
@@ -107,7 +111,11 @@ public class RoguelikeView extends GameView
         gameInfoPanel.add(currencyLabel, constraints);
         constraints.gridy++;
 
-        currencyLabel.setIcon(new ImageIcon(ShopButton.coinImage.getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH)));
+        try {
+            currencyLabel.setIcon(new ImageIcon(ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("textures/powerups/coin.png"))).getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void CreateEnergyLabel(GridBagConstraints constraints)
@@ -289,34 +297,26 @@ public class RoguelikeView extends GameView
     protected void gridEventHandler(GridEvent event)
     {
 //        System.out.println("Grid event : " + event.command);
-        switch (event.command)
-        {
-            case "flag" : update(); break;
-            case "restart" :
-            {
+        switch (event.command) {
+            case "flag" -> update();
+            case "restart" -> {
                 this.onRestart();
                 controller.onRestart();
-            } break;
-
-            case "reveal" :
-            {
-                if(!grid.isOver())
-                {
+            }
+            case "reveal" -> {
+                if (!grid.isOver()) {
                     gameTimer.start();
                     flagFoundLabel.setVisible(true);
                     update();
                 }
-            } break;
-
-            case "over" :
-            {
+            }
+            case "over" -> {
                 gameTimer.stop();
                 flagFoundLabel.setVisible(false);
                 bombFoundSlider.setValue(0);
                 revealedSlider.setValue(0);
-            } break;
-
-            default : System.out.println("[WARNING] Grid event not handled by view : " + event.command);
+            }
+            default -> System.out.println("[WARNING] Grid event not handled by view : " + event.command);
         }
         repaint();
     }

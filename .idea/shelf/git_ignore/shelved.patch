@@ -1,0 +1,246 @@
+Index: .idea/workspace.xml
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+deleted file mode 100644
+--- a/.idea/workspace.xml	(revision 7c09bf856df0c91fc2ac6527c1f172f1da8ed03a)
++++ /dev/null	(revision 7c09bf856df0c91fc2ac6527c1f172f1da8ed03a)
+@@ -1,223 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ArtifactsWorkspaceSettings">
+-    <artifacts-to-build>
+-      <artifact name="Minesweeper_Debug:jar" />
+-    </artifacts-to-build>
+-  </component>
+-  <component name="AutoImportSettings">
+-    <option name="autoReloadType" value="SELECTIVE" />
+-  </component>
+-  <component name="ChangeListManager">
+-    <list default="true" id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="jar" />
+-    <list id="f3490b08-647d-4663-b773-85d154917dfa" name="Changes by julien" comment="" />
+-    <list id="07044065-bcc7-4f16-aad4-ef538c759912" name="Changes by Neylick" comment="" />
+-    <option name="SHOW_DIALOG" value="false" />
+-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-    <option name="LAST_RESOLUTION" value="IGNORE" />
+-  </component>
+-  <component name="CodeInsightWorkspaceSettings">
+-    <option name="optimizeImportsOnTheFly" value="true" />
+-  </component>
+-  <component name="FileTemplateManagerImpl">
+-    <option name="RECENT_TEMPLATES">
+-      <list>
+-        <option value="Class" />
+-      </list>
+-    </option>
+-  </component>
+-  <component name="Git.Settings">
+-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-  </component>
+-  <component name="MarkdownSettingsMigration">
+-    <option name="stateVersion" value="1" />
+-  </component>
+-  <component name="ProjectId" id="2GIXU3DAMFlj8lP77AtZ6LpBYmt" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+-    <OptionsSetting value="false" id="Update" />
+-    <ConfirmationsSetting value="2" id="Add" />
+-  </component>
+-  <component name="ProjectViewState">
+-    <option name="hideEmptyMiddlePackages" value="true" />
+-    <option name="showLibraryContents" value="true" />
+-  </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ASKED_ADD_EXTERNAL_FILES": "true",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "deletionFromPopupRequiresConfirmation": "false",
+-    "last_opened_file_path": "/home/julien/Documents/M1/AdvUi/Minesweeper/src",
+-    "project.structure.last.edited": "Artifacts",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "project.propVCSSupport.ChangelistConflict"
+-  }
+-}]]></component>
+-  <component name="RecentsManager">
+-    <key name="MoveFile.RECENT_KEYS">
+-      <recent name="$PROJECT_DIR$" />
+-      <recent name="$PROJECT_DIR$/src/textures" />
+-      <recent name="$PROJECT_DIR$/src" />
+-      <recent name="$PROJECT_DIR$/textures/cells" />
+-    </key>
+-  </component>
+-  <component name="RunManager" selected="Application.Main ">
+-    <configuration name="Main Debug" type="Application" factoryName="Application">
+-      <option name="MAIN_CLASS_NAME" value="Main" />
+-      <module name="Minesweeper" />
+-      <option name="PROGRAM_PARAMETERS" value="true" />
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+-    <configuration name="Main " type="Application" factoryName="Application">
+-      <option name="MAIN_CLASS_NAME" value="Main" />
+-      <module name="Minesweeper" />
+-      <option name="PROGRAM_PARAMETERS" value="false" />
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+-    <configuration name="A Rogue MineSweeper.jar" type="JarApplication" temporary="true">
+-      <option name="JAR_PATH" value="$PROJECT_DIR$/A Rogue MineSweeper.jar" />
+-      <option name="ALTERNATIVE_JRE_PATH" />
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="Minesweeper.jar" type="JarApplication" temporary="true">
+-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/Minesweeper_jar/Minesweeper.jar" />
+-      <method v="2" />
+-    </configuration>
+-    <list>
+-      <item itemvalue="Application.Main Debug" />
+-      <item itemvalue="Application.Main " />
+-      <item itemvalue="JAR Application.A Rogue MineSweeper.jar" />
+-      <item itemvalue="JAR Application.Minesweeper.jar" />
+-    </list>
+-    <recent_temporary>
+-      <list>
+-        <item itemvalue="JAR Application.Minesweeper.jar" />
+-        <item itemvalue="JAR Application.A Rogue MineSweeper.jar" />
+-      </list>
+-    </recent_temporary>
+-  </component>
+-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+-  <component name="TaskManager">
+-    <task id="LOCAL-00001" summary="Post merge fixes, added simple helper to understand powerups, needs more details.">
+-      <created>1665847400144</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1665847400144</updated>
+-    </task>
+-    <task active="true" id="Default" summary="Default task">
+-      <changelist id="3e832f75-cad5-418c-9602-d26adff604be" name="Changes" comment="Post merge fixes, added simple helper to understand powerups, needs more details." />
+-      <created>1666077084477</created>
+-      <option name="number" value="Default" />
+-      <option name="presentableId" value="Default" />
+-      <updated>1666077084477</updated>
+-    </task>
+-    <task id="LOCAL-00002" summary="better speech control and background">
+-      <created>1666080397398</created>
+-      <option name="number" value="00002" />
+-      <option name="presentableId" value="LOCAL-00002" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666080397398</updated>
+-    </task>
+-    <task id="LOCAL-00003" summary="textures">
+-      <created>1666093157369</created>
+-      <option name="number" value="00003" />
+-      <option name="presentableId" value="LOCAL-00003" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666093157369</updated>
+-    </task>
+-    <task id="LOCAL-00004" summary="buttons">
+-      <created>1666097588620</created>
+-      <option name="number" value="00004" />
+-      <option name="presentableId" value="LOCAL-00004" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666097588620</updated>
+-    </task>
+-    <task id="LOCAL-00005" summary="key words">
+-      <created>1666117665558</created>
+-      <option name="number" value="00005" />
+-      <option name="presentableId" value="LOCAL-00005" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666117665558</updated>
+-    </task>
+-    <task id="LOCAL-00006" summary="c'est giga beau">
+-      <created>1666121407527</created>
+-      <option name="number" value="00006" />
+-      <option name="presentableId" value="LOCAL-00006" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666121407527</updated>
+-    </task>
+-    <task id="LOCAL-00007" summary=".jar">
+-      <created>1666122638320</created>
+-      <option name="number" value="00007" />
+-      <option name="presentableId" value="LOCAL-00007" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666122638320</updated>
+-    </task>
+-    <task id="LOCAL-00008" summary=".jar working">
+-      <created>1666129560765</created>
+-      <option name="number" value="00008" />
+-      <option name="presentableId" value="LOCAL-00008" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666129560765</updated>
+-    </task>
+-    <task id="LOCAL-00009" summary="Debug and official .jar">
+-      <created>1666130868493</created>
+-      <option name="number" value="00009" />
+-      <option name="presentableId" value="LOCAL-00009" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666130868493</updated>
+-    </task>
+-    <task id="LOCAL-00010" summary="Debug and official .jar">
+-      <created>1666183661318</created>
+-      <option name="number" value="00010" />
+-      <option name="presentableId" value="LOCAL-00010" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666183661318</updated>
+-    </task>
+-    <task id="LOCAL-00011" summary="jar">
+-      <created>1666186514252</created>
+-      <option name="number" value="00011" />
+-      <option name="presentableId" value="LOCAL-00011" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666186514252</updated>
+-    </task>
+-    <option name="localTasksCounter" value="12" />
+-    <servers />
+-  </component>
+-  <component name="Vcs.Log.Tabs.Properties">
+-    <option name="TAB_STATES">
+-      <map>
+-        <entry key="MAIN">
+-          <value>
+-            <State />
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-  <component name="VcsManagerConfiguration">
+-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+-    <MESSAGE value="Post merge fixes, added simple helper to understand powerups, needs more details." />
+-    <MESSAGE value="better speech control and background" />
+-    <MESSAGE value="textures" />
+-    <MESSAGE value="buttons" />
+-    <MESSAGE value="key words" />
+-    <MESSAGE value="c'est giga beau" />
+-    <MESSAGE value=".jar" />
+-    <MESSAGE value=".jar working" />
+-    <MESSAGE value="Debug and official .jar" />
+-    <MESSAGE value="jar" />
+-    <option name="LAST_COMMIT_MESSAGE" value="jar" />
+-  </component>
+-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-    <SUITE FILE_PATH="coverage/Minesweeper$Main.ic" NAME="Main Coverage Results" MODIFIED="1665067924095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>### IntelliJ IDEA ###\nout/\n!**/src/main/**/out/\n!**/src/test/**/out/\n\n### Eclipse ###\n.apt_generated\n.classpath\n.factorypath\n.project\n.settings\n.springBeans\n.sts4-cache\nbin/\n!**/src/main/**/bin/\n!**/src/test/**/bin/\n\n### NetBeans ###\n/nbproject/private/\n/nbbuild/\n/dist/\n/nbdist/\n/.nb-gradle/\n\n### VS Code ###\n.vscode/\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision 7c09bf856df0c91fc2ac6527c1f172f1da8ed03a)
++++ b/.gitignore	(date 1666187786495)
+@@ -25,3 +25,4 @@
+ ### VS Code ###
+ .vscode/
+ 
++*.xml

@@ -2,19 +2,15 @@ package PAC.Roguelike;
 
 import PAC.Minesweeper;
 import PAC.Roguelike.PowerUps.ActivePowerUp;
-import PAC.Roguelike.PowerUps.PassivePowerUp;
-import PAC.Roguelike.PowerUps.PowerUp;
-
-import java.util.ArrayList;
 
 public class RogueLikeController
 {
     protected RoguelikeView view;
     protected RoguelikeModel model;
 
-    public RogueLikeController(Minesweeper minesweeper)
+    public RogueLikeController(Minesweeper minesweeper, Boolean debug)
     {
-        model = new RoguelikeModel();
+        model = new RoguelikeModel(debug);
         view = new RoguelikeView(this, minesweeper);
         minesweeper.setGameView(view);
         minesweeper.add(view);

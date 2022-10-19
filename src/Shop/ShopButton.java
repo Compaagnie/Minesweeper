@@ -2,12 +2,15 @@ package Shop;
 
 import PAC.Roguelike.PowerUps.PowerUp;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class ShopButton extends JButton
 {
@@ -17,15 +20,23 @@ public class ShopButton extends JButton
     static Color hoverColor = new Color(66, 108, 204);
     private boolean isSelected = false;
     private int price = 0;
+    private  Shop shop;
     public final static int COIN_IMAGE_SIZE = 32;
-    public static Image coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
+    public static Image coinImage;
+    static {
+        try {
+            coinImage = ImageIO.read(Objects.requireNonNull(ShopButton.class.getClassLoader().getResourceAsStream("textures/powerups/coin.png"))).getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static final int small_margin = 20; // margin between border and other elements (image - margin - text - margin - border)
     static Dimension size = new Dimension( 160, 160);
 
-    public ShopButton(String text)
+    public ShopButton(Shop shop, String text)
     {
         super(text);
-        coinImage = new ImageIcon("textures/powerups/coin.png").getImage().getScaledInstance(COIN_IMAGE_SIZE, COIN_IMAGE_SIZE, Image.SCALE_SMOOTH);
+        this.shop = shop;
         setPreferredSize(size);
         setSize(size);
         setBorder(BorderFactory.createEmptyBorder());
@@ -64,6 +75,8 @@ public class ShopButton extends JButton
     @Override
     public void paintComponent(Graphics pen)
     {
+        this.setEnabled(shop.getCurrencyCount() >= this.price);
+
         BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
         Graphics bufferedPen = image.getGraphics();
 

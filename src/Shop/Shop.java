@@ -94,7 +94,7 @@ public class Shop extends JPanel
 
         for(PowerUp powerUp : missingPowerUps)
         {
-            ShopButton button = new ShopButton(powerUp.getName());
+            ShopButton button = new ShopButton(this, powerUp.getName());
             Image powerUpImage = powerUp.getImage();
             if(powerUpImage != null) button.setIcon(new ImageIcon(powerUpImage.getScaledInstance(POWER_UP_IMAGE_SIZE, POWER_UP_IMAGE_SIZE, Image.SCALE_SMOOTH)));
             else System.out.println("[WARNING] Could not find image for power up: " + powerUp.getName());
@@ -148,6 +148,7 @@ public class Shop extends JPanel
             roguelikeModel.updateCurrency(-powerUp.getShopCost());
             shopItems.remove(button);
             if(shopItems.size() == 0) powerUpPanel.add(new JLabel("No power up available"));
+            this.repaint();
         }
     }
 

@@ -29,7 +29,7 @@ public class SpeechRecognition extends Thread
     });
 
     Scanner scanner;
-    final int audioDeviceIndex = 1;
+    final int audioDeviceIndex = -1;
 
     Boolean spacePressed, notTreated, stop;
 
@@ -57,7 +57,6 @@ public class SpeechRecognition extends Thread
             System.out.println("Leopard version : " + leopard.getVersion());
             System.out.println(">>> Press `CTRL+C` to exit:");
             this.recorder = recorder;
-            scanner = new Scanner(System.in);
         } catch (LeopardException ex) {
             throw new RuntimeException(ex);
         }
@@ -67,12 +66,16 @@ public class SpeechRecognition extends Thread
         stop = false;
         System.out.println("Started");
 
-        while (!stop) {
-            if (gameView.getMinesweeper().getEnterPressed() && !notTreated){
+        while (!stop)
+        {
+            if (gameView.getMinesweeper().getEnterPressed() && !notTreated)
+            {
                 System.out.println("Recording");
                 recorder.start();
                 notTreated = true;
-            } else if (!gameView.getMinesweeper().getEnterPressed() && notTreated){
+            }
+            else if (!gameView.getMinesweeper().getEnterPressed() && notTreated)
+            {
                 recorder.end();
                 while (recorder.isAlive()) { }
                 short[] pcm = recorder.getPCM();

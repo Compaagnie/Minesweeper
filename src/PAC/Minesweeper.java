@@ -2,13 +2,9 @@ package PAC;
 
 import CustomComponents.Buttons.ButtonTextures;
 import PAC.Roguelike.RogueLikeController;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class Minesweeper extends JFrame
 {
@@ -16,16 +12,17 @@ public class Minesweeper extends JFrame
     GameView gameView;
 
     Boolean enterPressed;
+    Boolean debug;
 
-    public Minesweeper()
+    public Minesweeper(Boolean debug)
     {
-        super("PAC.Minesweeper");
+        super("A Rogue Minesweeper");
         enterPressed = false;
         ButtonTextures buttonTextures = new ButtonTextures();
 
         this.setPreferredSize(new Dimension(900, 600));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        this.debug = debug;
 
         gameMenu = new GameMenu(this);
         pack();
@@ -50,7 +47,7 @@ public class Minesweeper extends JFrame
     public void startRoguelikeGame()
     {
         this.remove(gameMenu);
-        RogueLikeController controller = new RogueLikeController(this);
+        RogueLikeController controller = new RogueLikeController(this, debug);
     }
 
     public void openMenu()

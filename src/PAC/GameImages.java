@@ -1,8 +1,9 @@
 package PAC;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public enum GameImages
 {
@@ -19,6 +20,10 @@ public enum GameImages
 
     GameImages(String path)
     {
-        image = (new ImageIcon(path)).getImage().getScaledInstance(SIZE, SIZE, Image.SCALE_SMOOTH);
+        try {
+            image = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path))).getScaledInstance(SIZE,SIZE,Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

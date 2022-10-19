@@ -31,14 +31,15 @@ public class RoguelikeModel
 
     protected boolean isFirstSkill = true;
     protected boolean isInShop = false;
-    private final boolean DEBUG_MODE = true; // todo : remove this when not debugging
+    private final boolean DEBUG_MODE; // todo : remove this when not debugging
 
     public final int START_BOMB_COUNT = 10;
     public final int INCR_BOMB_COUNT = 2;
     public final int SIZE_MULTIPLIER = 4;
 
-    public RoguelikeModel()
+    public RoguelikeModel(Boolean debug)
     {
+        DEBUG_MODE = debug;
         setupCurrentLevelGrid();
     }
 

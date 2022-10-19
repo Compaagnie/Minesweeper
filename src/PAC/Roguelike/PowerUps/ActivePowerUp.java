@@ -2,16 +2,22 @@ package PAC.Roguelike.PowerUps;
 
 import GridPAC.Roguelike.RoguelikeGrid;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public enum ActivePowerUp implements PowerUp
 {
-    BOMB_REVEAL(1),
-    COLUMN_REVEAL(3),
-    LINE_REVEAL(3),
-    RADAR_REVEAL(2),
+    //BOMB_REVEAL(1),
+    //COLUMN_REVEAL(3),
+    //LINE_REVEAL(3),
+    //RADAR_REVEAL(2),
+    BOMB_REVEAL(),
+    COLUMN_REVEAL(),
+    LINE_REVEAL(),
+    RADAR_REVEAL(),
 
     COUNT;
 
@@ -83,7 +89,11 @@ public enum ActivePowerUp implements PowerUp
         else if (this == LINE_REVEAL) iconName = "line_reveal.png";
         else if (this == RADAR_REVEAL) iconName = "radar.png";
         else return null;
-        return new ImageIcon("textures/powerups/" + iconName).getImage().getScaledInstance(imgDimensions.width,imgDimensions.height, Image.SCALE_SMOOTH);
+        try {
+            return ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("textures/powerups/" + iconName)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

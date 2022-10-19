@@ -34,11 +34,11 @@ public class GameView extends BackgroundPanel
     protected Font labelFont;
     protected Color labelTextColor;
 
-    public GameView(){super(new ImageIcon("textures/background.jpeg").getImage(), 0);}
+    public GameView(){super();}
 
     public GameView(Minesweeper minesweeper, int width, int height, int bombCount)
     {
-        super(new ImageIcon("textures/background.jpeg").getImage(), 0);
+        super();
 
         this.labelFont = this.getFont().deriveFont(22.0f);
         this.labelTextColor = Color.white;
