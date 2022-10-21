@@ -90,7 +90,7 @@ public enum ActivePowerUp implements PowerUp
         else if (this == RADAR_REVEAL) iconName = "radar.png";
         else return null;
         try {
-            return ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("textures/powerups/" + iconName)));
+            return ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("textures/powerups/" + iconName))).getScaledInstance(imgDimensions.width, imgDimensions.height, Image.SCALE_SMOOTH);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -120,7 +120,7 @@ public enum ActivePowerUp implements PowerUp
         }
         else if (this == RADAR_REVEAL)
         {
-            return List.of(new String[]{"radar", "zone", "scan", "area"});
+            return List.of(new String[]{"radar", "zone", "scan", "area", "can", "skin"});
         }
         else return List.of(new String[]{});
     }

@@ -11,13 +11,12 @@ public class Minesweeper extends JFrame
     GameMenu gameMenu;
     GameView gameView;
 
-    Boolean enterPressed;
-    Boolean debug;
+    boolean debug;
+    boolean speechInitiated = false;
 
     public Minesweeper(Boolean debug)
     {
         super("A Rogue Minesweeper");
-        enterPressed = false;
         ButtonTextures buttonTextures = new ButtonTextures();
 
         this.setPreferredSize(new Dimension(900, 600));
@@ -55,14 +54,12 @@ public class Minesweeper extends JFrame
         gameView.setVisible(false);
         gameMenu = new GameMenu(this);
     }
-
-    public void setEnterPressed(Boolean enterPressed) {
-        this.enterPressed = enterPressed;
-    }
-
-    public Boolean getEnterPressed() {
-        return enterPressed;
-    }
     
     public void setGameView(GameView view) { this.gameView = view; }
+
+    public void setSpeechInitiated(){
+        speechInitiated = true;
+        if (gameView != null)
+            gameView.setSpeechInitiated();
+    }
 }
