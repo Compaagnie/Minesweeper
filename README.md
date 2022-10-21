@@ -4,6 +4,17 @@ minesweeper with roguelike elements using Java Swing
 
 start with basic minesweeper
 
+## Project Architecture
+- src/
+  - CustomComponents/
+    - VSlider.java : vertical slider JComponent
+    - BackgroundPanel.java : JPanel with custom background, and auto transparent components
+    - Buttons/
+      - ButtonTextures.java : loads the textures at startup and static get of specific textures
+      - CellButton.java : Button used to represent a cell in a grid
+      - MenuButton(UI).java : Definition of a instantiable JButton to match our app style
+  - GridPAC/
+    - CellChangeEvent.java : Event to communicate from grid model to grid
 - look how to efficiently place mines
 - create basic UI and game logic
 

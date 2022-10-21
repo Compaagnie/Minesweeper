@@ -3,24 +3,7 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/lib" />
     </CLASSES>
-    <JAVADOC>
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/javadoc" />
-      <root url="file://$PROJECT_DIR$/lib/jsapi2_0_6" />
-    </JAVADOC>
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/JSAPI/Emacspeak" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/JSAPI/HelloWorld" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/JSAPI/JTime" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/JSAPI/MixedVoices" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/JSAPI/Player" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/JSAPI/WebStartClock" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/freetts/ClientServer" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/freetts/Emacspeak" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/freetts/HelloWorld" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/demo/util" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/tools/ArcticToFreeTTS/src" />
-      <root url="file://$PROJECT_DIR$/lib/freetts/freetts-1.2.1/tools/FestVoxToFreeTTS" />
-    </SOURCES>
-    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+    <JAVADOC />
+    <SOURCES />
   </library>
 </component>
