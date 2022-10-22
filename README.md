@@ -15,8 +15,28 @@ start with basic minesweeper
       - MenuButton(UI).java : Definition of a instantiable JButton to match our app style
   - GridPAC/
     - CellChangeEvent.java : Event to communicate from grid model to grid
-- look how to efficiently place mines
-- create basic UI and game logic
+    - CellContent.java : final values treated as enums to help with grid content and make more readable code
+    - Grid(Model).java : The grid, array of the game cells and its logic
+    - GridEvent.java : Event used to communicate grid updates to the view.
+    - Roguelike/
+      - ..Grid(Model).java : grid with specific roguelike implementations (power ups, and overriding some basic grid behaviour)
+  - GamePAC/
+    - GameImages.java : enum constants defining useful game images (here : energy image)
+    - GameMenu.java : Game menu, used to select mode (and preset)
+    - GameView.java : Used to manage the games Input/Output system
+    - Minesweeper.java : General Game class for the (rogue) minesweeper, initialised by main, creates the menu at startup and called to start a mode
+    - Roguelike/
+      - Roguelike(MVC).java : defines the roguelike general behaviour, succession of grids, power ups, shops, and managing effects of the different power ups that the player has.
+      - PowerUps/
+        - PowerUp.java : interface definition of a powerup (image, desctiption, cost, isActive?)
+        - (Active/Passive)PowerUp.java : definition of a(n) (active/passive) powerup enumeration of constant Power Up implementations
+        - PowerUpComponent.java : UI element to represent a power up, with shortcut (if active) and tooltip
+  - Shop/
+    - Shop.java : defines an instance of a shop, can be free or not (end stage shop or power up shop)
+    - ShopButton.java : defines an item in a shop, with an optional shop price and behaviour on click (buy/selection)
+  - SpeechRecognition/
+    - Recorder.java : Object used to record audio from an audio device
+    - SpeechRecognition.java : Object used to control a recorder and translate voice commands to inputs in the game view.
 
 then add other stuff
 

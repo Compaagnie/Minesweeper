@@ -80,7 +80,7 @@ public class SpeechRecognition extends Thread
                 while (recorder.isAlive()) { }
                 short[] pcm = recorder.getPCM();
                 System.out.println(pcm);
-                LeopardTran script transcript = null;
+                LeopardTranscript transcript = null;
                 try
                 {
                     transcript = leopard.process(pcm);
