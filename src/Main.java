@@ -14,8 +14,8 @@ public class Main
     public static void main(String[] args)
     {
         System.out.println(Main.class.getClassLoader().getName());
-        minesweeper = new Minesweeper(true);
-        //minesweeper = new Minesweeper(false);
+        //minesweeper = new Minesweeper(true);
+        minesweeper = new Minesweeper(false);
         minesweeper.setFocusable(true);
 
         SpeechRecognition speechRecognition = new SpeechRecognition(minesweeper);
