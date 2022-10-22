@@ -1,31 +1,65 @@
 # Advanced UI project : a rogue minesweeper 
 
 ## 1 - Instructions
+### Install and launch
+Either open the project with IntelliJ and run the main class located in the src folder
 
-How to play:
+or
+
+Download the jar file in this drive folder https://drive.google.com/file/d/1KN7mJmS6UWv3afl5zopSNGvcvE1WzaRr/view?usp=sharing
+Allow them to run as programs and run them using Java 18 JRE
+
+If the librairies leopard and jlayer are not working, please download them there:
+http://www.java2s.com/Code/Jar/j/Downloadjlayer101jar.htm#google_vignette
+
+https://repo1.maven.org/maven2/ai/picovoice/leopard-java/1.1.1/leopard-java-1.1.1.jar
+And add them as project librairies.
+
+### How to play:
+Basic minesweeper rules:
 - click a cell to reveal it
-- right click to place a flag
-- When you unlock an active power up you can use it by pressing the number key associated with it ||if just the number doesn't work, press ALT+number||
+- You won a grid once you revealed all the cells that are not bombs
+- right-click a cell to place a flag, flags prevent their cells from revealing
 
-In rogue like mode, you have 5 energy per grid with each power up use costing one energy
-You gain coins at the end of each grid that can be used in a shop to purchase active or passive in the shop for 10 or 5 coins
 
+Rogue-like rules:
+In rogue-like mode, every time you finish a grid, the next one becomes harder and bigger.
+
+After completing a grid, you are given a choice between three powerups, you can hover them to look at the tooltip for a better description but the name should be explicit enough
+
+There are some active and some passive power ups, described later in this document.
+When you unlock an active power up you can use it by pressing the number key associated with it. From 1 to 4, if the number key alone doesn't work, you should try ALT+Number key.
+Each active power up cost 1 energy to use so use them sparingly, you have 5 energy per grid.
+
+You gain coins at the end of each grid that can be used in a shop to purchase active or passive for 10 or 5 coins respectively
+
+
+Speech Recognition:
 - to activate voice press ENTER or ALT+ENTER
-  Reveal key words:
-- "reveal" "propagate" "clear"
-  Flag key words:
-- "place" "flag" "flagged"
+  It will start recording your voice, when you release the key, it'll try to understand what you said and will execute the first instruction you said
+
+Reveal keywords:
+- "reveal", "propagate", "clear"
+
+Flag keywords:
+- "place", "flag", "flagged", "leg"
 
 Random bomb reveal:
 - "bomb", "random"
-  Column reveal key words
-- "column", "vertical"
-  Line reveal key words:
-- "line", "horizontal", "row"
-  Radar key words:
-- "radar", "zone", "scan", "area"});
 
-There isn't much feedback but it should work
+Column reveal keywords
+- "column", "vertical"
+
+Line reveal keywords:
+- "line", "horizontal", "row"
+
+Radar keywords:
+- "radar", "zone", "scan", "area", "can", "skin"
+
+We cheated a bit with some keywords for a better recognition
+
+If you want some feedback for the recognition, I recommend launching through IntelliJ or a terminal
+
 
 
 ## 2 - Implemented power ups
