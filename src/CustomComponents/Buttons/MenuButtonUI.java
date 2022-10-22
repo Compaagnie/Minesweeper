@@ -3,9 +3,13 @@ package CustomComponents.Buttons;
 import java.awt.*;
 
 public class MenuButtonUI {
+    static Color disabledColor = new Color(66, 63, 63);
 
     public void paint(Graphics pen, MenuButton c){
-        pen.setColor(c.getPaintColor());
+        if (c.isEnabled())
+            pen.setColor(c.getPaintColor());
+        else
+            pen.setColor(disabledColor);
         pen.fillRoundRect(0,0,c.getWidth()-1, c.getHeight()-1, 20,20);
         String label = c.getText();
         pen.setColor(Color.BLACK);

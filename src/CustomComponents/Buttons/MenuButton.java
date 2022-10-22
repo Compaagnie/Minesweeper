@@ -12,6 +12,7 @@ public class MenuButton extends JButton {
     static Color backgroundColor = new Color(0,0,0,0);
     static Color fillColor = new Color(117, 139, 190);
     static Color hoverColor = new Color(66, 108, 204);
+
     public MenuButton(String text)
     {
         super(text);
@@ -40,5 +41,14 @@ public class MenuButton extends JButton {
 
     public Color getPaintColor() {
         return paintColor;
+    }
+
+    @Override
+    public void setSelected(boolean b){
+        super.setSelected(b);
+        if (b)
+            paintColor = hoverColor;
+        else
+            paintColor = fillColor;
     }
 }

@@ -1,6 +1,7 @@
 package SpeechRecognition;
 
 import PAC.GameView;
+import PAC.Minesweeper;
 import PAC.Roguelike.PowerUps.ActivePowerUp;
 import PAC.Roguelike.RoguelikeView;
 import ai.picovoice.leopard.Leopard;
@@ -9,7 +10,6 @@ import ai.picovoice.leopard.LeopardTranscript;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class SpeechRecognition extends Thread
@@ -17,30 +17,30 @@ public class SpeechRecognition extends Thread
     private final static String accessKey = "rd9J3I9zJKmWbMPPg6JbEy/efOEMTrVYQPTyxdeoxkSHYrvwLnLZXA==";
     private GameView gameView;
     private Recorder recorder;
+
+    private final Minesweeper minesweeper;
     String modelPath;
     String libraryPath;
     Leopard leopard;
 
     List<String> flagKeyWords = List.of(new String[]{
-            "flag","flagged","place"
+            "flag","flagged","place","flung","lag"
     });
     List<String> revealKeyWords = List.of(new String[]{
             "reveal","clear","propagate"
     });
 
-    Scanner scanner;
     final int audioDeviceIndex = -1;
 
-    Boolean spacePressed, notTreated, stop;
+    boolean notTreated;
+    boolean stop;
 
     private ArrayList<LeopardTranscript.Word> wordArrayList;
 
-    public SpeechRecognition(GameView gameView, Recorder recorder)
+    public SpeechRecognition(Minesweeper minesweeper)
     {
-        this.gameView = gameView;
-        this.recorder = recorder;
         this.wordArrayList = new ArrayList<>();
-
+        this.minesweeper = minesweeper;
         modelPath = Leopard.MODEL_PATH;
         libraryPath = Leopard.LIBRARY_PATH;
 
@@ -56,10 +56,10 @@ public class SpeechRecognition extends Thread
 
             System.out.println("Leopard version : " + leopard.getVersion());
             System.out.println(">>> Press `CTRL+C` to exit:");
-            this.recorder = recorder;
         } catch (LeopardException ex) {
             throw new RuntimeException(ex);
         }
+        minesweeper.setSpeechInitiated();
     }
     public void run()
     {
@@ -68,34 +68,35 @@ public class SpeechRecognition extends Thread
 
         while (!stop)
         {
-            if (gameView.getMinesweeper().getEnterPressed() && !notTreated)
-            {
-                System.out.println("Recording");
-                recorder.start();
-                notTreated = true;
-            }
-            else if (!gameView.getMinesweeper().getEnterPressed() && notTreated)
-            {
-                recorder.end();
-                while (recorder.isAlive()) { }
-                short[] pcm = recorder.getPCM();
-                System.out.println(pcm);
-                LeopardTranscript transcript = null;
-                try
-                {
-                    transcript = leopard.process(pcm);
-                } catch (LeopardException e) {
-                    throw new RuntimeException(e);
+            gameView = minesweeper.getGameView();
+            if (gameView != null) {
+                if (gameView.getEnterPressed() && !notTreated) {
+                    System.out.println("Recording");
+                    recorder = new Recorder(audioDeviceIndex);
+                    recorder.start();
+                    notTreated = true;
+                } else if (!gameView.getEnterPressed() && notTreated) {
+                    recorder.end();
+                    while (recorder.isAlive()) {
+                    }
+                    short[] pcm = recorder.getPCM();
+                    LeopardTranscript transcript = null;
+                    try {
+                        transcript = leopard.process(pcm);
+                    } catch (LeopardException ignored) {
+                    }
+                    if (transcript != null) {
+                        System.out.println(transcript.getTranscriptString() + "\n");
+                        wordArrayList.addAll(List.of(transcript.getWordArray()));
+                        examineWords();
+                    }
+                    recorder = null;
+                    notTreated = false;
                 }
-                System.out.println(transcript.getTranscriptString() + "\n");
-                wordArrayList.addAll(List.of(transcript.getWordArray()));
-                examineWords();
-                recorder = null;
-                recorder = new Recorder(audioDeviceIndex);
-                notTreated = false;
             }
         }
         System.out.println("Ended");
+        leopard.delete();
     }
 
     public void end() {

@@ -45,7 +45,7 @@ then add other stuff
 to give powerups, some are placed on the grid
 
 Powerups:
-- battle ships on Steam power ups 
+- battleships on Steam power ups 
 - Scan (with animation)
 - Bomb remover
 - Double coin
@@ -70,7 +70,7 @@ MVC/PAC for system structure button for interaction and reveal with game logic w
 
 Top:
 - reveal
-    - si bombe fini
+    - si bombe, fini
     - si 0 propagate
 
 Bottom:

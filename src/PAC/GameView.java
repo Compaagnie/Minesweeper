@@ -1,11 +1,9 @@
 package PAC;
 
+import CustomComponents.BackgroundPanel;
 import CustomComponents.Buttons.MenuButton;
 import CustomComponents.VSlider;
-import CustomComponents.BackgroundPanel;
 import GridPAC.Grid;
-import SpeechRecognition.Recorder;
-import SpeechRecognition.SpeechRecognition;
 import GridPAC.GridEvent;
 
 import javax.swing.*;
@@ -19,8 +17,6 @@ public class GameView extends BackgroundPanel
     protected Minesweeper minesweeper;
 
     protected Grid grid;
-    protected SpeechRecognition speechRecognition;
-    protected Recorder recorder;
     public Timer gameTimer;
     protected JLabel flagFoundLabel;
     protected JPanel gameInfoPanel = new JPanel();
@@ -30,6 +26,10 @@ public class GameView extends BackgroundPanel
     protected int timerSeconds = 0;
     protected JPanel globalInfoPanel = new JPanel();
     protected JPanel centerPanel = new JPanel();
+
+    protected MenuButton recordButton;
+
+    protected boolean enterPressed = false;
 
     protected Font labelFont;
     protected Color labelTextColor;
@@ -51,21 +51,11 @@ public class GameView extends BackgroundPanel
         this.centerPanel.setOpaque(false);
         this.centerPanel.setLayout(new GridBagLayout());
 
-        this.initSpeechRecognition();
-
         this.setupGrid(width, height, bombCount);
 
         CreateGeneralPanelAndSliders();
 
         setUpInfoPanel(globalInfoPanel);
-    }
-
-    protected void initSpeechRecognition()
-    {
-        recorder = new Recorder(1);
-        speechRecognition = new SpeechRecognition(this, recorder);
-       
-        speechRecognition.start();
     }
 
     private void setUpInfoPanel(JPanel globalInfoPanel)
@@ -108,23 +98,40 @@ public class GameView extends BackgroundPanel
     }
 
     protected void CreateRecordButton(GridBagConstraints constraints) {
-        MenuButton recordButton = new MenuButton("Record");
+        recordButton = new MenuButton("Record");
+        recordButton.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setEnterPressed(true);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                setEnterPressed(false);
+            }
+        });
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == VK_ENTER){
-                    minesweeper.setEnterPressed(true);
+                if (e.getKeyCode() == VK_ENTER && getMinesweeper().speechInitiated){
+                    recordButton.setSelected(true);
+                    setEnterPressed(true);
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == VK_ENTER){
-                    minesweeper.setEnterPressed(false);
+                    recordButton.setSelected(false);
+                    setEnterPressed(false);
                 }
             }
         });
+
         recordButton.setMnemonic(VK_ENTER);
+        if (!getMinesweeper().speechInitiated)
+            recordButton.setEnabled(false);
         gameInfoPanel.add(recordButton, constraints);
         constraints.gridy++;
     }
@@ -278,5 +285,18 @@ public class GameView extends BackgroundPanel
     public boolean isRogueLike()
     {
         return false;
+    }
+
+    public void setSpeechInitiated(){
+        recordButton.setEnabled(true);
+    }
+
+
+    public void setEnterPressed(Boolean enterPressed) {
+        this.enterPressed = enterPressed;
+    }
+
+    public Boolean getEnterPressed() {
+        return enterPressed;
     }
 }

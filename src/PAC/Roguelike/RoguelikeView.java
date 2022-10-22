@@ -46,8 +46,6 @@ public class RoguelikeView extends GameView
     {
         this.setLayout(new BorderLayout());
 
-        initSpeechRecognition();
-
         labelFont = this.getFont().deriveFont(22.f);
         labelTextColor = Color.white;
 

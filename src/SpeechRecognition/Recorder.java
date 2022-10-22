@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Recorder extends Thread{
-    private final static String accessKey = "rd9J3I9zJKmWbMPPg6JbEy/efOEMTrVYQPTyxdeoxkSHYrvwLnLZXA==";
     private TargetDataLine micDataLine = null;
     private boolean stop = false;
     private boolean isRecording = false;
@@ -29,7 +28,7 @@ public class Recorder extends Thread{
         this.micDataLine = micDataLine;
         this.stop = false;
         this.isRecording = false;
-        this.pcmBuffer = new ArrayList<Short>();
+        this.pcmBuffer = new ArrayList<>();
     }
 
     private static TargetDataLine getDefaultCaptureDevice(DataLine.Info dataLineInfo) throws LineUnavailableException {
